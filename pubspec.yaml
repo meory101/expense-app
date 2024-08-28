@@ -47,6 +47,10 @@ dependencies:
   blur: ^4.0.0
   easy_date_timeline: ^1.1.3
   google_maps_flutter: ^2.6.0
+  cloud_firestore: ^5.3.0
+  firebase_storage: ^12.2.0
+  firebase_core: ^3.4.0
+  firebase_auth: ^5.2.0
 
 dev_dependencies:
   flutter_test:
