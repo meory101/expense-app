@@ -6,15 +6,15 @@ import 'package:tasty_booking/style/app_colors.dart';
 import 'package:tasty_booking/utils/helpers.dart';
 import 'package:tasty_booking/wdgets/app_text.dart';
 
-class NearestRestaurantsScreen extends StatefulWidget {
-  const NearestRestaurantsScreen({super.key});
+class NotificationScreen extends StatefulWidget {
+  const NotificationScreen({super.key});
 
   @override
-  State<NearestRestaurantsScreen> createState() =>
-      _NearestRestaurantsScreenState();
+  State<NotificationScreen> createState() =>
+      _NotificationScreenState();
 }
 
-class _NearestRestaurantsScreenState extends State<NearestRestaurantsScreen> {
+class _NotificationScreenState extends State<NotificationScreen> {
   static const LatLng _ummAlquraUniversityLocation =
       LatLng(25.276987, 55.296249);
   BitmapDescriptor? _customIcon;

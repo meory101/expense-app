@@ -11,6 +11,7 @@ import 'package:tasty_booking/shared_preferences/shared_prefrences_controller.da
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPrefController().initPref();
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]).then((_) {

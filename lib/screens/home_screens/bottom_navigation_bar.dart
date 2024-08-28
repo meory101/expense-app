@@ -1,150 +1,194 @@
+
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:tasty_booking/screens/home_screens/explore_screen.dart';
-import 'package:tasty_booking/screens/home_screens/nearest_restaurants_screen.dart';
-import 'package:tasty_booking/screens/home_screens/reservations_screen.dart';
-import 'package:tasty_booking/screens/home_screens/settings_screen.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:tasty_booking/screens/home_screens/debts_screen.dart';
+import 'package:tasty_booking/screens/home_screens/home_screen.dart';
+import 'package:tasty_booking/screens/home_screens/notification_screen.dart';
+import 'package:tasty_booking/screens/home_screens/profile_screen.dart';
+import 'package:tasty_booking/screens/profile_screen/common_questions_screen.dart';
+import 'package:tasty_booking/screens/profile_screen/love_screen.dart';
 import 'package:tasty_booking/style/app_colors.dart';
 import 'package:tasty_booking/utils/bn_screen_model.dart';
-import 'package:tasty_booking/utils/helpers.dart';
-
 
 class BottomNavigationScreen extends StatefulWidget {
-  const BottomNavigationScreen({Key? key}) : super(key: key);
+  const BottomNavigationScreen({this.fromLogin = false,Key? key}) : super(key: key);
+  final bool fromLogin;
 
   @override
   State<BottomNavigationScreen> createState() => _BottomNavigationScreenState();
 }
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
-  // HomeGetController controller = Get.put<HomeGetController>(HomeGetController());
   int _selectedPageIndex = 0;
-  List<BnScreen> _getScreens(BuildContext context){
-    final List<BnScreen> _screens = <BnScreen>[
-      //const BnScreen(title: 'الرئيسية', widget: InactiveAccountHomeScreen()),
-      BnScreen(title: context.localizations.explore, widget: const ExploreScreen()),
-      BnScreen(title: context.localizations.nearest_restaurants, widget: const NearestRestaurantsScreen()),
-      BnScreen(title: context.localizations.reservations, widget: const ReservationsScreen()),
-      BnScreen(title: context.localizations.settings, widget: const SettingsScreen()),
-    ];
-    return _screens;
+  bool dialogShow = false;
+  final List<BnScreen> _screens = <BnScreen>[
+    const BnScreen(title: 'Home', widget: HomeScreen()),
+    const BnScreen(title: 'Notification', widget: NotificationScreen()),
+    const BnScreen(title: 'add', widget: LoveScreen()),
+    const BnScreen(title: 'debts', widget: DebtsScreen()),
+    const BnScreen(title: 'Profile', widget: ProfileScreen()),
+  ];
+  @override
+  void initState() {
+    dialogShow = widget.fromLogin;
+    super.initState();
   }
 
-
-@override
-  void dispose() {
-   // Get.delete<HomeGetController>(force: true);
-    super.dispose();
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _getScreens(context)[_selectedPageIndex].widget,
-      bottomNavigationBar: Theme(
-        data: ThemeData(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
-        child: SizedBox(
-          height: 102.h,
-          child: BottomNavigationBar(
-            backgroundColor: Colors.white,
-            enableFeedback: false,
-            selectedItemColor: AppColors.primaryColor,
-            selectedIconTheme: const IconThemeData(
-              color: Colors.black,
+      body: _screens[_selectedPageIndex].widget,
+      bottomNavigationBar: ConvexAppBar(
+          backgroundColor: Colors.white,
+          color: Color(0XFFC8C8D3),
+          style: TabStyle.fixedCircle,
+          top: -30,
+          curveSize: 85,
+          height: 75.h,
+          onTap: (index) {
+            setState(() {
+              _selectedPageIndex = index;
+            });
+          },
+          activeColor: AppColors.primaryColor,
+          items: [
+            TabItem(icon: SvgPicture.asset(
+              "assets/images/homeNavIcon.svg",
+              width: 20.w,
+              height: 20.h,
+              colorFilter:  ColorFilter.mode(_selectedPageIndex==0?AppColors.primaryColor:Color(0XFFC8C8D3), BlendMode.srcIn),
+            ), title: 'الرئيسية'),
+            TabItem(icon: SvgPicture.asset(
+              "assets/images/alarmNavIcon.svg",
+              width: 20.w,
+              height: 20.h,
+              colorFilter:  ColorFilter.mode(_selectedPageIndex==1?AppColors.primaryColor:Color(0XFFC8C8D3), BlendMode.srcIn),
+            ), title: 'الإشعارات'),
+
+
+            TabItem(
+              icon: Container(
+                decoration: BoxDecoration(
+                  color: AppColors.primaryColor,
+                  shape: BoxShape.circle,),
+                child: Center(child: Icon(Icons.add,size: 40.w,color: Colors.white,),),
+              ),
+              title: 'Add',
             ),
-            selectedLabelStyle: TextStyle(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w500,
-              fontFamily: 'DINNextLTArabic_Light',
-              color: AppColors.primaryColor,
-              height: 1.7.h
-            ),
-            elevation: 0,
-            unselectedLabelStyle:TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
-                fontFamily: 'DINNextLTArabic_Light',
-                color: const Color(0XFFC9CEDC),
-                height: 1.7.h
-            ),
-            type: BottomNavigationBarType.fixed,
-            showSelectedLabels: true,
-            showUnselectedLabels: true,
-            onTap: (int selectedPageIndex) {
-              setState(() {
-                _selectedPageIndex = selectedPageIndex;
-              });
+
+            TabItem(icon: SvgPicture.asset(
+              "assets/images/bagIcon.svg",
+              width: 20.w,
+              height: 20.h,
+              colorFilter:  ColorFilter.mode(_selectedPageIndex==3?AppColors.primaryColor:Color(0XFFC8C8D3), BlendMode.srcIn),
+            ), title: 'الديون'),
+            TabItem(icon: SvgPicture.asset(
+              "assets/images/singleNavIcon.svg",
+              width: 20.w,
+              height: 20.h,
+              colorFilter:  ColorFilter.mode(_selectedPageIndex==4?AppColors.primaryColor:Color(0XFFC8C8D3), BlendMode.srcIn),
+            ), title: 'الحساب'),
+          ]),
+    );
+  }
+  Future<void> _showDialog(BuildContext context) async {
+    showDialog(
+        context: context,
+        barrierColor: Colors.white60,
+        builder: (_) {
+          return StatefulBuilder(
+            builder: (context, setState) {
+              return AlertDialog(
+                backgroundColor: Colors.white,
+                elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.r),
+                ),
+                content: Column(
+                  children: [
+                    Text(
+                      'تهانينا',
+                      style: TextStyle(
+                        fontFamily: 'DroidArabic_Bold',
+                        fontSize: 46.0.sp,
+                        color: AppColors.primaryColor,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 16.h,),
+                    Image.asset('assets/factoryImages/successLogin.png',height: 186.h,width: 242.w,),
+                    SizedBox(height: 20.h,),
+                    Text(
+                      'تم تسجيل دخولك بنجاح',
+                      style: TextStyle(
+                        fontFamily: 'DroidArabic_Bold',
+                        fontSize: 19.0.sp,
+                        color: AppColors.primaryColor,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 33.h,),
+    /*                CustomAppButton(
+                      title: 'الإنتقال إلى الرئيسية',
+                      onPress: () {
+                        Navigator.pop(context);
+
+                      },
+                    ),*/
+                  ],
+                ),
+              );
             },
-            currentIndex: _selectedPageIndex,
-            items: [
-              BottomNavigationBarItem(
-                activeIcon: Column(
-                  children: [
-                    SvgPicture.asset('assets/images/explore.svg',height: 24.h,width: 24.w,colorFilter: const ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn),),
-                    SizedBox(height: 5.h,),
-                  ],
+          );
+        });
+  }
+/*  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      barrierColor: const Color(0xff4C4C4C).withOpacity(0.91),
+      context: context,
+      // barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Column(
+            children: [
+              Text(
+                'تهانينا',
+                style: TextStyle(
+                  fontFamily: 'DroidArabic_Bold',
+                  fontSize: 46.0.sp,
+                  color: AppColors.primaryColor,
                 ),
-                icon: Column(
-                  children: [
-                    SvgPicture.asset('assets/images/explore.svg',height: 24.h,width: 24.w,),
-                    SizedBox(height: 5.h,),
-                  ],
-                ),
-                label: context.localizations.explore,
+                textAlign: TextAlign.center,
               ),
-              BottomNavigationBarItem(
-                activeIcon: Column(
-                  children: [
-                    SvgPicture.asset('assets/images/nearestRestaurants.svg',height: 24.h,width: 24.w,colorFilter: const ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn),),
-                    SizedBox(height: 5.h,),
-                  ],
+              SizedBox(height: 16.h,),
+              Image.asset('assets/factoryImages/successLogin.png',height: 186.h,width: 242.w,),
+              SizedBox(height: 20.h,),
+              Text(
+                'تم تسجيل دخولك بنجاح',
+                style: TextStyle(
+                  fontFamily: 'DroidArabic_Bold',
+                  fontSize: 19.0.sp,
+                  color: AppColors.primaryColor,
                 ),
-                icon: Column(
-                  children: [
-                    SvgPicture.asset('assets/images/nearestRestaurants.svg',height: 24.h,width: 24.w,),
-                    SizedBox(height: 5.h,),
-                  ],
-                ),
-                label: context.localizations.nearest_restaurants,
+                textAlign: TextAlign.center,
               ),
-              BottomNavigationBarItem(
-                activeIcon: Column(
-                  children: [
-                    SvgPicture.asset('assets/images/reservations.svg',height: 24.h,width: 24.w,colorFilter: const ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn),),
-                    SizedBox(height: 5.h,),
-                  ],
-                ),
-                icon: Column(
-                  children: [
-                    SvgPicture.asset('assets/images/reservations.svg',height: 24.h,width: 24.w,),
-                    SizedBox(height: 5.h,),
-                  ],
-                ),
-                label: context.localizations.reservations,
-              ),
-              BottomNavigationBarItem(
-                activeIcon: Column(
-                  children: [
-                    SvgPicture.asset('assets/images/settingsIcon.svg',height: 24.h,width: 24.w,colorFilter: const ColorFilter.mode(AppColors.primaryColor, BlendMode.srcIn),),
-                    SizedBox(height: 5.h,),
-                  ],
-                ),
-                icon: Column(
-                  children: [
-                    SvgPicture.asset('assets/images/settingsIcon.svg',height: 24.h,width: 24.w,),
-                    SizedBox(height: 5.h,),
-                  ],
-                ),
-                label: context.localizations.settings,
+              SizedBox(height: 33.h,),
+              CustomAppButton(
+                title: 'الإنتقال إلى الرئيسية',
+                onPress: () {
+                  Navigator.pop(context);
+
+                },
               ),
             ],
           ),
-        ),
-      ),
+        );
+      },
     );
-  }
+  }*/
 }
