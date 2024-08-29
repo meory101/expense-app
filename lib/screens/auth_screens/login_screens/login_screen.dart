@@ -1,9 +1,13 @@
 import 'package:country_picker/country_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tasty_booking/fb_controller/fb_auth_controller.dart';
+import 'package:tasty_booking/model/fb_response.dart';
 import 'package:tasty_booking/screens/auth_screens/create_new_account_screens/create_new_account_screen.dart';
 import 'package:tasty_booking/screens/home_screens/bottom_navigation_bar.dart';
+import 'package:tasty_booking/shared_preferences/shared_prefrences_controller.dart';
 import 'package:tasty_booking/style/app_colors.dart';
 import 'package:tasty_booking/utils/helpers.dart';
 import 'package:tasty_booking/wdgets/app_elevated_button.dart';
@@ -228,18 +232,21 @@ class _LogInScreenState extends State<LogInScreen> {
   }
 
   Future<void> _login() async {
- /*   ApiResponse apiResponse = await AuthApiController().login(
-      username: _emailEditingController.text,
-      password: _passwordEditingController.text,
-    );
-    if (apiResponse.success) {
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const BottomNavigationScreen(),), (route) => false);
-    } else {
-      context.showSnackBar(
-          message: apiResponse.message, error: !apiResponse.success);
-    }*/
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const BottomNavigationScreen(),), (route) => false);
 
+    FbResponse fbResponse = await FbAuthController().signIn(email:_emailEditingController.text,password: _passwordEditingController.text );
+    if(fbResponse.success){
+      User? user = FirebaseAuth.instance.currentUser;
+      if(user != null){
+        await SharedPrefController().save(userId: user.uid);
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => BottomNavigationScreen(),), (route) => false,);
+        context.showSnackBar(message: fbResponse.message,);
+      }else{
+        context.showSnackBar(message: 'حدث خطأ ما ! الرجاء المحاولة مرة اخرى', error: !fbResponse.success);
+      }
+    }else{
+      context.showSnackBar(message: fbResponse.message, error: !fbResponse.success);
+
+    }
   }
 
   void showPicker() {

@@ -13,7 +13,8 @@ enum PrefKeys {
   status,
   image,
   branchId,
-  isMember
+  isMember,
+  userId
 }
 
 class SharedPrefController {
@@ -48,7 +49,10 @@ class SharedPrefController {
     await _sharedPreferences.setString(PrefKeys.branchId.name, user.userdata!.branchId??'');
   }
 */
-
+  Future<void> save({required String userId}) async {
+    await _sharedPreferences.setBool(PrefKeys.loggedIn.name, true);
+    await _sharedPreferences.setString(PrefKeys.userId.name, userId);
+  }
   Future<void> saveBranchId(String branchId) async {
     await _sharedPreferences.setString(PrefKeys.branchId.name, branchId);
   }

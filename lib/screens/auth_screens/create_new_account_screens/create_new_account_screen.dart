@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:tasty_booking/fb_controller/fb_auth_controller.dart';
+import 'package:tasty_booking/model/fb_response.dart';
 import 'package:tasty_booking/screens/auth_screens/login_screens/login_screen.dart';
 import 'package:tasty_booking/style/app_colors.dart';
 import 'package:tasty_booking/utils/helpers.dart';
@@ -10,20 +15,15 @@ import 'package:tasty_booking/wdgets/app_elevated_button.dart';
 import 'package:tasty_booking/wdgets/app_text.dart';
 import 'package:tasty_booking/wdgets/app_text_field.dart';
 import 'package:tasty_booking/wdgets/custom_app_loading.dart';
-import 'package:tasty_booking/wdgets/outside_button_with_icons.dart';
-
-
 
 class CreateNewAccountScreen extends StatefulWidget {
   const CreateNewAccountScreen({Key? key}) : super(key: key);
 
   @override
-  State<CreateNewAccountScreen> createState() =>
-      _CreateNewAccountScreenState();
+  State<CreateNewAccountScreen> createState() => _CreateNewAccountScreenState();
 }
 
-class _CreateNewAccountScreenState
-    extends State<CreateNewAccountScreen> {
+class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
   Country country = CountryParser.parseCountryCode('SA');
   late TextEditingController _userNameEditingController;
   late TextEditingController _phoneEditingController;
@@ -41,6 +41,13 @@ class _CreateNewAccountScreenState
   String? confPasswordIsError;
   String countryCode = '+966';
   String? countryFlag;
+  String? userLat;
+  String? userLong;
+  String? userArea;
+  String Address = 'search';
+
+
+
 
   @override
   void initState() {
@@ -62,10 +69,11 @@ class _CreateNewAccountScreenState
     _confirmPasswordEditingController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
@@ -77,8 +85,12 @@ class _CreateNewAccountScreenState
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 68.h,),
-                    AppBackButton(onTap: () => Navigator.pop(context),),
+                    SizedBox(
+                      height: 68.h,
+                    ),
+                    AppBackButton(
+                      onTap: () => Navigator.pop(context),
+                    ),
                     SizedBox(
                       height: 40.h,
                     ),
@@ -96,11 +108,12 @@ class _CreateNewAccountScreenState
                       controller: _userNameEditingController,
                       errorText: userNameIsError,
                       onChanged: (p0) {
-                        if(userNameIsError != null){
+                        if (userNameIsError != null) {
                           setState(() {
                             userNameIsError = null;
                           });
-                        }},
+                        }
+                      },
                       prefixIcon: Padding(
                         padding: EdgeInsets.symmetric(vertical: 18.h),
                         child: SvgPicture.asset(
@@ -114,10 +127,34 @@ class _CreateNewAccountScreenState
                     SizedBox(
                       height: 16.h,
                     ),
+                    AppTextField(
+                      controller: _emailEditingController,
+                      errorText: emailIsError,
+                      keyboardType: TextInputType.emailAddress,
+                      onChanged: (p0) {
+                        if (emailIsError != null) {
+                          setState(() {
+                            emailIsError = null;
+                          });
+                        }
+                      },
+                      prefixIcon: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 18.h),
+                        child: Icon(
+                          Icons.email_outlined,
+                          size: 24.sp,
+                          color: Color(0XFF353A62),
+                        ),
+                      ),
+                      hintText: context.localizations.email,
+                    ),
+                    SizedBox(
+                      height: 16.h,
+                    ),
                     Row(
                       children: [
                         InkWell(
-                          onTap:(){
+                          onTap: () {
                             showPicker();
                           },
                           child: Container(
@@ -125,57 +162,54 @@ class _CreateNewAccountScreenState
                             padding: EdgeInsets.symmetric(horizontal: 8.w),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15.r),
-                                border: Border.all(width: 1.w,color: AppColors.secondGrayColor)
-                            ),
-                            child: Center(child: Row(
+                                border: Border.all(
+                                    width: 1.w,
+                                    color: AppColors.secondGrayColor)),
+                            child: Center(
+                                child: Row(
                               children: [
-                                AppText(text: countryFlag??country.flagEmoji,fontWeight: FontWeight.bold,fontSize: 20,),
-                                SizedBox(width: 6.w,),
+                                AppText(
+                                  text: countryFlag ?? country.flagEmoji,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                                SizedBox(
+                                  width: 6.w,
+                                ),
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    AppText(text: countryCode,fontWeight: FontWeight.bold,),
-                                    SizedBox(height: 3.h,)
+                                    AppText(
+                                      text: countryCode,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    SizedBox(
+                                      height: 3.h,
+                                    )
                                   ],
                                 ),
                               ],
                             )),
                           ),
                         ),
-                        SizedBox(width: 8.w,),
-                        Expanded(child: AppTextField(
+                        SizedBox(
+                          width: 8.w,
+                        ),
+                        Expanded(
+                            child: AppTextField(
                           controller: _phoneEditingController,
                           keyboardType: TextInputType.phone,
                           hintText: context.localizations.phone,
                           errorText: phoneError,
                           onChanged: (p0) {
-                            if(phoneError != null){
+                            if (phoneError != null) {
                               setState(() {
                                 phoneError = null;
                               });
-                            }},
+                            }
+                          },
                         )),
-
                       ],
-                    ),
-                    SizedBox(
-                      height: 16.h,
-                    ),
-                    AppTextField(
-                      controller: _emailEditingController,
-                      errorText: emailIsError,
-                      keyboardType: TextInputType.emailAddress,
-                      onChanged: (p0) {
-                        if(emailIsError != null){
-                          setState(() {
-                            emailIsError = null;
-                          });
-                        }},
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 18.h),
-                        child: Icon(Icons.email_outlined,size: 24.sp,color: Color(0XFF353A62),),
-                      ),
-                      hintText: context.localizations.email,
                     ),
                     SizedBox(
                       height: 16.h,
@@ -183,13 +217,14 @@ class _CreateNewAccountScreenState
                     AppTextField(
                       controller: _passwordEditingController,
                       obscure: obscure,
-                        errorText: passwordIsError,
-                        onChanged: (p0) {
-                          if(passwordIsError != null){
-                            setState(() {
-                              passwordIsError = null;
-                            });
-                          }},
+                      errorText: passwordIsError,
+                      onChanged: (p0) {
+                        if (passwordIsError != null) {
+                          setState(() {
+                            passwordIsError = null;
+                          });
+                        }
+                      },
                       prefixIcon: Padding(
                         padding: EdgeInsets.symmetric(vertical: 18.h),
                         child: SvgPicture.asset(
@@ -225,11 +260,12 @@ class _CreateNewAccountScreenState
                       controller: _confirmPasswordEditingController,
                       errorText: confPasswordIsError,
                       onChanged: (p0) {
-                        if(confPasswordIsError != null){
+                        if (confPasswordIsError != null) {
                           setState(() {
                             confPasswordIsError = null;
                           });
-                        }},
+                        }
+                      },
                       prefixIcon: Padding(
                         padding: EdgeInsets.symmetric(vertical: 18.h),
                         child: SvgPicture.asset(
@@ -262,8 +298,9 @@ class _CreateNewAccountScreenState
                     SizedBox(
                       height: 20.h,
                     ),
-
-                    SizedBox(height: 26.h,),
+                    SizedBox(
+                      height: 26.h,
+                    ),
                     AppElevatedButton(
                       text: context.localizations.join_text,
                       onPressed: () async {
@@ -276,7 +313,6 @@ class _CreateNewAccountScreenState
                         });
                       },
                     ),
-
                     const Spacer(),
                     Align(
                       alignment: Alignment.center,
@@ -319,8 +355,7 @@ class _CreateNewAccountScreenState
                   ]),
             ),
             Visibility(
-                visible: isLoading == true,
-                child: const CustomAppLoading())
+                visible: isLoading == true, child: const CustomAppLoading())
           ],
         ),
       ),
@@ -329,9 +364,17 @@ class _CreateNewAccountScreenState
 
   Future<void> _performSignUp() async {
     if (_checkData()) {
-      if(_acceptedTerms()){
-        await _signUp();
+      Position position = await _getGeoLocationPosition();
+      print('44444444');
+      await getAddressFromLatLong(position);
+      print('5555555555');
+      if(
+      userLat != null&&
+      userLong != null&&userArea != null){
+        print('6666666');
+        await _registerUser();
       }
+      // await _registerUser();
     }
   }
 
@@ -344,7 +387,6 @@ class _CreateNewAccountScreenState
       if (_passwordEditingController.text ==
           _confirmPasswordEditingController.text) {
         return true;
-
       } else {
         context.showSnackBar(
             message: context.localizations.password_does_not_match,
@@ -352,27 +394,27 @@ class _CreateNewAccountScreenState
         return false;
       }
     }
-    if(_userNameEditingController.text.isEmpty){
+    if (_userNameEditingController.text.isEmpty) {
       setState(() {
         userNameIsError = '';
       });
     }
-    if(_phoneEditingController.text.isEmpty){
+    if (_phoneEditingController.text.isEmpty) {
       setState(() {
         phoneError = '';
       });
     }
-    if(_emailEditingController.text.isEmpty){
+    if (_emailEditingController.text.isEmpty) {
       setState(() {
         emailIsError = '';
       });
     }
-    if(_passwordEditingController.text.isEmpty){
+    if (_passwordEditingController.text.isEmpty) {
       setState(() {
         passwordIsError = '';
       });
     }
-    if(_confirmPasswordEditingController.text.isEmpty){
+    if (_confirmPasswordEditingController.text.isEmpty) {
       setState(() {
         confPasswordIsError = '';
       });
@@ -382,33 +424,99 @@ class _CreateNewAccountScreenState
     return false;
   }
 
-  bool _acceptedTerms() {
-    if(approved==true){
-      return true;
-    }else{
-      context.showSnackBar(
-          message: context.localizations.please_agree_to_the_rules_and_conditions,
-          error: true);
-      return false;
+  Future<Position> _getGeoLocationPosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      await Geolocator.openLocationSettings();
+      return Future.error('Location services are disabled.');
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error('Location permissions are denied');
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+    // When we reach here, permissions are granted and we can
+    // continue accessing the position of the device.
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+  }
+  Future<void> getAddressFromLatLong(Position position) async {
+   try{
+     List<Placemark> placemarks =
+     await placemarkFromCoordinates(position.latitude, position.longitude);
+     Placemark place = placemarks[0];
+     Address =
+     '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
+     userArea = place.locality;
+     userLat = position.latitude.toString();
+     userLong = position.longitude.toString();
+     setState(() {
+
+
+     });
+   } catch (e){
+     context.showSnackBar(message: 'حدث خطأ ما!',error: true);
+   }
+  }
+  Future<void> _registerUser() async {
+    String phone = _phoneEditingController.text.trim();
+    String username = _userNameEditingController.text.trim();
+    String email = _emailEditingController.text.trim();
+    String password = _passwordEditingController.text.trim();
+
+    if (email.isNotEmpty &&
+        phone.isNotEmpty &&
+        username.isNotEmpty &&
+        password.isNotEmpty) {
+      try {
+        FbResponse fbResponse = await FbAuthController().createAccount(
+            email: email,
+            password: password,
+            name: username,
+            phone: phone,
+            username: username,
+            latitude: userLat!,
+            longitude: userLong!,
+          userArea: userArea!
+        );
+        if (fbResponse.success) {
+          Navigator.pop(context);
+          context.showSnackBar(
+            message: 'تم التسجيل بنجاح الرجاء تفعيل بريدك الالكتروني',
+          );
+        } else {
+          context.showSnackBar(
+              message: fbResponse.message, error: !fbResponse.success);
+          print('000${fbResponse.message}');
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('فشل في تسجيل المستخدم: $e')),
+        );
+        print('wwww ${e}');
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(context.localizations.enter_required_data)),
+      );
     }
   }
 
-  Future<void> _signUp() async {
-    // Navigator.push(context, MaterialPageRoute(builder: (context) => const VerificationPhoneNumberScreen(),));
-/*    ApiResponse apiResponse = await AuthApiController().register(
-      name: _userNameEditingController.text,
-      mobile: _phoneEditingController.text,
-      email: _emailEditingController.text,
-      password: _passwordEditingController.text,
-      retypePassword: _confirmPasswordEditingController.text,
-    );
-    if (apiResponse.success) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => const VerificationPhoneNumberScreen(),));
-    } else {
-      context.showSnackBar(
-          message: apiResponse.message, error: !apiResponse.success);
-    }*/
-  }
   void showPicker() {
     showCountryPicker(
       context: context,
@@ -419,20 +527,22 @@ class _CreateNewAccountScreenState
               constraints: BoxConstraints(maxHeight: 60.h),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15.r),
-                borderSide: BorderSide(width: 2.w, color:  AppColors.primaryColor),
+                borderSide:
+                    BorderSide(width: 2.w, color: AppColors.primaryColor),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15.r),
-                borderSide: BorderSide(width: 0.50.w, color:  AppColors.secondGrayColor,
+                borderSide: BorderSide(
+                  width: 0.50.w,
+                  color: AppColors.secondGrayColor,
                 ),
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15.r),
-                borderSide: BorderSide(width: 0.50.w, color:  AppColors.secondGrayColor),
+                borderSide:
+                    BorderSide(width: 0.50.w, color: AppColors.secondGrayColor),
               ),
-              prefixIcon: const Icon(Icons.search)
-          )
-      ),
+              prefixIcon: const Icon(Icons.search))),
       onSelect: (Country country) {
         setState(() {
           countryCode = '+${country.phoneCode}';

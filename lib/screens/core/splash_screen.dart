@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tasty_booking/screens/home_screens/bottom_navigation_bar.dart';
+import 'package:tasty_booking/shared_preferences/shared_prefrences_controller.dart';
 import 'package:tasty_booking/style/app_colors.dart';
-import 'package:tasty_booking/utils/helpers.dart';
-import 'package:tasty_booking/wdgets/app_text.dart';
+
 
 import '../auth_screens/login_screens/login_screen.dart';
 
@@ -18,13 +19,12 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 3),() {
-     /* bool isLoggedIn=SharedPrefController().getValueFor(key: PrefKeys.loggedIn.name)??false;
+      bool isLoggedIn=SharedPrefController().getValueFor(key: PrefKeys.loggedIn.name)??false;
       if(isLoggedIn){
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  const BottomNavigationScreen(),));
       }else{
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  const FirstScreen(),));
-      }*/
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  const LogInScreen(),));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  const LogInScreen(),));
+      }
 
     },);
   }

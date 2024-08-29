@@ -18,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late TextEditingController _searchEditingController;
+  int selectedTime = 0;
   @override
   void initState() {
     // TODO: implement initState
@@ -57,6 +58,74 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: Icon(Icons.menu_open_outlined,color: Colors.white,size: 30.sp,),
               )
+            ],
+          ),
+        ),
+        SizedBox(height: 16.h,),
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 16.w),
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.primaryColor),
+            borderRadius: BorderRadius.circular(16.r)
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: InkWell(
+                  radius: 16.r,
+                  onTap: () {
+                    setState(() {
+                      selectedTime=0;
+                    });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 20.h),
+                    decoration: BoxDecoration(
+                      color: selectedTime==0?AppColors.primaryColor:Colors.white,
+                        borderRadius: BorderRadius.circular(14.r)
+                    ),
+                    child: Center(child: AppText(text: 'يومي',color: selectedTime==0?Colors.white:AppColors.primaryColor,)),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: InkWell(
+                  radius: 16.r,
+                  onTap: () {
+                    setState(() {
+                      selectedTime=1;
+                    });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 20.h),
+                    decoration: BoxDecoration(
+                      color: selectedTime==1?AppColors.primaryColor:Colors.white,
+                        borderRadius: BorderRadius.circular(14.r)
+                    ),
+                    child: Center(child: AppText(text: 'شهري',color: selectedTime==1?Colors.white:AppColors.primaryColor,)),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: InkWell(
+                  radius: 16.r,
+                  onTap: () {
+                    setState(() {
+                      selectedTime=2;
+                    });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 20.h),
+                    decoration: BoxDecoration(
+                      color: selectedTime==2?AppColors.primaryColor:Colors.white,
+                        borderRadius: BorderRadius.circular(14.r)
+                    ),
+                    child: Center(child: AppText(text: 'سنوي',color: selectedTime==2?Colors.white:AppColors.primaryColor,)),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

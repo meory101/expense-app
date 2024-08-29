@@ -13,8 +13,8 @@ import 'package:tasty_booking/style/app_colors.dart';
 import 'package:tasty_booking/utils/bn_screen_model.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
-  const BottomNavigationScreen({this.fromLogin = false,Key? key}) : super(key: key);
-  final bool fromLogin;
+  const BottomNavigationScreen({Key? key}) : super(key: key);
+
 
   @override
   State<BottomNavigationScreen> createState() => _BottomNavigationScreenState();
@@ -22,7 +22,6 @@ class BottomNavigationScreen extends StatefulWidget {
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   int _selectedPageIndex = 0;
-  bool dialogShow = false;
   final List<BnScreen> _screens = <BnScreen>[
     const BnScreen(title: 'Home', widget: HomeScreen()),
     const BnScreen(title: 'Notification', widget: NotificationScreen()),
@@ -32,7 +31,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   ];
   @override
   void initState() {
-    dialogShow = widget.fromLogin;
     super.initState();
   }
 
