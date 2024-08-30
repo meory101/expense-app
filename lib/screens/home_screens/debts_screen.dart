@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tasty_booking/screens/home_screens/categories_screen.dart';
 import 'package:tasty_booking/style/app_colors.dart';
 import 'package:tasty_booking/utils/helpers.dart';
 import 'package:tasty_booking/wdgets/app_text.dart';
@@ -46,14 +47,19 @@ class _DebtsScreenState extends State<DebtsScreen> {
                       color: Colors.white,
                     ),
                     const Spacer(),
-                    Container(
-                      height: 60.h,
-                      width: 60.w,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(16.r)
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => CategoriesScreen(),));
+                      },
+                      child: Container(
+                        height: 60.h,
+                        width: 60.w,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white),
+                            borderRadius: BorderRadius.circular(16.r)
+                        ),
+                        child: Icon(Icons.menu_open_outlined,color: Colors.white,size: 30.sp,),
                       ),
-                      child: Icon(Icons.menu_open_outlined,color: Colors.white,size: 30.sp,),
                     )
                   ],
                 ),
