@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tasty_booking/style/app_colors.dart';
 import 'package:tasty_booking/wdgets/app_text.dart';
 
 
@@ -12,7 +13,7 @@ class OutSideButtonWithIcon extends StatelessWidget {
     super.key,
   });
  final String title;
- final String icon;
+ final Widget icon;
  final void Function() onPressed;
   @override
   Widget build(BuildContext context) {
@@ -24,8 +25,8 @@ class OutSideButtonWithIcon extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
           side: BorderSide(
-            width: 1.w,
-            color: const Color(0XFFEEEEEE),
+            width: 2.w,
+            color: AppColors.primaryColor,
             strokeAlign: BorderSide.strokeAlignCenter,
           ),
           shape: RoundedRectangleBorder(
@@ -41,10 +42,10 @@ class OutSideButtonWithIcon extends StatelessWidget {
               height: 24.h,
               clipBehavior: Clip.antiAlias,
               decoration: BoxDecoration(),
-              child: SvgPicture.asset('assets/images/$icon.svg',height: 24.h,width: 24.w,),
+              child: icon,
             ),
             SizedBox(width: 8.w,),
-            AppText(text: title,fontSize: 14,)
+            AppText(text: title,fontSize: 16,)
           ],
         ));
   }

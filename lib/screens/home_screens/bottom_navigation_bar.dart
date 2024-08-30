@@ -3,6 +3,7 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tasty_booking/screens/home_screens/add_new_category_screen.dart';
 import 'package:tasty_booking/screens/home_screens/debts_screen.dart';
 import 'package:tasty_booking/screens/home_screens/home_screen.dart';
 import 'package:tasty_booking/screens/home_screens/notification_screen.dart';
@@ -25,7 +26,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   final List<BnScreen> _screens = <BnScreen>[
     const BnScreen(title: 'Home', widget: HomeScreen()),
     const BnScreen(title: 'Notification', widget: NotificationScreen()),
-    const BnScreen(title: 'add', widget: LoveScreen()),
+    const BnScreen(title: 'add', widget: AddNewCategoryScreen()),
     const BnScreen(title: 'debts', widget: DebtsScreen()),
     const BnScreen(title: 'Profile', widget: ProfileScreen()),
   ];
