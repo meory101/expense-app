@@ -327,7 +327,7 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
           // 'attachment': attachment,
           'Name': Name,
           'Amount_Depts': Cost1,
-          'AmountـPaid_Depts': Cost2,
+          'Amount_Paid_Depts': Cost2,
           'Date': Date,
           'Note': Note,
           'UserID':UserId,

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,6 +8,8 @@ import 'package:tasty_booking/utils/helpers.dart';
 import 'package:tasty_booking/wdgets/app_text.dart';
 import 'package:tasty_booking/wdgets/app_text_field.dart';
 
+import '../../fb_controller/fb_firestore.dart';
+import '../../model/Debts_model.dart';
 import 'ADD_debts_screen.dart';
 
 class DebtsScreen extends StatefulWidget {
@@ -78,63 +81,106 @@ class _DebtsScreenState extends State<DebtsScreen> {
             ),
           ),
           SizedBox(height: 16.h,),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 22.w,),
-            child: Row(
-              children: [
-                const AppText(text: 'المجموع الكلي',fontWeight: FontWeight.bold,fontFamily: 'DINNextLTArabic_bold',
-                  fontSize: 22,),
-                Spacer(),
-                const AppText(text: '2000',fontWeight: FontWeight.bold,color: AppColors.primaryColor,fontFamily: 'DINNextLTArabic_bold',
-                  fontSize: 22,),
-              ],
-            ),
-          ),
-          SizedBox(height: 10.h,),
-          Expanded(
-            child: ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 22.w,vertical: 20.h),
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 20.h),
-                    margin: EdgeInsets.symmetric(vertical: 10.h),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: AppColors.primaryColor,width: 2.w
+          StreamBuilder<QuerySnapshot<Debts>>(
+            stream: FbFirestoreController().readDebts(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                return Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 22.w,),
+                      child: Row(
+                        children: [
+                          const AppText(text: 'المجموع الكلي',fontWeight: FontWeight.bold,fontFamily: 'DINNextLTArabic_bold',
+                            fontSize: 22,),
+                          Spacer(),
+                          const AppText(text: '2000',fontWeight: FontWeight.bold,color: AppColors.primaryColor,fontFamily: 'DINNextLTArabic_bold',
+                            fontSize: 22,),
+                        ],
                       ),
-                      borderRadius: BorderRadius.circular(16.r)
                     ),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            const AppText(text: 'اسم المدين :'),
-                            SizedBox(width: 16.w,),
-                            const AppText(text: 'أحمد محسن',fontWeight: FontWeight.bold,color: AppColors.primaryColor,),
-                          ],
-                        ),
-                        SizedBox(height: 10.h,),
-                        Row(
-                          children: [
-                            const AppText(text: 'قيمة الدين  :'),
-                            SizedBox(width: 18.w,),
-                            const AppText(text: '500',fontWeight: FontWeight.bold,color: AppColors.primaryColor,),
-                          ],
-                        ),
-                        SizedBox(height: 10.h,),
-                        Row(
-                          children: [
-                            const AppText(text: 'تاريخ السداد :'),
-                            SizedBox(width: 15.w,),
-                            const AppText(text: '15/10/2024',fontWeight: FontWeight.bold,color: AppColors.primaryColor,),
-                          ],
-                        ),
-                        SizedBox(height: 10.h,),
-                      ],
+                    SizedBox(height: 10.h,),
+                    Expanded(
+                      child: ListView.builder(
+                          padding: EdgeInsets.symmetric(horizontal: 22.w,vertical: 20.h),
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 20.h),
+                              margin: EdgeInsets.symmetric(vertical: 10.h),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: AppColors.primaryColor,width: 2.w
+                                  ),
+                                  borderRadius: BorderRadius.circular(16.r)
+                              ),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                       AppText(text: 'اسم المدين : '),
+                                      SizedBox(width: 16.w,),
+                                       AppText(text: '${snapshot.data!.docs[index].data().Name}',fontWeight: FontWeight.bold,color: AppColors.primaryColor,),
+                                    ],
+                                  ),
+                                  SizedBox(height: 10.h,),
+                                  Row(
+                                    children: [
+                                       AppText(text: 'قيمة الدين  :'),
+                                      SizedBox(width: 18.w,),
+                                       AppText(text: '${snapshot.data!.docs[index].data().Amount_Depts}',fontWeight: FontWeight.bold,color: AppColors.primaryColor,),
+                                    ],
+                                  ),
+                                  SizedBox(height: 10.h,),
+
+                                  Row(
+                                    children: [
+                                      AppText(text: 'قيمة الدين المدفوع  :'),
+                                      SizedBox(width: 18.w,),
+                                      AppText(text: '${snapshot.data!.docs[index].data().Amount_Paid_Depts}',fontWeight: FontWeight.bold,color: AppColors.primaryColor,),
+                                    ],
+                                  ),
+                                  SizedBox(height: 10.h,),
+                                  Row(
+                                    children: [
+                                      const AppText(text: 'تاريخ السداد :'),
+                                      SizedBox(width: 15.w,),
+                                       AppText(text: '${snapshot.data!.docs[index].data().Date}',fontWeight: FontWeight.bold,color: AppColors.primaryColor,),
+                                    ],
+                                  ),
+                                  SizedBox(height: 10.h,),
+                                  Row(
+                                    children: [
+                                      const AppText(text: 'الملاخظات :'),
+                                      SizedBox(width: 15.w,),
+                                      AppText(text: '${snapshot.data!.docs[index].data().Note}',fontWeight: FontWeight.bold,color: AppColors.primaryColor,),
+                                    ],
+                                  ),
+                                  SizedBox(height: 10.h,),
+                                ],
+                              ),
+                            );
+                          }),
                     ),
-                  );
-                }),
+                  ],
+                );
+              } else {
+                return const Center(
+                  child: Text(
+                    'NO DATA',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Colors.black,
+                    ),
+                  ),
+                );
+              }
+            },
           ),
+
+
           SizedBox(height: 30.h,)
         ],
       ),
