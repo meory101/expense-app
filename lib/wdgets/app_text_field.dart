@@ -16,6 +16,8 @@ class AppTextField extends StatelessWidget {
     this.textStyle,
     this.focusNode,
     this.maxLength,
+    this.maxLines,
+    this.minLines,
     this.onChanged,
     this.height = 60,
     this.width,
@@ -34,6 +36,8 @@ class AppTextField extends StatelessWidget {
   final TextStyle? textStyle;
   final FocusNode? focusNode;
   final int? maxLength;
+  final int? maxLines;
+  final int? minLines;
   final double height;
   final double? width;
   final TextAlign textAlign;
@@ -48,6 +52,8 @@ class AppTextField extends StatelessWidget {
         controller: controller,
         focusNode: focusNode,
         maxLength: maxLength,
+        maxLines: maxLines,
+        minLines: minLines,
         style: textStyle,
         onChanged: onChanged,
         showCursor: true,

@@ -7,6 +7,8 @@ import 'package:tasty_booking/utils/helpers.dart';
 import 'package:tasty_booking/wdgets/app_text.dart';
 import 'package:tasty_booking/wdgets/app_text_field.dart';
 
+import 'ADD_debts_screen.dart';
+
 class DebtsScreen extends StatefulWidget {
   const DebtsScreen({super.key});
 
@@ -136,6 +138,21 @@ class _DebtsScreenState extends State<DebtsScreen> {
           SizedBox(height: 30.h,)
         ],
       ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const AddDebtsScreen(),));
+
+            },
+            backgroundColor: AppColors.primaryColor,
+            child: Icon(Icons.add,color: Colors.white,),
+          ),
+          SizedBox(height: 10.h,)
+        ],
+      ),
     );
+
   }
 }
