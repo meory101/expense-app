@@ -39,7 +39,7 @@ class _DebtsScreenState extends State<DebtsScreen> {
                 Row(
                   children: [
                     AppText(
-                      text: '${context.localizations.hi} محمد خالد 👋 ',
+                      text: 'مرحبا محمد خالد 👋',
                       fontFamily: 'DINNextLTArabic_bold',
                       fontSize: 18,
                       fontWeight: FontWeight.bold,

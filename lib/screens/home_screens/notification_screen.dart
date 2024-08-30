@@ -50,7 +50,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 Row(
                   children: [
                     AppText(
-                      text: '${context.localizations.hi} محمد خالد 👋 ',
+                      text: 'مرحبا محمد خالد 👋',
                       fontFamily: 'DINNextLTArabic_bold',
                       fontSize: 18,
                       fontWeight: FontWeight.bold,

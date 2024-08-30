@@ -62,11 +62,11 @@ class FbAuthController {
       });
 
       await _auth.signOut();
-      return FbResponse('Registered successfully, verify email', true);
+      return FbResponse('تم التسجيل بنجاء , قم بتفعيل بريدك الالكتروني', true);
     }on FirebaseAuthException catch(e) {
       return FbResponse(e.message ?? '', false);
     }catch(e) {
-      return FbResponse('Something went wrong', false);
+      return FbResponse('حدث خطأ ما !', false);
     }
   }
 

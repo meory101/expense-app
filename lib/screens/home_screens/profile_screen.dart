@@ -17,9 +17,71 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   bool notificationOn = true;
+/*  late TextEditingController nameTextController;
+  late TextEditingController emailTextController;
+  late TextEditingController phoneTextController;*/
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox();
+    return Column(
+      children: [
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(horizontal: 24.w,),
+          decoration: const BoxDecoration(color: AppColors.primaryColor),
+          child: Column(
+            children: [
+              SizedBox(height: 50.h,),
+              Row(
+                children: [
+                  AppText(
+                    text: 'مرحبا محمد خالد 👋',
+                    fontFamily: 'DINNextLTArabic_bold',
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                  Spacer(),
+                  Container(
+                    height: 60.h,
+                    width: 60.w,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.white),
+                        borderRadius: BorderRadius.circular(16.r)
+                    ),
+                    child: Icon(Icons.menu_open_outlined,color: Colors.white,size: 30.sp,),
+                  )
+                ],
+              ),
+
+              AppText(
+                text: 'الحساب',
+                fontFamily: 'DINNextLTArabic_bold',
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+              SizedBox(height: 16.h,),
+            ],
+          ),
+        ),
+        SizedBox(height: 30.h,),
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 20.h),
+          margin: EdgeInsets.symmetric(horizontal: 20.w),
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.primaryColor),
+            borderRadius: BorderRadius.circular(16.r)
+          ),
+        )
+      ],
+    );
   }
 }

@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Row(
             children: [
               AppText(
-                text: '${context.localizations.hi} محمد خالد 👋 ',
+                text: 'مرحبا محمد خالد 👋',
                 fontFamily: 'DINNextLTArabic_bold',
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
