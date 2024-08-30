@@ -236,7 +236,10 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
     ExpenseModel expense = ExpenseModel();
     expense.expenseAmount = costTextController.text;
     expense.expenseType =_selectedCategoryId==null? newCategoryTextController.text:_selectedCategoryId!;
+    expense.ceiling ='0';
     expense.userId= SharedPrefController().getValueFor(key: PrefKeys.userId.name);
+    expense.userArea= SharedPrefController().getValueFor(key: PrefKeys.userArea.name);
+    expense.userName= SharedPrefController().getValueFor(key: PrefKeys.name.name);
     return expense;
   }
 }

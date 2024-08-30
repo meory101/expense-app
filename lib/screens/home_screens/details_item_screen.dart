@@ -1,12 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tasty_booking/fb_controller/fb_firestore.dart';
+import 'package:tasty_booking/model/expense_model.dart';
+import 'package:tasty_booking/shared_preferences/shared_prefrences_controller.dart';
 import 'package:tasty_booking/wdgets/app_back_button.dart';
 import 'package:tasty_booking/wdgets/app_text.dart';
+import 'package:tasty_booking/wdgets/custom_app_loading.dart';
 
 import '../../style/app_colors.dart';
 
 class DetailsItemScreen extends StatefulWidget {
-  const DetailsItemScreen({super.key});
+  const DetailsItemScreen({super.key,required this.type,required this.cost,required this.ceiling,required this.collection});
+  final String type;
+  final String cost;
+  final String ceiling;
+  final String collection;
 
   @override
   State<DetailsItemScreen> createState() => _DetailsItemScreenState();
@@ -62,27 +71,27 @@ class _DetailsItemScreenState extends State<DetailsItemScreen> {
                   ),
                   child: Column(
                     children: [
-                      const Row(
+                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           AppText(text: 'اسم الصنف : ',fontSize: 18,color: Colors.black,),
-                          AppText(text: 'ترفيه',fontSize: 18,color: AppColors.primaryColor,fontWeight: FontWeight.w600,),
+                          AppText(text: widget.type,fontSize: 18,color: AppColors.primaryColor,fontWeight: FontWeight.w600,),
                         ],
                       ),
                       SizedBox(height: 20.h,),
-                      const Row(
+                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           AppText(text: 'الاستهلاك المصروفي : ',fontSize: 18,color: Colors.black,),
-                          AppText(text: '450',fontSize: 18,color: AppColors.primaryColor,fontWeight: FontWeight.w600,),
+                          AppText(text: widget.cost,fontSize: 18,color: AppColors.primaryColor,fontWeight: FontWeight.w600,),
                         ],
                       ),
                       SizedBox(height: 20.h,),
-                      const Row(
+                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           AppText(text: 'الحد الاعلى : ',fontSize: 18,color: Colors.black,),
-                          AppText(text: '500',fontSize: 18,color: AppColors.primaryColor,fontWeight: FontWeight.w600,),
+                          AppText(text: widget.ceiling,fontSize: 18,color: AppColors.primaryColor,fontWeight: FontWeight.w600,),
                         ],
                       ),
                     ],
@@ -110,32 +119,44 @@ class _DetailsItemScreenState extends State<DetailsItemScreen> {
                   ),
                 ),
                 SizedBox(height: 20.h,),
-                ListView.separated(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap:  true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return Container(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
-                        margin: EdgeInsets.symmetric(horizontal: 20.w),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.primaryColor,width: 0.5.w),
-                            borderRadius: BorderRadius.circular(16.r),
-                            color: Colors.white,
-                            boxShadow: const [
-                              BoxShadow(color: Colors.black26,blurRadius: 10,offset: Offset(0, 3))
-                            ]
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const AppText(text: 'أحمد علي',fontSize: 18,color: AppColors.primaryColor,),
-                             const Spacer(),
-                             AppText(text: '${100*(index+1)}',fontSize: 18,color: AppColors.primaryColor,),
-                          ],
-                        ),
-                      );
-                    }, separatorBuilder: (context, index) => SizedBox(height: 16.h,), itemCount: 4),
+                StreamBuilder<QuerySnapshot<ExpenseModel>>(
+                  stream: FbFirestoreController().readSeamUserArea(widget.collection,SharedPrefController().getValueFor(key: PrefKeys.userArea.name)),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CustomAppLoading();
+                    } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                      return ListView.separated(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap:  true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return Container(
+                              padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
+                              margin: EdgeInsets.symmetric(horizontal: 20.w),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: AppColors.primaryColor,width: 0.5.w),
+                                  borderRadius: BorderRadius.circular(16.r),
+                                  color: Colors.white,
+                                  boxShadow: const [
+                                    BoxShadow(color: Colors.black26,blurRadius: 10,offset: Offset(0, 3))
+                                  ]
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                   AppText(text: snapshot.data!.docs[index].data().userName,fontSize: 18,color: AppColors.primaryColor,),
+                                  const Spacer(),
+                                  AppText(text: snapshot.data!.docs[index].data().expenseAmount,fontSize: 18,color: AppColors.primaryColor,),
+                                ],
+                              ),
+                            );
+                          }, separatorBuilder: (context, index) => SizedBox(height: 16.h,), itemCount: snapshot.data!.docs.length);
+                    } else {
+                      return SizedBox();
+                    }
+                  },
+                ),
+
                 SizedBox(height: 20.h,),
               ],
             ),

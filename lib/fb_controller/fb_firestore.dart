@@ -58,6 +58,30 @@ class FbFirestoreController with FirebaseHelper {
       toFirestore: (value, options) => value.toMap(),
     )
         .snapshots();}
+
+
+  Stream<QuerySnapshot<ExpenseModel>> readBasicSupplies(String collection) async* {
+    yield* _firestore
+        .collection(collection)
+        .withConverter<ExpenseModel>(
+      fromFirestore: (snapshot, options) => ExpenseModel.fromMap(snapshot.data()!),
+      toFirestore: (value, options) => value.toMap(),
+    )
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<ExpenseModel>> readSeamUserArea(String collection,String userArea) async* {
+
+    yield* _firestore
+        .collection(collection).where('userArea', isEqualTo: userArea)
+        .withConverter<ExpenseModel>(
+      fromFirestore: (snapshot, options) => ExpenseModel.fromMap(snapshot.data()!),
+      toFirestore: (value, options) => value.toMap(),
+    )
+        .snapshots();
+
+  }
+
 }
 /*  Stream<QuerySnapshot<Contact>> readContact() async* {
     yield* _firestore
