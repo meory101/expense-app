@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tasty_booking/screens/home_screens/categories_screen.dart';
+import 'package:tasty_booking/shared_preferences/shared_prefrences_controller.dart';
 import 'package:tasty_booking/style/app_colors.dart';
 import 'package:tasty_booking/utils/helpers.dart';
 import 'package:tasty_booking/wdgets/app_text.dart';
@@ -45,7 +46,7 @@ class _DebtsScreenState extends State<DebtsScreen> {
                 Row(
                   children: [
                     AppText(
-                      text: 'مرحبا محمد خالد 👋',
+                      text: 'مرحبا ${SharedPrefController().getValueFor(key: PrefKeys.name.name)} 👋',
                       fontFamily: 'DINNextLTArabic_bold',
                       fontSize: 18,
                       fontWeight: FontWeight.bold,

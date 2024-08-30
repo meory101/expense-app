@@ -1,11 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tasty_booking/model/Debts_model.dart';
+import 'package:tasty_booking/model/expense_model.dart';
+import 'package:tasty_booking/model/fb_response.dart';
+import 'package:tasty_booking/model/user_model.dart';
+import 'package:tasty_booking/shared_preferences/shared_prefrences_controller.dart';
+import 'package:tasty_booking/utils/firebase_helper.dart';
 
-import '../model/Debts_model.dart';
 
 
-
-class FbFirestoreController{
+class FbFirestoreController with FirebaseHelper {
   ///Functions
   ///1) Create
   ///2) Read
@@ -14,16 +18,143 @@ class FbFirestoreController{
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   User? user = FirebaseAuth.instance.currentUser;
+
+  Future<void> getUserData({required String doc}) async {
+    try {
+      // استخدام withConverter لتحويل البيانات من وإلى UserModel
+      DocumentSnapshot<UserModel> snapshot = await _firestore
+          .collection('users')
+          .doc(doc)
+          .withConverter<UserModel>(
+        fromFirestore: (snapshot, options) =>
+            UserModel.fromMap(snapshot.data()!),
+        toFirestore: (value, options) => value.toMap(),
+      )
+          .get();
+
+      UserModel? userModel = snapshot.data();
+      if (userModel != null) {
+        await SharedPrefController().save(userId: doc, userModel: userModel);
+      }
+    } catch (e) {
+      print('Error fetching user data: $e');
+    }
+  }
+
+  Future<FbResponse> createExpense(ExpenseModel expenseModel,
+      String collection) async {
+    return _firestore
+        .collection(collection)
+        .add(expenseModel.toMap())
+        .then((value) => successResponse)
+        .catchError((error) => errorResponse);
+  }
+
   Stream<QuerySnapshot<Debts>> readDebts() async* {
     yield* _firestore
-        .collection('contact')
+        .collection('Debts')
         .withConverter<Debts>(
       fromFirestore: (snapshot, options) => Debts.fromMap(snapshot.data()!),
       toFirestore: (value, options) => value.toMap(),
     )
+        .snapshots();}
+}
+/*  Stream<QuerySnapshot<Contact>> readContact() async* {
+    yield* _firestore
+        .collection('contact')
+        .withConverter<Contact>(
+      fromFirestore: (snapshot, options) => Contact.fromMap(snapshot.data()!),
+      toFirestore: (value, options) => value.toMap(),
+    )
         .snapshots();
   }
+  Stream<QuerySnapshot<AboutUsModel>> readAboutUs() async* {
+    yield* _firestore
+        .collection('aboutUs')
+        .withConverter<AboutUsModel>(
+      fromFirestore: (snapshot, options) => AboutUsModel.fromMap(snapshot.data()!),
+      toFirestore: (value, options) => value.toMap(),
+    )
+        .snapshots();
+  }
+  Stream<QuerySnapshot<JobOrderModel>> readMyjob() async* {
 
+      yield* _firestore
+          .collection('jobOrder').where('userId', isEqualTo: user!.uid)
+          .withConverter<JobOrderModel>(
+        fromFirestore: (snapshot, options) => JobOrderModel.fromMap(snapshot.data()!),
+        toFirestore: (value, options) => value.toMap(),
+      )
+          .snapshots();
 
+  }
 
-}
+  Stream<QuerySnapshot<JobOrderModel>> readJobOrder() async* {
+    yield* _firestore
+        .collection('jobOrder')
+        .withConverter<JobOrderModel>(
+      fromFirestore: (snapshot, options) => JobOrderModel.fromMap(snapshot.data()!),
+      toFirestore: (value, options) => value.toMap(),
+    )
+        .snapshots();
+  }
+  Future<FbResponse> updateJobOrder(JobOrderModel jobOrder) async {
+    return _firestore
+        .collection('jobOrder')
+        .doc(jobOrder.id)
+        .update(jobOrder.toMap())
+        .then((value) => successResponse)
+        .catchError((error) => errorResponse);
+  }*/
+
+/*  Stream<QuerySnapshot<Contact>> read() async* {
+    yield* _firestore
+        .collection('Parking').orderBy('title')
+        .withConverter<Contact>(
+      fromFirestore: (snapshot, options) => Contact.fromMap(snapshot.data()!),
+      toFirestore: (value, options) => value.toMap(),
+    )
+        .snapshots();
+
+  }*/
+/*  Future<FbResponse> create(ParkingModel parking) async {
+    return _firestore
+        .collection('Notes')
+        .add(note.toMap())
+        .then((value) => successResponse)
+        .catchError((error) => errorResponse);
+  }*/
+
+/*  Future<FbResponse> update(ParkingModel parking) async {
+    return _firestore
+        .collection('Parking')
+        .doc(parking.id)
+        .update(parking.toMap())
+        .then((value) => successResponse)
+        .catchError((error) => errorResponse);
+  }
+
+  Future<FbResponse> delete(String id) async {
+    return _firestore
+        .collection('Parking')
+        .doc(id)
+        .delete()
+        .then((value) => successResponse)
+        .catchError((error) => errorResponse);
+  }
+
+*/
+
+/*  Stream<QuerySnapshot<ParkingModel>> readMyBooking() async* {
+    if(user != null){
+      yield* _firestore
+          .collection('Parking').where('userId', isEqualTo: user!.uid)
+          .withConverter<ParkingModel>(
+        fromFirestore: (snapshot, options) => ParkingModel.fromMap(snapshot.data()!),
+        toFirestore: (value, options) => value.toMap(),
+      )
+          .snapshots();
+    }
+
+  }*/
+

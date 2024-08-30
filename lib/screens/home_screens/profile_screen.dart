@@ -1,9 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tasty_booking/screens/auth_screens/create_new_account_screens/create_new_account_screen.dart';
+import 'package:tasty_booking/screens/auth_screens/login_screens/login_screen.dart';
 import 'package:tasty_booking/screens/home_screens/categories_screen.dart';
+import 'package:tasty_booking/shared_preferences/shared_prefrences_controller.dart';
 import 'package:tasty_booking/style/app_colors.dart';
 import 'package:tasty_booking/wdgets/app_text.dart';
+import 'package:tasty_booking/wdgets/outside_button_with_icons.dart';
 
 import '../profile_screen/common_questions_screen.dart';
 import '../profile_screen/edit_profile_screen.dart';
@@ -43,7 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Row(
                 children: [
                   AppText(
-                    text: 'مرحبا محمد خالد 👋',
+                    text: 'مرحبا ${SharedPrefController().getValueFor(key: PrefKeys.name.name)} 👋',
                     fontFamily: 'DINNextLTArabic_bold',
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -88,8 +93,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           child: Row(
             children: [
-              AppText(text: ' الإسم : ',fontSize: 18,),
-              AppText(text: 'أحمد محسن',fontSize: 18,),
+              AppText(text: ' الإسم : ',),
+              AppText(text: SharedPrefController().getValueFor(key: PrefKeys.name.name),),
             ],
           ),
         ),
@@ -103,8 +108,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           child: Row(
             children: [
-              AppText(text: ' البريد الإلكتروني : ',fontSize: 18,),
-              AppText(text: 'test@app.com',fontSize: 18,),
+              AppText(text: ' البريد الإلكتروني : ',),
+              AppText(text: SharedPrefController().getValueFor(key: PrefKeys.email.name),),
             ],
           ),
         ),
@@ -118,10 +123,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           child: Row(
             children: [
-              AppText(text: ' رقم الهاتف : ',fontSize: 18,),
-              AppText(text: '+97258654123',fontSize: 18,),
+              AppText(text: ' رقم الهاتف : ',),
+              AppText(text: SharedPrefController().getValueFor(key: PrefKeys.phone.name),),
             ],
           ),
+        ),
+        SizedBox(height: 50.h,),
+        Padding(
+          padding:  EdgeInsets.symmetric(horizontal: 24.w),
+          child: OutSideButtonWithIcon(
+            title: 'تسجيل الخروج',
+            icon: Icon(Icons.logout,color: Colors.red,),
+            outSideColor: Colors.red,
+            onPressed: () async{
+            await FirebaseAuth.instance.signOut();
+            await SharedPrefController().clear();
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const LogInScreen(),), (route) => false);
+
+          },),
         ),
         SizedBox(height: 20.h,),
       ],

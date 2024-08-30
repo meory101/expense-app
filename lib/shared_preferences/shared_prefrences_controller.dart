@@ -1,6 +1,7 @@
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tasty_booking/get_controller/language_getx_controller.dart';
+import 'package:tasty_booking/model/user_model.dart';
 
 enum PrefKeys {
   language,
@@ -14,6 +15,7 @@ enum PrefKeys {
   image,
   branchId,
   isMember,
+  userArea,
   userId
 }
 
@@ -49,9 +51,13 @@ class SharedPrefController {
     await _sharedPreferences.setString(PrefKeys.branchId.name, user.userdata!.branchId??'');
   }
 */
-  Future<void> save({required String userId}) async {
+  Future<void> save({required String userId,required UserModel userModel}) async {
     await _sharedPreferences.setBool(PrefKeys.loggedIn.name, true);
     await _sharedPreferences.setString(PrefKeys.userId.name, userId);
+    await _sharedPreferences.setString(PrefKeys.name.name, userModel.name);
+    await _sharedPreferences.setString(PrefKeys.email.name, userModel.email);
+    await _sharedPreferences.setString(PrefKeys.phone.name, userModel.phone);
+    await _sharedPreferences.setString(PrefKeys.userArea.name, userModel.userArea);
   }
   Future<void> saveBranchId(String branchId) async {
     await _sharedPreferences.setString(PrefKeys.branchId.name, branchId);

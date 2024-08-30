@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tasty_booking/screens/home_screens/categories_screen.dart';
 import 'package:tasty_booking/screens/home_screens/line_chart_sample2.dart';
+import 'package:tasty_booking/shared_preferences/shared_prefrences_controller.dart';
 import 'package:tasty_booking/style/app_colors.dart';
 import 'package:tasty_booking/utils/helpers.dart';
 import 'package:tasty_booking/wdgets/app_text.dart';
@@ -45,8 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(height: 50.h,),
               Row(
                 children: [
-                  const AppText(
-                    text: 'مرحبا محمد خالد 👋',
+                   AppText(
+                    text: 'مرحبا ${SharedPrefController().getValueFor(key: PrefKeys.name.name)} 👋',
                     fontFamily: 'DINNextLTArabic_bold',
                     fontSize: 18,
                     fontWeight: FontWeight.bold,

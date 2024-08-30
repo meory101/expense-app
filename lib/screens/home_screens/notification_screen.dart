@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tasty_booking/screens/home_screens/categories_screen.dart';
+import 'package:tasty_booking/shared_preferences/shared_prefrences_controller.dart';
 import 'package:tasty_booking/style/app_colors.dart';
 import 'package:tasty_booking/utils/helpers.dart';
 import 'package:tasty_booking/wdgets/app_text.dart';
@@ -51,7 +52,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 Row(
                   children: [
                     AppText(
-                      text: 'مرحبا محمد خالد 👋',
+                      text: 'مرحبا ${SharedPrefController().getValueFor(key: PrefKeys.name.name)} 👋',
                       fontFamily: 'DINNextLTArabic_bold',
                       fontSize: 18,
                       fontWeight: FontWeight.bold,

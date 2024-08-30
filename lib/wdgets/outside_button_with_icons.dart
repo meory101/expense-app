@@ -10,11 +10,13 @@ class OutSideButtonWithIcon extends StatelessWidget {
     required this.title,
     required this.icon,
     required this.onPressed,
+    this.outSideColor = AppColors.primaryColor,
     super.key,
   });
  final String title;
  final Widget icon;
  final void Function() onPressed;
+ final Color outSideColor;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -26,7 +28,7 @@ class OutSideButtonWithIcon extends StatelessWidget {
           elevation: 0,
           side: BorderSide(
             width: 2.w,
-            color: AppColors.primaryColor,
+            color: outSideColor,
             strokeAlign: BorderSide.strokeAlignCenter,
           ),
           shape: RoundedRectangleBorder(

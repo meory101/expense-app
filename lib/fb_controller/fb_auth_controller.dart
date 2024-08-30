@@ -78,4 +78,6 @@ class FbAuthController {
 
 
   bool get loggedIn => _auth.currentUser != null;
+
+
 }

@@ -38,6 +38,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: _screens[_selectedPageIndex].widget,
       bottomNavigationBar: ConvexAppBar(
           backgroundColor: Colors.white,

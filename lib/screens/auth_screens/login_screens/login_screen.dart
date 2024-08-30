@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tasty_booking/fb_controller/fb_auth_controller.dart';
+import 'package:tasty_booking/fb_controller/fb_firestore.dart';
 import 'package:tasty_booking/model/fb_response.dart';
 import 'package:tasty_booking/screens/auth_screens/create_new_account_screens/create_new_account_screen.dart';
 import 'package:tasty_booking/screens/home_screens/bottom_navigation_bar.dart';
@@ -100,6 +102,7 @@ class _LogInScreenState extends State<LogInScreen> {
                       ),
                       hintText: context.localizations.password,
                       obscure: obscure,
+                      maxLines: 1,
                       errorText: passwordIsError,
                       suffixIcon: GestureDetector(
                         onTap: () {
@@ -237,9 +240,15 @@ class _LogInScreenState extends State<LogInScreen> {
     if(fbResponse.success){
       User? user = FirebaseAuth.instance.currentUser;
       if(user != null){
-        await SharedPrefController().save(userId: user.uid);
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => BottomNavigationScreen(),), (route) => false,);
-        context.showSnackBar(message: fbResponse.message,);
+        try{
+          await FbFirestoreController().getUserData(doc: user.uid);
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => BottomNavigationScreen(),), (route) => false,);
+          context.showSnackBar(message: fbResponse.message,);
+        }catch(e){
+          context.showSnackBar(message: 'حدث خطأ ما ! الرجاء المحاولة مرة اخرى', error: !fbResponse.success);
+
+        }
+        print('000${SharedPrefController().getValueFor(key: PrefKeys.userArea.name)}');
       }else{
         context.showSnackBar(message: 'حدث خطأ ما ! الرجاء المحاولة مرة اخرى', error: !fbResponse.success);
       }
