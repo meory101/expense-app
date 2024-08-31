@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tasty_booking/fb_controller/fb_auth_controller.dart';
 import 'package:tasty_booking/fb_controller/fb_firestore.dart';
+import 'package:tasty_booking/fb_controller/fb_notifications.dart';
 import 'package:tasty_booking/model/fb_response.dart';
 import 'package:tasty_booking/screens/auth_screens/create_new_account_screens/create_new_account_screen.dart';
 import 'package:tasty_booking/screens/home_screens/bottom_navigation_bar.dart';
@@ -27,7 +29,7 @@ class LogInScreen extends StatefulWidget {
   State<LogInScreen> createState() => _LogInScreenState();
 }
 
-class _LogInScreenState extends State<LogInScreen> {
+class _LogInScreenState extends State<LogInScreen> with FbNotifications{
   Country country = CountryParser.parseCountryCode('SA');
   late TextEditingController _phoneEditingController;
   late TextEditingController _emailEditingController;
@@ -43,6 +45,9 @@ class _LogInScreenState extends State<LogInScreen> {
   @override
   void initState() {
     super.initState();
+    requestNotificationPermissions();
+    initializeForegroundNotificationForAndroid();
+    manageNotificationAction();
     _phoneEditingController = TextEditingController();
     _emailEditingController = TextEditingController();
     _passwordEditingController = TextEditingController();
@@ -241,6 +246,7 @@ class _LogInScreenState extends State<LogInScreen> {
       User? user = FirebaseAuth.instance.currentUser;
       if(user != null){
         try{
+          await _getToken();
           await FbFirestoreController().getUserData(doc: user.uid);
           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => BottomNavigationScreen(),), (route) => false,);
           context.showSnackBar(message: fbResponse.message,);
@@ -257,6 +263,16 @@ class _LogInScreenState extends State<LogInScreen> {
 
     }
   }
+  Future<void> _getToken() async {
+    String? token = await FirebaseMessaging.instance.getToken();
+    if(token != null){
+      SharedPrefController().saveDeviceToken(token);
+      print("Device Token: $token");
+    }
+
+    // قم بتخزين التوكن في Firestore أو قاعدة بيانات أخرى
+  }
+
 
   void showPicker() {
     showCountryPicker(

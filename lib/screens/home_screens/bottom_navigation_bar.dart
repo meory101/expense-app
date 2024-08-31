@@ -3,6 +3,7 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tasty_booking/fb_controller/fb_notifications.dart';
 import 'package:tasty_booking/screens/home_screens/add_new_category_screen.dart';
 import 'package:tasty_booking/screens/home_screens/debts_screen.dart';
 import 'package:tasty_booking/screens/home_screens/home_screen.dart';
@@ -21,7 +22,7 @@ class BottomNavigationScreen extends StatefulWidget {
   State<BottomNavigationScreen> createState() => _BottomNavigationScreenState();
 }
 
-class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
+class _BottomNavigationScreenState extends State<BottomNavigationScreen> with FbNotifications{
   int _selectedPageIndex = 0;
   final List<BnScreen> _screens = <BnScreen>[
     const BnScreen(title: 'Home', widget: HomeScreen()),
@@ -32,6 +33,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   ];
   @override
   void initState() {
+    requestNotificationPermissions();
+    initializeForegroundNotificationForAndroid();
+    manageNotificationAction();
     super.initState();
   }
 

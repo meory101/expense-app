@@ -375,7 +375,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                               children: [
                                  AppText(text: snapshot.data!.docs[index].data().expenseType,fontSize: 16,color: AppColors.primaryColor,),
                                  AppText(text: '${snapshot.data!.docs[index].data().ceiling}/${snapshot.data!.docs[index].data().expenseAmount}',color: AppColors.primaryColor,),
-                                InkWell(
+                                /*InkWell(
                                   onTap :(){
                                     Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsItemScreen(type: snapshot.data!.docs[index].data().expenseType, cost: snapshot.data!.docs[index].data().expenseAmount.toString(), ceiling: snapshot.data!.docs[index].data().ceiling,collection: 'Expense',),));
 
@@ -388,7 +388,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                     ),
                                     child: const Center(child: AppText(text: 'التفاصيل',color: Colors.white,)),
                                   ),
-                                )
+                                )*/
                               ],
                             ),
                           );

@@ -59,8 +59,8 @@ class SharedPrefController {
     await _sharedPreferences.setString(PrefKeys.phone.name, userModel.phone);
     await _sharedPreferences.setString(PrefKeys.userArea.name, userModel.userArea);
   }
-  Future<void> saveBranchId(String branchId) async {
-    await _sharedPreferences.setString(PrefKeys.branchId.name, branchId);
+  Future<void> saveDeviceToken(String token) async {
+    await _sharedPreferences.setString(PrefKeys.token.name, token);
   }
 
   void changeLanguage({required String langCode}) {

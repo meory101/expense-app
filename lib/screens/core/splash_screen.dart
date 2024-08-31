@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tasty_booking/fb_controller/fb_notifications.dart';
 import 'package:tasty_booking/screens/home_screens/bottom_navigation_bar.dart';
 import 'package:tasty_booking/shared_preferences/shared_prefrences_controller.dart';
 import 'package:tasty_booking/style/app_colors.dart';
@@ -7,17 +8,20 @@ import 'package:tasty_booking/style/app_colors.dart';
 
 import '../auth_screens/login_screens/login_screen.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends StatefulWidget{
   const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen> with FbNotifications{
   @override
   void initState() {
     super.initState();
+    requestNotificationPermissions();
+    initializeForegroundNotificationForAndroid();
+    manageNotificationAction();
     Future.delayed(const Duration(seconds: 3),() {
       bool isLoggedIn=SharedPrefController().getValueFor(key: PrefKeys.loggedIn.name)??false;
       if(isLoggedIn){

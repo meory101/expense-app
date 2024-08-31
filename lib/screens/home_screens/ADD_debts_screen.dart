@@ -275,6 +275,8 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
                         AppElevatedButton(
                             text: 'اضافة',
                             onPressed:()async{
+                              _scheduleNotification();
+
                               setState(() {
                                 isLoading = true;
                               });
@@ -353,5 +355,21 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
       );
     }
   }
+  void _scheduleNotification() {
+    // إضافة الإشعار إلى Firestore
+    FirebaseFirestore.instance.collection('scheduled_notifications').add({
+      'title': '123',
+      'body': '123',
+      'sendAt':  DateTime.now(),
+      'token': SharedPrefController().getValueFor(key: PrefKeys.token.name)  // قم بتحديد التوكن الصحيح للمستخدم هنا
+    }).then((value) {
+      print("Notification Scheduled");
+      // إعادة تعيين الحقول
+
+    }).catchError((error) {
+      print("Failed to schedule notification: $error");
+    });
+  }
+
 
 }

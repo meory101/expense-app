@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:tasty_booking/fb_controller/fb_notifications.dart';
 import 'package:tasty_booking/get_controller/language_getx_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tasty_booking/screens/core/splash_screen.dart';
@@ -22,6 +23,7 @@ void main() async{
   }else{
     await Firebase.initializeApp();
   }
+  await FbNotifications.initNotifications();
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );
