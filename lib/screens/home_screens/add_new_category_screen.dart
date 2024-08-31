@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tasty_booking/fb_controller/fb_firestore.dart';
+import 'package:tasty_booking/model/expense_amount_model.dart';
 import 'package:tasty_booking/model/expense_model.dart';
 import 'package:tasty_booking/model/main_category_model.dart';
 import 'package:tasty_booking/screens/home_screens/categories_screen.dart';
@@ -226,8 +227,10 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
   Future<void> _save() async {
     if(_selectedCategoryId != null){
       await FbFirestoreController().createExpense(expense,_selectedCategoryId!);
+      await FbFirestoreController().createExpenseAmount(expenseAmount);
     }else{
       await FbFirestoreController().createExpense(expense,'Expense');
+      await FbFirestoreController().createExpenseAmount(expenseAmount);
     }
 
   }
@@ -244,5 +247,15 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
     expense.dateNowMonth= DateTime.now().toString().substring(0,7);
     expense.dateNowYear= DateTime.now().toString().substring(0,4);
     return expense;
+  }
+  ExpenseAmountModel get expenseAmount {
+    ExpenseAmountModel expenseAmount = ExpenseAmountModel();
+    expenseAmount.userId= SharedPrefController().getValueFor(key: PrefKeys.userId.name);
+    expenseAmount.expenseAmount = costTextController.text;
+    expenseAmount.expenseType =_selectedCategoryId==null? newCategoryTextController.text:_selectedCategoryId!;
+    expenseAmount.dateNow= DateTime.now().toString().substring(0,10);
+    expenseAmount.dateNowMonth= DateTime.now().toString().substring(0,7);
+    expenseAmount.dateNowYear= DateTime.now().toString().substring(0,4);
+    return expenseAmount;
   }
 }

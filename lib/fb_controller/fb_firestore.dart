@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tasty_booking/model/Debts_model.dart';
+import 'package:tasty_booking/model/expense_amount_model.dart';
 import 'package:tasty_booking/model/expense_model.dart';
 import 'package:tasty_booking/model/fb_response.dart';
 import 'package:tasty_booking/model/user_model.dart';
@@ -52,7 +53,7 @@ class FbFirestoreController with FirebaseHelper {
 
   Stream<QuerySnapshot<Debts>> readDebts() async* {
     yield* _firestore
-        .collection('Debts')
+        .collection('Debts').where('UserID',isEqualTo: user!.uid)
         .withConverter<Debts>(
       fromFirestore: (snapshot, options) => Debts.fromMap(snapshot.data()!),
       toFirestore: (value, options) => value.toMap(),
@@ -62,7 +63,7 @@ class FbFirestoreController with FirebaseHelper {
 
   Stream<QuerySnapshot<ExpenseModel>> readBasicSupplies(String collection) async* {
     yield* _firestore
-        .collection(collection)
+        .collection(collection).where('userId',isEqualTo: user!.uid)
         .withConverter<ExpenseModel>(
       fromFirestore: (snapshot, options) => ExpenseModel.fromMap(snapshot.data()!),
       toFirestore: (value, options) => value.toMap(),
@@ -84,7 +85,7 @@ class FbFirestoreController with FirebaseHelper {
   Stream<QuerySnapshot<ExpenseModel>> readSameTime(String collection,String DateNow) async* {
 
     yield* _firestore
-        .collection(collection).where('dateNow', isEqualTo: DateNow)
+        .collection(collection).where('userId',isEqualTo: user!.uid).where('dateNow', isEqualTo: DateNow)
         .withConverter<ExpenseModel>(
       fromFirestore: (snapshot, options) => ExpenseModel.fromMap(snapshot.data()!),
       toFirestore: (value, options) => value.toMap(),
@@ -95,7 +96,7 @@ class FbFirestoreController with FirebaseHelper {
   Stream<QuerySnapshot<ExpenseModel>> readSameTimeMonthe(String collection,String dateNowMonth) async* {
 
     yield* _firestore
-        .collection(collection).where('dateNowMonth', isEqualTo: dateNowMonth)
+        .collection(collection).where('userId',isEqualTo: user!.uid).where('dateNowMonth', isEqualTo: dateNowMonth)
         .withConverter<ExpenseModel>(
       fromFirestore: (snapshot, options) => ExpenseModel.fromMap(snapshot.data()!),
       toFirestore: (value, options) => value.toMap(),
@@ -106,13 +107,31 @@ class FbFirestoreController with FirebaseHelper {
   Stream<QuerySnapshot<ExpenseModel>> readSameTimeYeare(String collection,String dateNowYear) async* {
 
     yield* _firestore
-        .collection(collection).where('dateNowYear', isEqualTo: dateNowYear)
+        .collection(collection).where('userId',isEqualTo: user!.uid).where('dateNowYear', isEqualTo: dateNowYear)
         .withConverter<ExpenseModel>(
       fromFirestore: (snapshot, options) => ExpenseModel.fromMap(snapshot.data()!),
       toFirestore: (value, options) => value.toMap(),
     )
         .snapshots();
 
+  }
+
+  Future<FbResponse> createExpenseAmount(ExpenseAmountModel expenseAmount,) async {
+    return _firestore
+        .collection('ExpenseAmount')
+        .add(expenseAmount.toMap())
+        .then((value) => successResponse)
+        .catchError((error) => errorResponse);
+  }
+
+  Stream<QuerySnapshot<ExpenseAmountModel>> readExpenseAmount({required String check, required String isEqualTo}) async* {
+    yield* _firestore
+        .collection('ExpenseAmount').where('userId',isEqualTo: user!.uid).where(check,isEqualTo: isEqualTo)
+        .withConverter<ExpenseAmountModel>(
+      fromFirestore: (snapshot, options) => ExpenseAmountModel.fromMap(snapshot.data()!),
+      toFirestore: (value, options) => value.toMap(),
+    )
+        .snapshots();
   }
 }
 /*  Stream<QuerySnapshot<Contact>> readContact() async* {

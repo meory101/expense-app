@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tasty_booking/model/expense_amount_model.dart';
 import 'package:tasty_booking/screens/home_screens/categories_screen.dart';
 import 'package:tasty_booking/screens/home_screens/line_chart_sample2.dart';
 import 'package:tasty_booking/shared_preferences/shared_prefrences_controller.dart';
@@ -157,10 +158,73 @@ class _HomeScreenState extends State<HomeScreen> {
         SizedBox(height: 34.h,),
         // const LineChartSample2()
         selectedTime == 0 ?
-        AppText(text: 'مجموع المصاريف اليومية : 500',color: AppColors.primaryColor,fontWeight: FontWeight.bold,fontSize: 17,):
+        StreamBuilder<QuerySnapshot<ExpenseAmountModel>>(
+          stream: FbFirestoreController().readExpenseAmount(check: 'dateNow',isEqualTo: DateTime.now().toString().substring(0,10)),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return SizedBox();
+            } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty ) {
+              double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
+                try {
+                  double amount = double.parse(item.data().expenseAmount);
+                  return sum + amount;
+                } catch (e) {
+                  print('Error parsing expenseAmount: ${item.data().expenseAmount}, skipping...');
+                  return sum; // تخطي القيم غير الصالحة
+                }
+              });
+              print('000${totalExpenseAmount}');
+              return AppText(text: 'مجموع المصاريف اليومية : ${totalExpenseAmount??''}',color: AppColors.primaryColor,fontWeight: FontWeight.bold,fontSize: 17,);
+            } else {
+              return SizedBox();
+            }
+          },
+        ):
         selectedTime == 1 ?
-        AppText(text: 'مجموع المصاريف الشهرية : 500',color: AppColors.primaryColor,fontWeight: FontWeight.bold,fontSize: 17,):
-        AppText(text: 'مجموع المصاريف السنوية : 500',color: AppColors.primaryColor,fontWeight: FontWeight.bold,fontSize: 17,),
+        StreamBuilder<QuerySnapshot<ExpenseAmountModel>>(
+          stream: FbFirestoreController().readExpenseAmount(check: 'dateNowMonth',isEqualTo: DateTime.now().toString().substring(0,7)),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return SizedBox();
+            } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty ) {
+              double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
+                try {
+                  double amount = double.parse(item.data().expenseAmount);
+                  return sum + amount;
+                } catch (e) {
+                  print('Error parsing expenseAmount: ${item.data().expenseAmount}, skipping...');
+                  return sum; // تخطي القيم غير الصالحة
+                }
+              });
+              print('000${totalExpenseAmount}');
+              return AppText(text: 'مجموع المصاريف الشهرية : ${totalExpenseAmount}',color: AppColors.primaryColor,fontWeight: FontWeight.bold,fontSize: 17,);
+            } else {
+              return SizedBox();
+            }
+          },
+        ):
+        StreamBuilder<QuerySnapshot<ExpenseAmountModel>>(
+          stream: FbFirestoreController().readExpenseAmount(check: 'dateNowYear',isEqualTo: DateTime.now().toString().substring(0,4)),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return SizedBox();
+            } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty ) {
+              double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
+                try {
+                  double amount = double.parse(item.data().expenseAmount);
+                  return sum + amount;
+                } catch (e) {
+                  print('Error parsing expenseAmount: ${item.data().expenseAmount}, skipping...');
+                  return sum; // تخطي القيم غير الصالحة
+                }
+              });
+              print('000${totalExpenseAmount}');
+              return AppText(text: 'مجموع المصاريف السنوية : ${totalExpenseAmount}',color: AppColors.primaryColor,fontWeight: FontWeight.bold,fontSize: 17,);
+            } else {
+              return SizedBox();
+            }
+          },
+        ),
 
         SizedBox(height: 34.h,),
 
@@ -198,6 +262,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         return sum; // تخطي القيم غير الصالحة
                       }
                     });
+
 /*
                     double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
 */
