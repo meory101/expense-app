@@ -215,6 +215,8 @@ class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
                       height: 16.h,
                     ),
                     AppTextField(
+                      maxLines: 1,
+
                       controller: _passwordEditingController,
                       obscure: obscure,
                       errorText: passwordIsError,
@@ -257,6 +259,8 @@ class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
                       height: 16.h,
                     ),
                     AppTextField(
+                      maxLines: 1,
+
                       controller: _confirmPasswordEditingController,
                       errorText: confPasswordIsError,
                       onChanged: (p0) {
