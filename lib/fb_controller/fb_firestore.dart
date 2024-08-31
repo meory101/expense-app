@@ -4,6 +4,8 @@ import 'package:tasty_booking/model/Debts_model.dart';
 import 'package:tasty_booking/model/expense_amount_model.dart';
 import 'package:tasty_booking/model/expense_model.dart';
 import 'package:tasty_booking/model/fb_response.dart';
+import 'package:tasty_booking/model/normal_notification_model.dart';
+import 'package:tasty_booking/model/schedule_notification_model.dart';
 import 'package:tasty_booking/model/user_model.dart';
 import 'package:tasty_booking/shared_preferences/shared_prefrences_controller.dart';
 import 'package:tasty_booking/utils/firebase_helper.dart';
@@ -133,6 +135,27 @@ class FbFirestoreController with FirebaseHelper {
     )
         .snapshots();
   }
+
+  Stream<QuerySnapshot<ScheduleNotificationModel>> readScheduleNotification({required String check, required String isEqualTo}) async* {
+    yield* _firestore
+        .collection('scheduleNotification').where('userId',isEqualTo: user!.uid).where(check,isEqualTo: isEqualTo)
+        .withConverter<ScheduleNotificationModel>(
+      fromFirestore: (snapshot, options) => ScheduleNotificationModel.fromMap(snapshot.data()!),
+      toFirestore: (value, options) => value.toMap(),
+    )
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<NormalNotificationModel>> readNormalNotification() async* {
+    yield* _firestore
+        .collection('normalNotification').withConverter<NormalNotificationModel>(
+      fromFirestore: (snapshot, options) => NormalNotificationModel.fromMap(snapshot.data()!),
+      toFirestore: (value, options) => value.toMap(),
+    )
+        .snapshots();
+
+  }
+
 }
 /*  Stream<QuerySnapshot<Contact>> readContact() async* {
     yield* _firestore

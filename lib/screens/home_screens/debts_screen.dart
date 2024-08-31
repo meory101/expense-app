@@ -150,16 +150,7 @@ class _DebtsScreenState extends State<DebtsScreen> {
                       }),
                 );
               } else {
-                return const Center(
-                  child: Text(
-                    'NO DATA',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
-                      color: Colors.black,
-                    ),
-                  ),
-                );
+                return const SizedBox();
               }
             },
           ),

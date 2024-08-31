@@ -4,6 +4,7 @@ import 'package:tasty_booking/fb_controller/fb_firestore.dart';
 import 'package:tasty_booking/model/expense_amount_model.dart';
 import 'package:tasty_booking/model/expense_model.dart';
 import 'package:tasty_booking/model/main_category_model.dart';
+import 'package:tasty_booking/screens/auth_screens/create_new_account_screens/create_new_account_screen.dart';
 import 'package:tasty_booking/screens/home_screens/categories_screen.dart';
 import 'package:tasty_booking/shared_preferences/shared_prefrences_controller.dart';
 import 'package:tasty_booking/wdgets/app_elevated_button.dart';
@@ -225,14 +226,31 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
   }
 
   Future<void> _save() async {
-    if(_selectedCategoryId != null){
-      await FbFirestoreController().createExpense(expense,_selectedCategoryId!);
-      await FbFirestoreController().createExpenseAmount(expenseAmount);
-    }else{
-      await FbFirestoreController().createExpense(expense,'Expense');
-      await FbFirestoreController().createExpenseAmount(expenseAmount);
-    }
+    try{
+      if(_selectedCategoryId != null){
+        await FbFirestoreController().createExpense(expense,_selectedCategoryId!);
+        await FbFirestoreController().createExpenseAmount(expenseAmount);
+      }else{
+        await FbFirestoreController().createExpense(expense,'Expense');
+        await FbFirestoreController().createExpenseAmount(expenseAmount);
+      }
+      setState(() {
+        costTextController.clear();
+        newCategoryTextController.clear();
+        _selectedCategoryId = null;
+      },
+      );
 
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('تم الاضافة بنجاح')),
+
+      );
+    }catch(e){
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('عذرا حصل حطأ ما!')),
+
+      );
+    }
   }
 
   ExpenseModel get expense {

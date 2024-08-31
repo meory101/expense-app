@@ -22,16 +22,20 @@ void main() async{
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-  }else{
-    await Firebase.initializeApp();
-  }
-  if(Platform.isAndroid){
     await FbNotifications.initNotifications();
 
     final notificationService = NotificationService();
     await notificationService.init();
   }else{
+    await Firebase.initializeApp();
   }
+/*  if(Platform.isAndroid){
+    await FbNotifications.initNotifications();
+
+    final notificationService = NotificationService();
+    await notificationService.init();
+  }else{
+  }*/
 
   tz.initializeTimeZones();
   // await Firebase.initializeApp(

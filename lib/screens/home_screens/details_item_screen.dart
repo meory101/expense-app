@@ -126,11 +126,33 @@ class _DetailsItemScreenState extends State<DetailsItemScreen> {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return CustomAppLoading();
                     } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                      // خريطة لتجميع البيانات حسب userId
+                      Map<String, Map<String, dynamic>> userExpenses = {};
+
+                      // تجميع البيانات حسب userId
+                      for (var doc in snapshot.data!.docs) {
+                        ExpenseModel expense = doc.data();
+                        String userId = expense.userId;
+                        String userName = expense.userName;
+                        double expenseAmount = double.parse(expense.expenseAmount);
+
+                        if (userExpenses.containsKey(userId)) {
+                          userExpenses[userId]!['totalExpense'] += expenseAmount; // جمع القيم
+                        } else {
+                          userExpenses[userId] = {
+                            'userName': userName,
+                            'totalExpense': expenseAmount,
+                          }; // إضافة مستخدم جديد
+                        }
+                      }
                       return ListView.separated(
                           padding: EdgeInsets.zero,
                           shrinkWrap:  true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
+                            String userId = userExpenses.keys.elementAt(index);
+                            String userName = userExpenses[userId]!['userName'];
+                            double totalExpense = userExpenses[userId]!['totalExpense'];
                             return Container(
                               padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
                               margin: EdgeInsets.symmetric(horizontal: 20.w),
@@ -145,13 +167,15 @@ class _DetailsItemScreenState extends State<DetailsItemScreen> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                   AppText(text: snapshot.data!.docs[index].data().userName,fontSize: 18,color: AppColors.primaryColor,),
+                                  Icon(Icons.person,color: AppColors.primaryColor,),
+                                   SizedBox(width: 8.w,),
+                                   AppText(text: userName,fontSize: 18,color: AppColors.primaryColor,),
                                   const Spacer(),
-                                  AppText(text: snapshot.data!.docs[index].data().expenseAmount,fontSize: 18,color: AppColors.primaryColor,),
+                                  AppText(text: '${totalExpense.toStringAsFixed(2)}',fontSize: 18,color: AppColors.primaryColor,),
                                 ],
                               ),
                             );
-                          }, separatorBuilder: (context, index) => SizedBox(height: 16.h,), itemCount: snapshot.data!.docs.length);
+                          }, separatorBuilder: (context, index) => SizedBox(height: 16.h,), itemCount: userExpenses.length);
                     } else {
                       return SizedBox();
                     }

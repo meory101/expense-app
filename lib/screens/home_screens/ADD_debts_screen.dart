@@ -3,9 +3,11 @@ import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:tasty_booking/screens/home_screens/categories_screen.dart';
 import 'package:tasty_booking/style/app_colors.dart';
 import 'package:tasty_booking/utils/helpers.dart';
+import 'package:tasty_booking/utils/notification_helper.dart';
 import 'package:tasty_booking/wdgets/app_elevated_button.dart';
 import 'package:tasty_booking/wdgets/app_text.dart';
 import 'package:tasty_booking/wdgets/app_text_field.dart';
@@ -84,7 +86,7 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          AppText(
+                          const AppText(
                             text: ' اضافة دين',
                             fontFamily: 'DINNextLTArabic_bold',
                             fontSize: 22,
@@ -95,7 +97,7 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
                               onTap: (){
                                 Navigator.of(context).pop();
                               },
-                              child: Icon(Icons.arrow_forward,color: Colors.white,))
+                              child: const Icon(Icons.arrow_forward,color: Colors.white,))
 
                         ],
                       ),
@@ -163,7 +165,7 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
                           },
                           prefixIcon: Padding(
                               padding: EdgeInsets.symmetric(vertical: 18.h),
-                              child: Icon(Icons.attach_money)
+                              child: const Icon(Icons.attach_money)
                           ),
                           hintText: 'مبلغ الدين كامل ',
                         ),
@@ -182,22 +184,22 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
                           },
                           prefixIcon: Padding(
                               padding: EdgeInsets.symmetric(vertical: 18.h),
-                              child: Icon(Icons.attach_money)
+                              child: const Icon(Icons.attach_money)
                           ),
                           hintText: 'المبلغ المسدد من الدين ',
                         ),
                         SizedBox(height: 16.h,),
-
-
+                        Align(
+                          alignment: AlignmentDirectional.centerStart,
+                            child: AppText(text: 'تاريخ السداد',textAlign: TextAlign.start,)),
                         EasyDateTimeLine(
                           initialDate: DateTime.now(),
-                          headerProps: const EasyHeaderProps(showHeader: true),
+                          headerProps: const EasyHeaderProps(showHeader: true,),
                           locale: 'ar',
                           activeColor: AppColors.primaryColor,
                           dayProps: EasyDayProps(
                               height: 80.h,
                               width: 62.w,
-
                               todayHighlightColor: AppColors.primaryColor,
                               borderColor: const Color(0XFFF6F6F6),
                               landScapeMode: false,
@@ -242,6 +244,7 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
                                   )
                               )
                           ),
+                          
                           onDateChange: (selectedDate) {
                             //`selectedDate` the new date selected.
                             Dateend = selectedDate.toString().substring(0,10);
@@ -275,8 +278,8 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
                         AppElevatedButton(
                             text: 'اضافة',
                             onPressed:()async{
-                              _scheduleNotification();
-
+                              // _scheduleNotification();
+                              // print(Dateend);
                               setState(() {
                                 isLoading = true;
                               });
@@ -309,23 +312,23 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
 
   }
   Future<void> _addDebtsUser() async {
-    String Name = _userNameEditingController.text.trim();
-    String Cost1 = _Cost1EditingController.text.trim();
-    String Cost2 = _Cost2EditingController.text.trim();
-    String Date = Dateend!;
-    String Note = _noteEditingController.text.trim();
-    String UserId = SharedPrefController().getValueFor(key: PrefKeys.userId.name);
-
 
     if (
-    Name.isNotEmpty &&
-        Cost1.isNotEmpty &&
-        Cost2.isNotEmpty &&
-        Date.isNotEmpty &&
-        Note.isNotEmpty) {
+    _userNameEditingController.text.isNotEmpty &&
+        _Cost1EditingController.text.isNotEmpty &&
+        _Cost2EditingController.text.isNotEmpty &&
+        _noteEditingController.text.isNotEmpty&&Dateend!=null) {
+      String Name = _userNameEditingController.text;
+      String Cost1 = _Cost1EditingController.text;
+      String Cost2 = _Cost2EditingController.text;
+      String Date = Dateend!;
+      String Note = _noteEditingController.text;
+      String UserId = SharedPrefController().getValueFor(key: PrefKeys.userId.name);
+
+
       try {
         print('12311');
-        await _firestore.collection('Debts').doc(UserId).set({
+        await _firestore.collection('Debts').add({
           // 'attachment': attachment,
           'Name': Name,
           'Amount_Depts': Cost1,
@@ -335,11 +338,12 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
           'UserID':UserId,
 
         });
+        await _scheduleNotification();
         print('123333');
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => BottomNavigationScreen(),), (route) => false,);
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const BottomNavigationScreen(),), (route) => false,);
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('تم اضافه الدين بنجاح')),
+          const SnackBar(content: Text('تم اضافه الدين بنجاح')),
 
         );
       } catch (e) {
@@ -355,20 +359,27 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
       );
     }
   }
-  void _scheduleNotification() {
-    // إضافة الإشعار إلى Firestore
-    FirebaseFirestore.instance.collection('scheduled_notifications').add({
-      'title': '123',
-      'body': '123',
-      'sendAt':  DateTime.now(),
-      'token': SharedPrefController().getValueFor(key: PrefKeys.token.name)  // قم بتحديد التوكن الصحيح للمستخدم هنا
-    }).then((value) {
-      print("Notification Scheduled");
-      // إعادة تعيين الحقول
+  Future<void> _scheduleNotification() async{
+    DateTime parsedDate = DateTime.parse(Dateend!);
+    DateTime fiveDaysBefore = parsedDate.subtract(const Duration(days: 5));
+    String formattedDate = DateFormat('yyyy-MM-dd').format(fiveDaysBefore);
+    print(fiveDaysBefore);
+    await _firestore.collection('scheduleNotification').add({
+      // 'attachment': attachment,
+      'name': 'اشعار تذكيري',
+      'description':  "لقد تبقى لموعد سداد دينك ل${_userNameEditingController.text} خمسة ايام",
+      'endDate': Dateend!,
+      'notificationDate': formattedDate,
+      'userId':SharedPrefController().getValueFor(key: PrefKeys.userId.name),
 
-    }).catchError((error) {
-      print("Failed to schedule notification: $error");
     });
+    DateTime scheduledDate = fiveDaysBefore ;
+    NotificationService().scheduleNotification(
+      0,
+      "اشعار تذكيري",
+      "لقد تبقى لموعد سداد دينك ل${_userNameEditingController.text} خمسة ايام",
+      scheduledDate,
+    );
   }
 
 

@@ -1,8 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
+import 'package:tasty_booking/fb_controller/fb_firestore.dart';
+import 'package:tasty_booking/model/normal_notification_model.dart';
+import 'package:tasty_booking/model/schedule_notification_model.dart';
 import 'package:tasty_booking/screens/home_screens/categories_screen.dart';
 import 'package:tasty_booking/shared_preferences/shared_prefrences_controller.dart';
 import 'package:tasty_booking/style/app_colors.dart';
@@ -22,7 +27,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   List<RemoteMessage> _messages = [];
 
 
-
+  String formattedDate = DateFormat('yyyy-MM-dd').format(DateTime.now().add(const Duration(days: 5)));
   @override
   void initState() {
     super.initState();
@@ -31,14 +36,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   void _initializeFirebaseMessaging() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print('Received a message: ${message.notification?.title}');
+      print('Received a message in foreground: ${message.notification?.title}');
       setState(() {
         _messages.add(message);
       });
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('Message clicked!');
+      print('Message clicked when app was in background: ${message.notification?.title}');
       setState(() {
         _messages.add(message);
       });
@@ -46,8 +51,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
     _firebaseMessaging.getToken().then((String? token) {
       print("Device Token: $token");
+    }).catchError((error) {
+      print("Failed to get device token: $error");
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -71,10 +79,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
-                    Spacer(),
+                    const Spacer(),
                     InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => CategoriesScreen(),));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const CategoriesScreen(),));
                       },
                       child: Container(
                         height: 60.h,
@@ -89,7 +97,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   ],
                 ),
 
-                AppText(
+                const AppText(
                   text: 'الاشعارات',
                   fontFamily: 'DINNextLTArabic_bold',
                   fontSize: 22,
@@ -100,39 +108,142 @@ class _NotificationScreenState extends State<NotificationScreen> {
               ],
             ),
           ),
+
           Expanded(
-            child: ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 22.w,vertical: 20.h),
-                itemCount: _messages.length,
-                itemBuilder: (context, index) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.notifications_none_sharp,
-                        color: Colors.black,
-                        size: 26.w,
-                      ),
-                      SizedBox(width: 10.w,),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment:
-                          CrossAxisAlignment.start,
-                          children: [
-                            AppText(text: _messages[index].notification?.title ?? 'No Title',),
-                            SizedBox(height: 5.h,),
-                            AppText(text: _messages[index].notification?.title ?? 'No Title',),
-                            SizedBox(
-                              height: 20.h,
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  );
-                }),
+            child: ListView(
+              padding: EdgeInsets.symmetric(horizontal: 22.w,vertical: 20.h),
+              children: [
+                StreamBuilder<QuerySnapshot<ScheduleNotificationModel>>(
+                  stream: FbFirestoreController().readScheduleNotification(check: 'endDate',isEqualTo: formattedDate),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const SizedBox();
+                    } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty ) {
+                      return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Icons.notifications_none_sharp,
+                                  color: Colors.black,
+                                  size: 26.w,
+                                ),
+                                SizedBox(width: 10.w,),
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      AppText(text: snapshot.data!.docs[index].data().name,),
+                                      SizedBox(height: 5.h,),
+                                      AppText(text: snapshot.data!.docs[index].data().description,),
+                                      SizedBox(height: 5.h,),
+                                      AppText(text: snapshot.data!.docs[index].data().endDate,),
+                                      SizedBox(
+                                        height: 20.h,
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            );
+                          });
+
+                    } else {
+                      return const SizedBox();
+                    }
+                  },
+                ),
+                StreamBuilder<QuerySnapshot<NormalNotificationModel>>(
+                  stream: FbFirestoreController().readNormalNotification(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const SizedBox();
+                    } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty ) {
+                      return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Icons.notifications_none_sharp,
+                                  color: Colors.black,
+                                  size: 26.w,
+                                ),
+                                SizedBox(width: 10.w,),
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      AppText(text: snapshot.data!.docs[index].data().title,),
+                                      SizedBox(height: 5.h,),
+                                      AppText(text: snapshot.data!.docs[index].data().description,),
+
+                                      SizedBox(
+                                        height: 20.h,
+                                      )
+                                    ],
+                                  ),
+                                )
+                              ],
+                            );
+                          });
+
+                    } else {
+                      return const SizedBox();
+                    }
+                  },
+                ),
+                /*ListView.builder(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: _messages.length,
+                    itemBuilder: (context, index) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.notifications_none_sharp,
+                            color: Colors.black,
+                            size: 26.w,
+                          ),
+                          SizedBox(width: 10.w,),
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                              children: [
+                                AppText(text: _messages[index].notification?.title ?? 'No Title',),
+                                SizedBox(height: 5.h,),
+                                AppText(text: _messages[index].notification?.title ?? 'No Title',),
+                                SizedBox(
+                                  height: 20.h,
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      );
+                    }),*/
+              ],
+            ),
           ),
           SizedBox(height: 30.h,)
         ],

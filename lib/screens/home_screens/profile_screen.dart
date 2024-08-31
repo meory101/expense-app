@@ -137,17 +137,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             icon: Icon(Icons.logout,color: Colors.red,),
             outSideColor: Colors.red,
             onPressed: () async{
-              DateTime scheduledDate = DateTime.now().add(const Duration(minutes: 10));
-              NotificationService().scheduleNotification(
-                10,
-                "Scheduled Notification",
-                "This notification is scheduled to appear after 5 seconds",
-                scheduledDate,
-              );
-          /*  await FirebaseAuth.instance.signOut();
+            await FirebaseAuth.instance.signOut();
             await SharedPrefController().clear();
             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const LogInScreen(),), (route) => false);
-*/
           },),
         ),
         SizedBox(height: 20.h,),

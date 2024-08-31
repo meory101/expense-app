@@ -19,7 +19,7 @@ class AppTextField extends StatelessWidget {
     this.maxLines,
     this.minLines,
     this.onChanged,
-    this.height = 60,
+    this.height = 62,
     this.width,
     this.errorText,
     this.textAlign = TextAlign.start,
