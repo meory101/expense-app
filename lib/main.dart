@@ -11,7 +11,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tasty_booking/screens/core/splash_screen.dart';
 import 'package:tasty_booking/shared_preferences/shared_prefrences_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:tasty_booking/utils/notification_helper.dart';
 import 'firebase_options.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +26,9 @@ void main() async{
     await Firebase.initializeApp();
   }
   await FbNotifications.initNotifications();
+  final notificationService = NotificationService();
+  await notificationService.init();
+  tz.initializeTimeZones();
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );

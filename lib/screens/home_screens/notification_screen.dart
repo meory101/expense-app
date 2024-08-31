@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,28 +18,40 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  static const LatLng _ummAlquraUniversityLocation =
-      LatLng(25.276987, 55.296249);
-  BitmapDescriptor? _customIcon;
-  bool onMarkTap = false;
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  List<RemoteMessage> _messages = [];
+
+
 
   @override
   void initState() {
     super.initState();
-    _loadCustomMarker();
+    _initializeFirebaseMessaging();
   }
 
-  Future<void> _loadCustomMarker() async {
-    _customIcon = await BitmapDescriptor.asset(
-      ImageConfiguration(size: Size(200.w, 130.h)),
-      'assets/images/events2.png',
+  void _initializeFirebaseMessaging() {
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Received a message: ${message.notification?.title}');
+      setState(() {
+        _messages.add(message);
+      });
+    });
 
-    );
-    setState(() {});
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('Message clicked!');
+      setState(() {
+        _messages.add(message);
+      });
+    });
+
+    _firebaseMessaging.getToken().then((String? token) {
+      print("Device Token: $token");
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    print( 'ppppp${_messages.length}');
     return Scaffold(
       body: Column(
         children: [
@@ -90,8 +103,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           Expanded(
             child: ListView.builder(
                 padding: EdgeInsets.symmetric(horizontal: 22.w,vertical: 20.h),
-
-                itemCount: 23,
+                itemCount: _messages.length,
                 itemBuilder: (context, index) {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -102,31 +114,16 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         color: Colors.black,
                         size: 26.w,
                       ),
+                      SizedBox(width: 10.w,),
                       Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment:
                           CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              height: 20.h,
-                              width:80.w,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.r),
-                                  gradient: LinearGradient(colors: [
-                                    Colors.white,
-                                    Colors.grey.shade200,
-                                  ])),),
+                            AppText(text: _messages[index].notification?.title ?? 'No Title',),
                             SizedBox(height: 5.h,),
-                            Container(
-                              height: 20.h,
-                              width:150.w,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.r),
-                                  gradient: LinearGradient(colors: [
-                                    Colors.white,
-                                    Colors.grey.shade200,
-                                  ])),),
+                            AppText(text: _messages[index].notification?.title ?? 'No Title',),
                             SizedBox(
                               height: 20.h,
                             )

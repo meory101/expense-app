@@ -3,6 +3,7 @@ import 'package:country_picker/country_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tasty_booking/fb_controller/fb_auth_controller.dart';
@@ -14,6 +15,7 @@ import 'package:tasty_booking/screens/home_screens/bottom_navigation_bar.dart';
 import 'package:tasty_booking/shared_preferences/shared_prefrences_controller.dart';
 import 'package:tasty_booking/style/app_colors.dart';
 import 'package:tasty_booking/utils/helpers.dart';
+import 'package:tasty_booking/utils/notification_helper.dart';
 import 'package:tasty_booking/wdgets/app_elevated_button.dart';
 import 'package:tasty_booking/wdgets/app_text.dart';
 import 'package:tasty_booking/wdgets/app_text_field.dart';
@@ -21,6 +23,7 @@ import 'package:tasty_booking/wdgets/custom_app_loading.dart';
 import 'package:tasty_booking/wdgets/outside_button_with_icons.dart';
 
 import '../../../wdgets/app_back_button.dart';
+import 'package:timezone/data/latest.dart' as tz;
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
@@ -48,6 +51,7 @@ class _LogInScreenState extends State<LogInScreen> with FbNotifications{
     requestNotificationPermissions();
     initializeForegroundNotificationForAndroid();
     manageNotificationAction();
+    tz.initializeTimeZones();
     _phoneEditingController = TextEditingController();
     _emailEditingController = TextEditingController();
     _passwordEditingController = TextEditingController();
@@ -146,6 +150,15 @@ class _LogInScreenState extends State<LogInScreen> with FbNotifications{
                     SizedBox(height: 40.h,),
                     AppElevatedButton(text: context.localizations.login,
                       onPressed: () async {
+                        /*NotificationService.showInstantNotification(
+                            "Instant Notification", "This shows an instant notifications");*/
+                        /*DateTime scheduledDate = DateTime.now().add( const Duration(seconds: 5));
+                        NotificationService().scheduleNotification(
+                          10,
+                          "Scheduled Notification",
+                          "This notification is scheduled to appear after 5 seconds",
+                          scheduledDate,
+                        );*/
                          setState(() {
                                 isLoading = true;
                               });
@@ -263,6 +276,7 @@ class _LogInScreenState extends State<LogInScreen> with FbNotifications{
 
     }
   }
+
   Future<void> _getToken() async {
     String? token = await FirebaseMessaging.instance.getToken();
     if(token != null){

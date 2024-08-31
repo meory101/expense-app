@@ -57,6 +57,7 @@ dependencies:
   geolocator: ^8.2.1
   firebase_messaging: ^15.1.0
   flutter_local_notifications: ^17.2.2
+  timezone: ^0.9.4
 
 dev_dependencies:
   flutter_test:

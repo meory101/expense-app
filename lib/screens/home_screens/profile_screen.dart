@@ -7,6 +7,7 @@ import 'package:tasty_booking/screens/auth_screens/login_screens/login_screen.da
 import 'package:tasty_booking/screens/home_screens/categories_screen.dart';
 import 'package:tasty_booking/shared_preferences/shared_prefrences_controller.dart';
 import 'package:tasty_booking/style/app_colors.dart';
+import 'package:tasty_booking/utils/notification_helper.dart';
 import 'package:tasty_booking/wdgets/app_text.dart';
 import 'package:tasty_booking/wdgets/outside_button_with_icons.dart';
 
@@ -136,10 +137,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
             icon: Icon(Icons.logout,color: Colors.red,),
             outSideColor: Colors.red,
             onPressed: () async{
-            await FirebaseAuth.instance.signOut();
+              DateTime scheduledDate = DateTime.now().add(const Duration(minutes: 10));
+              NotificationService().scheduleNotification(
+                10,
+                "Scheduled Notification",
+                "This notification is scheduled to appear after 5 seconds",
+                scheduledDate,
+              );
+          /*  await FirebaseAuth.instance.signOut();
             await SharedPrefController().clear();
             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const LogInScreen(),), (route) => false);
-
+*/
           },),
         ),
         SizedBox(height: 20.h,),
