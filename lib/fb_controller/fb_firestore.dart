@@ -81,7 +81,39 @@ class FbFirestoreController with FirebaseHelper {
         .snapshots();
 
   }
+  Stream<QuerySnapshot<ExpenseModel>> readSameTime(String collection,String DateNow) async* {
 
+    yield* _firestore
+        .collection(collection).where('dateNow', isEqualTo: DateNow)
+        .withConverter<ExpenseModel>(
+      fromFirestore: (snapshot, options) => ExpenseModel.fromMap(snapshot.data()!),
+      toFirestore: (value, options) => value.toMap(),
+    )
+        .snapshots();
+
+  }
+  Stream<QuerySnapshot<ExpenseModel>> readSameTimeMonthe(String collection,String dateNowMonth) async* {
+
+    yield* _firestore
+        .collection(collection).where('dateNowMonth', isEqualTo: dateNowMonth)
+        .withConverter<ExpenseModel>(
+      fromFirestore: (snapshot, options) => ExpenseModel.fromMap(snapshot.data()!),
+      toFirestore: (value, options) => value.toMap(),
+    )
+        .snapshots();
+
+  }
+  Stream<QuerySnapshot<ExpenseModel>> readSameTimeYeare(String collection,String dateNowYear) async* {
+
+    yield* _firestore
+        .collection(collection).where('dateNowYear', isEqualTo: dateNowYear)
+        .withConverter<ExpenseModel>(
+      fromFirestore: (snapshot, options) => ExpenseModel.fromMap(snapshot.data()!),
+      toFirestore: (value, options) => value.toMap(),
+    )
+        .snapshots();
+
+  }
 }
 /*  Stream<QuerySnapshot<Contact>> readContact() async* {
     yield* _firestore

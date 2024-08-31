@@ -241,6 +241,8 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
     expense.userArea= SharedPrefController().getValueFor(key: PrefKeys.userArea.name);
     expense.userName= SharedPrefController().getValueFor(key: PrefKeys.name.name);
     expense.dateNow= DateTime.now().toString().substring(0,10);
+    expense.dateNowMonth= DateTime.now().toString().substring(0,7);
+    expense.dateNowYear= DateTime.now().toString().substring(0,4);
     return expense;
   }
 }

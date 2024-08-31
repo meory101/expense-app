@@ -6,6 +6,8 @@ class ExpenseModel{
   late String userArea;
   late String userName;
   late String dateNow;
+  late String dateNowMonth;
+  late String dateNowYear;
   ExpenseModel();
 
 
@@ -17,6 +19,8 @@ class ExpenseModel{
     userArea = map['userArea'];
     userName = map['userName'];
     dateNow = map['dateNow'];
+    dateNowMonth = map['dateNowMonth'];
+    dateNowYear = map['dateNowYear'];
 
   }
 
@@ -29,6 +33,8 @@ class ExpenseModel{
     map['userArea'] = userArea;
     map['userName'] = userName;
     map['dateNow'] = dateNow;
+    map['dateNowMonth'] = dateNowMonth;
+    map['dateNowYear'] = dateNowYear;
 
     return map;
   }
