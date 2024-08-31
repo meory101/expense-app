@@ -13,7 +13,7 @@ class Debts {
     Amount_Depts = map['Amount_Depts'];
     Amount_Paid_Depts = map['Amount_Paid_Depts'];
     Date = map['Date'];
-    Name = map['c'];
+    Name = map['Name'];
     Note = map['Note'];
     UserID = map['UserID'];
   }

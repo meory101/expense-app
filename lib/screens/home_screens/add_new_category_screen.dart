@@ -124,7 +124,7 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                     ),
                     const Align(
                       alignment: AlignmentDirectional.centerStart,
-                        child: AppText(text: 'في حل عدم اختيار تصنيف اساسي يرجى اضافة التصنيف المطلوب',fontSize: 12,textAlign: TextAlign.start,)),
+                        child: AppText(text: 'في حال عدم اختيار تصنيف اساسي يرجى اضافة التصنيف المطلوب',fontSize: 12,textAlign: TextAlign.start,)),
                     SizedBox(
                       height: 10.h,
                     ),
@@ -240,6 +240,7 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
     expense.userId= SharedPrefController().getValueFor(key: PrefKeys.userId.name);
     expense.userArea= SharedPrefController().getValueFor(key: PrefKeys.userArea.name);
     expense.userName= SharedPrefController().getValueFor(key: PrefKeys.name.name);
+    expense.dateNow= DateTime.now().toString().substring(0,10);
     return expense;
   }
 }

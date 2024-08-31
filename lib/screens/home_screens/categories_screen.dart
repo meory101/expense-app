@@ -170,7 +170,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                           AppText(text: '${snapshot.data!.docs[0].data().ceiling}/${totalExpenseAmount}',color: AppColors.primaryColor,),
                           InkWell(
                             onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsItemScreen(type: 'ترفيه', cost: totalExpenseAmount.toString(), ceiling: snapshot.data!.docs[0].data().ceiling,collection: 'Entertainment',),));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsItemScreen(type: 'ترفيه', cost: totalExpenseAmount.toString(), ceiling: snapshot.data!.docs[0].data().ceiling,collection: 'Entertainment'),));
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 10.h),
@@ -326,7 +326,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                 },
               ),
                 SizedBox(height: 20.h,),
-                Divider(thickness: 2,color: AppColors.primaryColor,),
+                Divider(thickness: 1,color: AppColors.primaryColor,),
                 Center(
                   child: AppText(
                     text: 'التصنيفات الجديدة',
@@ -374,7 +374,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                  AppText(text: snapshot.data!.docs[index].data().expenseType,fontSize: 16,color: AppColors.primaryColor,),
-                                 AppText(text: '${snapshot.data!.docs[index].data().ceiling}/${snapshot.data!.docs[index].data().expenseAmount}',color: AppColors.primaryColor,),
+                                 AppText(text: '${snapshot.data!.docs[index].data().expenseAmount}',color: AppColors.primaryColor,),
                                 /*InkWell(
                                   onTap :(){
                                     Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsItemScreen(type: snapshot.data!.docs[index].data().expenseType, cost: snapshot.data!.docs[index].data().expenseAmount.toString(), ceiling: snapshot.data!.docs[index].data().ceiling,collection: 'Expense',),));

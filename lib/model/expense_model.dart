@@ -5,6 +5,7 @@ class ExpenseModel{
   late String userId;
   late String userArea;
   late String userName;
+  late String dateNow;
   ExpenseModel();
 
 
@@ -15,6 +16,7 @@ class ExpenseModel{
     userId = map['userId'];
     userArea = map['userArea'];
     userName = map['userName'];
+    dateNow = map['dateNow'];
 
   }
 
@@ -26,6 +28,7 @@ class ExpenseModel{
     map['userId'] = userId;
     map['userArea'] = userArea;
     map['userName'] = userName;
+    map['dateNow'] = dateNow;
 
     return map;
   }

@@ -88,83 +88,66 @@ class _DebtsScreenState extends State<DebtsScreen> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
-                return Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 22.w,),
-                      child: Row(
-                        children: [
-                          const AppText(text: 'المجموع الكلي',fontWeight: FontWeight.bold,fontFamily: 'DINNextLTArabic_bold',
-                            fontSize: 22,),
-                          Spacer(),
-                          const AppText(text: '2000',fontWeight: FontWeight.bold,color: AppColors.primaryColor,fontFamily: 'DINNextLTArabic_bold',
-                            fontSize: 22,),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 10.h,),
-                    Expanded(
-                      child: ListView.builder(
-                          padding: EdgeInsets.symmetric(horizontal: 22.w,vertical: 20.h),
-                          itemCount: snapshot.data!.docs.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 20.h),
-                              margin: EdgeInsets.symmetric(vertical: 10.h),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: AppColors.primaryColor,width: 2.w
-                                  ),
-                                  borderRadius: BorderRadius.circular(16.r)
+                return Expanded(
+                  child: ListView.builder(
+                      padding: EdgeInsets.symmetric(horizontal: 22.w,vertical: 20.h),
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 20.h),
+                          margin: EdgeInsets.symmetric(vertical: 10.h),
+                          decoration: BoxDecoration(
+                              border: Border.all(color: AppColors.primaryColor,width: 2.w
                               ),
-                              child: Column(
+                              borderRadius: BorderRadius.circular(16.r)
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
                                 children: [
-                                  Row(
-                                    children: [
-                                       AppText(text: 'اسم المدين : '),
-                                      SizedBox(width: 16.w,),
-                                       AppText(text: '${snapshot.data!.docs[index].data().Name}',fontWeight: FontWeight.bold,color: AppColors.primaryColor,),
-                                    ],
-                                  ),
-                                  SizedBox(height: 10.h,),
-                                  Row(
-                                    children: [
-                                       AppText(text: 'قيمة الدين  :'),
-                                      SizedBox(width: 18.w,),
-                                       AppText(text: '${snapshot.data!.docs[index].data().Amount_Depts}',fontWeight: FontWeight.bold,color: AppColors.primaryColor,),
-                                    ],
-                                  ),
-                                  SizedBox(height: 10.h,),
-
-                                  Row(
-                                    children: [
-                                      AppText(text: 'قيمة الدين المدفوع  :'),
-                                      SizedBox(width: 18.w,),
-                                      AppText(text: '${snapshot.data!.docs[index].data().Amount_Paid_Depts}',fontWeight: FontWeight.bold,color: AppColors.primaryColor,),
-                                    ],
-                                  ),
-                                  SizedBox(height: 10.h,),
-                                  Row(
-                                    children: [
-                                      const AppText(text: 'تاريخ السداد :'),
-                                      SizedBox(width: 15.w,),
-                                       AppText(text: '${snapshot.data!.docs[index].data().Date}',fontWeight: FontWeight.bold,color: AppColors.primaryColor,),
-                                    ],
-                                  ),
-                                  SizedBox(height: 10.h,),
-                                  Row(
-                                    children: [
-                                      const AppText(text: 'الملاخظات :'),
-                                      SizedBox(width: 15.w,),
-                                      AppText(text: '${snapshot.data!.docs[index].data().Note}',fontWeight: FontWeight.bold,color: AppColors.primaryColor,),
-                                    ],
-                                  ),
-                                  SizedBox(height: 10.h,),
+                                   AppText(text: 'اسم المدين : '),
+                                  SizedBox(width: 16.w,),
+                                   AppText(text: '${snapshot.data!.docs[index].data().Name}',fontWeight: FontWeight.bold,color: AppColors.primaryColor,),
                                 ],
                               ),
-                            );
-                          }),
-                    ),
-                  ],
+                              SizedBox(height: 10.h,),
+                              Row(
+                                children: [
+                                   AppText(text: 'قيمة الدين  :'),
+                                  SizedBox(width: 18.w,),
+                                   AppText(text: '${snapshot.data!.docs[index].data().Amount_Depts}',fontWeight: FontWeight.bold,color: AppColors.primaryColor,),
+                                ],
+                              ),
+                              SizedBox(height: 10.h,),
+
+                              Row(
+                                children: [
+                                  AppText(text: 'قيمة الدين المدفوع  :'),
+                                  SizedBox(width: 18.w,),
+                                  AppText(text: '${snapshot.data!.docs[index].data().Amount_Paid_Depts}',fontWeight: FontWeight.bold,color: AppColors.primaryColor,),
+                                ],
+                              ),
+                              SizedBox(height: 10.h,),
+                              Row(
+                                children: [
+                                  const AppText(text: 'تاريخ السداد :'),
+                                  SizedBox(width: 15.w,),
+                                   AppText(text: '${snapshot.data!.docs[index].data().Date}',fontWeight: FontWeight.bold,color: AppColors.primaryColor,),
+                                ],
+                              ),
+                              SizedBox(height: 10.h,),
+                              Row(
+                                children: [
+                                  const AppText(text: 'الملاخظات :'),
+                                  SizedBox(width: 15.w,),
+                                  AppText(text: '${snapshot.data!.docs[index].data().Note}',fontWeight: FontWeight.bold,color: AppColors.primaryColor,),
+                                ],
+                              ),
+                              SizedBox(height: 10.h,),
+                            ],
+                          ),
+                        );
+                      }),
                 );
               } else {
                 return const Center(

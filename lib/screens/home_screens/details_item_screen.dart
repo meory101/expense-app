@@ -94,6 +94,7 @@ class _DetailsItemScreenState extends State<DetailsItemScreen> {
                           AppText(text: widget.ceiling,fontSize: 18,color: AppColors.primaryColor,fontWeight: FontWeight.w600,),
                         ],
                       ),
+
                     ],
                   ),
                 ),
