@@ -25,9 +25,14 @@ void main() async{
   }else{
     await Firebase.initializeApp();
   }
-  await FbNotifications.initNotifications();
-  final notificationService = NotificationService();
-  await notificationService.init();
+  if(Platform.isAndroid){
+    await FbNotifications.initNotifications();
+
+    final notificationService = NotificationService();
+    await notificationService.init();
+  }else{
+  }
+
   tz.initializeTimeZones();
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
