@@ -252,12 +252,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
                           double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
                             try {
-                              // تحويل النص إلى double
+
                               double amount = double.parse(item.data().expenseAmount);
                               return sum + amount;
                             } catch (e) {
                               print('Error parsing expenseAmount: ${item.data().expenseAmount}, skipping...');
-                              return sum; // تخطي القيم غير الصالحة
+                              return sum;
                             }
                           });
                           double range = (totalExpenseAmount/5000)*100;
@@ -308,7 +308,49 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           );
                         } else {
-                          return SizedBox();
+                          return Column(
+                            children: [
+                              AppText(text: '0',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: 0.h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.green,
+                                                    Colors.green,
+                                                    Colors.green.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
                         }
                       },
                     ),
@@ -389,7 +431,49 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           );
                         } else {
-                          return SizedBox();
+                          return Column(
+                            children: [
+                              AppText(text: '0',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: 0.h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.green,
+                                                    Colors.green,
+                                                    Colors.green.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
                         }
                       },
                     ),
@@ -468,7 +552,49 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           );
                         } else {
-                          return SizedBox();
+                          return Column(
+                            children: [
+                              AppText(text: '0',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: 0.h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.green,
+                                                    Colors.green,
+                                                    Colors.green.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
                         }
                       },
                     ),
@@ -548,7 +674,49 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           );
                         } else {
-                          return SizedBox();
+                          return Column(
+                            children: [
+                              AppText(text: '0',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: 0.h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.green,
+                                                    Colors.green,
+                                                    Colors.green.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
                         }
                       },
                     ),
@@ -1064,7 +1232,49 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           );
                         } else {
-                          return SizedBox();
+                          return Column(
+                            children: [
+                              AppText(text: '0',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: 0.h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.green,
+                                                    Colors.green,
+                                                    Colors.green.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
                         }
                       },
                     ),
@@ -1145,7 +1355,49 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           );
                         } else {
-                          return SizedBox();
+                          return Column(
+                            children: [
+                              AppText(text: '0',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: 0.h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.green,
+                                                    Colors.green,
+                                                    Colors.green.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
                         }
                       },
                     ),
@@ -1224,7 +1476,49 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           );
                         } else {
-                          return SizedBox();
+                          return Column(
+                            children: [
+                              AppText(text: '0',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: 0.h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.green,
+                                                    Colors.green,
+                                                    Colors.green.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
                         }
                       },
                     ),
@@ -1304,7 +1598,49 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           );
                         } else {
-                          return SizedBox();
+                          return Column(
+                            children: [
+                              AppText(text: '0',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: 0.h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.green,
+                                                    Colors.green,
+                                                    Colors.green.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
                         }
                       },
                     ),
@@ -1819,7 +2155,49 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           );
                         } else {
-                          return SizedBox();
+                          return Column(
+                            children: [
+                              AppText(text: '0',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: 0.h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.green,
+                                                    Colors.green,
+                                                    Colors.green.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
                         }
                       },
                     ),
@@ -1900,7 +2278,49 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           );
                         } else {
-                          return SizedBox();
+                          return Column(
+                            children: [
+                              AppText(text: '0',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: 0.h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.green,
+                                                    Colors.green,
+                                                    Colors.green.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
                         }
                       },
                     ),
@@ -1979,7 +2399,49 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           );
                         } else {
-                          return SizedBox();
+                          return Column(
+                            children: [
+                              AppText(text: '0',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: 0.h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.green,
+                                                    Colors.green,
+                                                    Colors.green.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
                         }
                       },
                     ),
@@ -2059,7 +2521,49 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           );
                         } else {
-                          return SizedBox();
+                          return Column(
+                            children: [
+                              AppText(text: '0',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: 0.h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.green,
+                                                    Colors.green,
+                                                    Colors.green.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
                         }
                       },
                     ),

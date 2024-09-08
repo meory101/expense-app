@@ -124,7 +124,7 @@ class _DetailsItemScreenState extends State<DetailsItemScreen> {
                   stream: FbFirestoreController().readSeamUserArea(widget.collection,SharedPrefController().getValueFor(key: PrefKeys.userArea.name)),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return CustomAppLoading();
+                      return SizedBox();
                     } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
                       // خريطة لتجميع البيانات حسب userId
                       Map<String, Map<String, dynamic>> userExpenses = {};
