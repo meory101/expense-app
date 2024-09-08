@@ -31,7 +31,6 @@ void main() async{
   }
 /*  if(Platform.isAndroid){
     await FbNotifications.initNotifications();
-
     final notificationService = NotificationService();
     await notificationService.init();
   }else{

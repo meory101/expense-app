@@ -76,7 +76,7 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
             Column(
               children: [
                 Container(
-                  width: double.infinity,
+                  // width: double.infinity,
                   padding: EdgeInsets.symmetric(horizontal: 24.w,),
                   decoration: const BoxDecoration(color: AppColors.primaryColor),
                   child: Column(
@@ -86,7 +86,7 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const AppText(
+                           AppText(
                             text: ' اضافة دين',
                             fontFamily: 'DINNextLTArabic_bold',
                             fontSize: 22,
@@ -97,7 +97,8 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
                               onTap: (){
                                 Navigator.of(context).pop();
                               },
-                              child: const Icon(Icons.arrow_forward,color: Colors.white,))
+                              child:  Icon(Icons.arrow_forward,color: Colors.white,)
+                          )
 
                         ],
                       ),
@@ -297,7 +298,7 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
 
                 ),
 
-                SizedBox(height: 30.h,)
+                SizedBox(height: 0.h,)
               ],
             ),
             Visibility(
