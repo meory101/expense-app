@@ -157,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         SizedBox(height: 34.h,),
         // const LineChartSample2()
-        selectedTime == 0 ?
+       /* selectedTime == 0 ?
         StreamBuilder<QuerySnapshot<ExpenseAmountModel>>(
           stream: FbFirestoreController().readExpenseAmount(check: 'dateNow',isEqualTo: DateTime.now().toString().substring(0,10)),
           builder: (context, snapshot) {
@@ -224,8 +224,232 @@ class _HomeScreenState extends State<HomeScreen> {
               return SizedBox();
             }
           },
-        ),
+        ),*/
+       Padding(
+         padding: EdgeInsets.symmetric(horizontal: 16.w),
+         child: Row(
+           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+           children: [
+             SizedBox(width: 0.w,),
+             SizedBox(
+               height: 200.h,
+               width: 20.w,
+               child: Stack(
+                 children: [
+                   Container(
+                     height: 200.h,
+                     width: 50.w,
+                     decoration: BoxDecoration(
+                       color: Colors.grey.withOpacity(0.2),
+                       borderRadius: BorderRadius.circular(10.r)
+                     ),
+                   ),
+                   Column(
+                     mainAxisAlignment: MainAxisAlignment.end,
+                     children: [
+                       Container(
+                         height: 180.h,
+                         width: 50.w,
+                         alignment: AlignmentDirectional.bottomCenter,
+                         decoration: BoxDecoration(
+                           gradient: LinearGradient(
+                             begin: AlignmentDirectional.bottomCenter,
+                               end: AlignmentDirectional.topCenter,
+                               colors: [
+                              Colors.green,
+                              Colors.green,
+                              Colors.green.withOpacity(0.4),
+                           ]),
+                           borderRadius: BorderRadius.circular(10.r)
+                         ),
+                       ),
+                     ],
+                   ),
+                 ],
+               ),
+             ),
+             SizedBox(
+               height: 200.h,
+               width: 20.w,
+               child: Stack(
+                 children: [
+                   Container(
+                     height: 200.h,
+                     width: 50.w,
+                     decoration: BoxDecoration(
+                       color: Colors.grey.withOpacity(0.2),
+                       borderRadius: BorderRadius.circular(10.r)
+                     ),
+                   ),
+                   Column(
+                     mainAxisAlignment: MainAxisAlignment.end,
+                     children: [
+                       Container(
+                         height: 100.h,
+                         width: 50.w,
+                         alignment: AlignmentDirectional.bottomCenter,
+                         decoration: BoxDecoration(
+                           gradient: LinearGradient(
+                             begin: AlignmentDirectional.bottomCenter,
+                               end: AlignmentDirectional.topCenter,
+                               colors: [
+                              Colors.red,
+                              Colors.red,
+                              Colors.red.withOpacity(0.4),
+                           ]),
+                           borderRadius: BorderRadius.circular(10.r)
+                         ),
+                       ),
+                     ],
+                   ),
+                 ],
+               ),
+             ),
+             SizedBox(
+               height: 200.h,
+               width: 20.w,
+               child: Stack(
+                 children: [
+                   Container(
+                     height: 200.h,
+                     width: 50.w,
+                     decoration: BoxDecoration(
+                       color: Colors.grey.withOpacity(0.2),
+                       borderRadius: BorderRadius.circular(10.r)
+                     ),
+                   ),
+                   Column(
+                     mainAxisAlignment: MainAxisAlignment.end,
+                     children: [
+                       Container(
+                         height: 50.h,
+                         width: 50.w,
+                         alignment: AlignmentDirectional.bottomCenter,
+                         decoration: BoxDecoration(
+                           gradient: LinearGradient(
+                             begin: AlignmentDirectional.bottomCenter,
+                               end: AlignmentDirectional.topCenter,
+                               colors: [
+                              Colors.blue,
+                              Colors.blue,
+                              Colors.blue.withOpacity(0.4),
+                           ]),
+                           borderRadius: BorderRadius.circular(10.r)
+                         ),
+                       ),
+                     ],
+                   ),
+                 ],
+               ),
+             ),
+             SizedBox(
+               height: 200.h,
+               width: 20.w,
+               child: Stack(
+                 children: [
+                   Container(
+                     height: 200.h,
+                     width: 50.w,
+                     decoration: BoxDecoration(
+                       color: Colors.grey.withOpacity(0.2),
+                       borderRadius: BorderRadius.circular(10.r)
+                     ),
+                   ),
+                   Column(
+                     mainAxisAlignment: MainAxisAlignment.end,
+                     children: [
+                       Container(
+                         height: 120.h,
+                         width: 50.w,
+                         alignment: AlignmentDirectional.bottomCenter,
+                         decoration: BoxDecoration(
+                           gradient: LinearGradient(
+                             begin: AlignmentDirectional.bottomCenter,
+                               end: AlignmentDirectional.topCenter,
+                               colors: [
+                              Colors.orange,
+                              Colors.orange,
+                              Colors.orange.withOpacity(0.4),
+                           ]),
+                           borderRadius: BorderRadius.circular(10.r)
+                         ),
+                       ),
+                     ],
+                   ),
+                 ],
+               ),
+             ),
+             SizedBox(
+               height: 200.h,
+               child: Column(
+                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   AppText(text: '600',fontWeight: FontWeight.w600,),
+                   AppText(text: '400',fontWeight: FontWeight.w600,),
+                   AppText(text: '200',fontWeight: FontWeight.w600,),
+                   AppText(text: '0',fontWeight: FontWeight.w600,),
+                 ],
+               ),
+             )
+           ],
+         ),
+       ),
+        SizedBox(height: 36.h,),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 32.w),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                height: 20.h,
+                width: 20.w,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.green
+                ),
+              ),
+              SizedBox(width: 8.w,),
+              AppText(text: 'مواصلات',fontWeight: FontWeight.w500,fontSize: 14,height: 0.h,),
+              Spacer(),
+              Container(
+                height: 20.h,
+                width: 20.w,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.red
+                ),
+              ),
+              SizedBox(width: 8.w,),
+              SizedBox(
+                width: 65.w,
+                  child: AppText(text: 'مستلزمات أساسية',fontWeight: FontWeight.w500,fontSize: 14,height: 0.h,)),
+              Spacer(),
+              Container(
+                height: 20.h,
+                width: 20.w,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.blue
+                ),
+              ),
+              SizedBox(width: 8.w,),
+              AppText(text: 'ترفيه',fontWeight: FontWeight.w500,fontSize: 14,height: 0.h,),
+              Spacer(),
+              Container(
+                height: 20.h,
+                width: 20.w,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.orange
+                ),
+              ),
+              SizedBox(width: 8.w,),
+              AppText(text: 'فواتير',fontWeight: FontWeight.w500,fontSize: 14,height: 0.h,)
 
+            ],
+          ),
+        ),
         SizedBox(height: 34.h,),
 
 
