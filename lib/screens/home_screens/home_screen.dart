@@ -155,9 +155,9 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-        SizedBox(height: 34.h,),
+        SizedBox(height: 20.h,),
         // const LineChartSample2()
-       /* selectedTime == 0 ?
+        selectedTime == 0 ?
         StreamBuilder<QuerySnapshot<ExpenseAmountModel>>(
           stream: FbFirestoreController().readExpenseAmount(check: 'dateNow',isEqualTo: DateTime.now().toString().substring(0,10)),
           builder: (context, snapshot) {
@@ -224,233 +224,11 @@ class _HomeScreenState extends State<HomeScreen> {
               return SizedBox();
             }
           },
-        ),*/
-       Padding(
-         padding: EdgeInsets.symmetric(horizontal: 16.w),
-         child: Row(
-           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           children: [
-             SizedBox(width: 0.w,),
-             SizedBox(
-               height: 200.h,
-               width: 20.w,
-               child: Stack(
-                 children: [
-                   Container(
-                     height: 200.h,
-                     width: 50.w,
-                     decoration: BoxDecoration(
-                       color: Colors.grey.withOpacity(0.2),
-                       borderRadius: BorderRadius.circular(10.r)
-                     ),
-                   ),
-                   Column(
-                     mainAxisAlignment: MainAxisAlignment.end,
-                     children: [
-                       Container(
-                         height: 180.h,
-                         width: 50.w,
-                         alignment: AlignmentDirectional.bottomCenter,
-                         decoration: BoxDecoration(
-                           gradient: LinearGradient(
-                             begin: AlignmentDirectional.bottomCenter,
-                               end: AlignmentDirectional.topCenter,
-                               colors: [
-                              Colors.green,
-                              Colors.green,
-                              Colors.green.withOpacity(0.4),
-                           ]),
-                           borderRadius: BorderRadius.circular(10.r)
-                         ),
-                       ),
-                     ],
-                   ),
-                 ],
-               ),
-             ),
-             SizedBox(
-               height: 200.h,
-               width: 20.w,
-               child: Stack(
-                 children: [
-                   Container(
-                     height: 200.h,
-                     width: 50.w,
-                     decoration: BoxDecoration(
-                       color: Colors.grey.withOpacity(0.2),
-                       borderRadius: BorderRadius.circular(10.r)
-                     ),
-                   ),
-                   Column(
-                     mainAxisAlignment: MainAxisAlignment.end,
-                     children: [
-                       Container(
-                         height: 100.h,
-                         width: 50.w,
-                         alignment: AlignmentDirectional.bottomCenter,
-                         decoration: BoxDecoration(
-                           gradient: LinearGradient(
-                             begin: AlignmentDirectional.bottomCenter,
-                               end: AlignmentDirectional.topCenter,
-                               colors: [
-                              Colors.red,
-                              Colors.red,
-                              Colors.red.withOpacity(0.4),
-                           ]),
-                           borderRadius: BorderRadius.circular(10.r)
-                         ),
-                       ),
-                     ],
-                   ),
-                 ],
-               ),
-             ),
-             SizedBox(
-               height: 200.h,
-               width: 20.w,
-               child: Stack(
-                 children: [
-                   Container(
-                     height: 200.h,
-                     width: 50.w,
-                     decoration: BoxDecoration(
-                       color: Colors.grey.withOpacity(0.2),
-                       borderRadius: BorderRadius.circular(10.r)
-                     ),
-                   ),
-                   Column(
-                     mainAxisAlignment: MainAxisAlignment.end,
-                     children: [
-                       Container(
-                         height: 50.h,
-                         width: 50.w,
-                         alignment: AlignmentDirectional.bottomCenter,
-                         decoration: BoxDecoration(
-                           gradient: LinearGradient(
-                             begin: AlignmentDirectional.bottomCenter,
-                               end: AlignmentDirectional.topCenter,
-                               colors: [
-                              Colors.blue,
-                              Colors.blue,
-                              Colors.blue.withOpacity(0.4),
-                           ]),
-                           borderRadius: BorderRadius.circular(10.r)
-                         ),
-                       ),
-                     ],
-                   ),
-                 ],
-               ),
-             ),
-             SizedBox(
-               height: 200.h,
-               width: 20.w,
-               child: Stack(
-                 children: [
-                   Container(
-                     height: 200.h,
-                     width: 50.w,
-                     decoration: BoxDecoration(
-                       color: Colors.grey.withOpacity(0.2),
-                       borderRadius: BorderRadius.circular(10.r)
-                     ),
-                   ),
-                   Column(
-                     mainAxisAlignment: MainAxisAlignment.end,
-                     children: [
-                       Container(
-                         height: 120.h,
-                         width: 50.w,
-                         alignment: AlignmentDirectional.bottomCenter,
-                         decoration: BoxDecoration(
-                           gradient: LinearGradient(
-                             begin: AlignmentDirectional.bottomCenter,
-                               end: AlignmentDirectional.topCenter,
-                               colors: [
-                              Colors.orange,
-                              Colors.orange,
-                              Colors.orange.withOpacity(0.4),
-                           ]),
-                           borderRadius: BorderRadius.circular(10.r)
-                         ),
-                       ),
-                     ],
-                   ),
-                 ],
-               ),
-             ),
-             SizedBox(
-               height: 200.h,
-               child: Column(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 crossAxisAlignment: CrossAxisAlignment.start,
-                 children: [
-                   AppText(text: '600',fontWeight: FontWeight.w600,),
-                   AppText(text: '400',fontWeight: FontWeight.w600,),
-                   AppText(text: '200',fontWeight: FontWeight.w600,),
-                   AppText(text: '0',fontWeight: FontWeight.w600,),
-                 ],
-               ),
-             )
-           ],
-         ),
-       ),
-        SizedBox(height: 36.h,),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32.w),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                height: 20.h,
-                width: 20.w,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.green
-                ),
-              ),
-              SizedBox(width: 8.w,),
-              AppText(text: 'مواصلات',fontWeight: FontWeight.w500,fontSize: 14,height: 0.h,),
-              Spacer(),
-              Container(
-                height: 20.h,
-                width: 20.w,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.red
-                ),
-              ),
-              SizedBox(width: 8.w,),
-              SizedBox(
-                width: 65.w,
-                  child: AppText(text: 'مستلزمات أساسية',fontWeight: FontWeight.w500,fontSize: 14,height: 0.h,)),
-              Spacer(),
-              Container(
-                height: 20.h,
-                width: 20.w,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.blue
-                ),
-              ),
-              SizedBox(width: 8.w,),
-              AppText(text: 'ترفيه',fontWeight: FontWeight.w500,fontSize: 14,height: 0.h,),
-              Spacer(),
-              Container(
-                height: 20.h,
-                width: 20.w,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.orange
-                ),
-              ),
-              SizedBox(width: 8.w,),
-              AppText(text: 'فواتير',fontWeight: FontWeight.w500,fontSize: 14,height: 0.h,)
-
-            ],
-          ),
         ),
-        SizedBox(height: 34.h,),
+        SizedBox(height: 24.h,),
+        //000000000000000000
+
+        // SizedBox(height: 34.h,),
 
 
         selectedTime == 0 ?
@@ -458,7 +236,403 @@ class _HomeScreenState extends State<HomeScreen> {
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              StreamBuilder<QuerySnapshot<ExpenseModel>>(
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(width: 0.w,),
+                    StreamBuilder<QuerySnapshot<ExpenseModel>>(
+                      stream: FbFirestoreController().readSameTime('Transportation',DateTime.now().toString().substring(0,10)),
+
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Container(
+                          );
+                        } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                          double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
+                            try {
+                              // تحويل النص إلى double
+                              double amount = double.parse(item.data().expenseAmount);
+                              return sum + amount;
+                            } catch (e) {
+                              print('Error parsing expenseAmount: ${item.data().expenseAmount}, skipping...');
+                              return sum; // تخطي القيم غير الصالحة
+                            }
+                          });
+                          double range = (totalExpenseAmount/5000)*100;
+/*
+                    double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
+*/
+                          return Column(
+                            children: [
+                              AppText(text: '${totalExpenseAmount.toInt()}',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: (range*2).h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.green,
+                                                    Colors.green,
+                                                    Colors.green.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return SizedBox();
+                        }
+                      },
+                    ),
+                    StreamBuilder<QuerySnapshot<ExpenseModel>>(
+                      stream: FbFirestoreController().readSameTime('Basic Supplies',DateTime.now().toString().substring(0,10)),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Container(
+                            // padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 32.h),
+                            // margin: EdgeInsets.symmetric(horizontal: 20.w),
+                            // decoration: BoxDecoration(
+                            //     border: Border.all(color: AppColors.primaryColor,width: 0.5.w),
+                            //     borderRadius: BorderRadius.circular(16.r),
+                            //     color: Colors.white,
+                            //     boxShadow: const [
+                            //       BoxShadow(color: Colors.black26,blurRadius: 10,offset: Offset(0, 3))
+                            //     ]
+                            // ),
+                          );
+                        } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty ) {
+                          double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
+                            try {
+                              // تحويل النص إلى double
+
+                              double amount = double.parse(item.data().expenseAmount);
+                              return sum + amount;
+                            } catch (e) {
+                              print('Error parsing expenseAmount: ${item.data().expenseAmount}, skipping...');
+                              return sum; // تخطي القيم غير الصالحة
+                            }
+                          });
+                          double range = (totalExpenseAmount/5000)*100;
+
+/*
+                    double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
+*/
+                          return Column(
+                            children: [
+                              AppText(text: '${totalExpenseAmount.toInt()}',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: (range*2).h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.red,
+                                                    Colors.red,
+                                                    Colors.red.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return SizedBox();
+                        }
+                      },
+                    ),
+                    StreamBuilder<QuerySnapshot<ExpenseModel>>(
+                      stream: FbFirestoreController().readSameTime('Entertainment',DateTime.now().toString().substring(0,10)),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Container(
+                            // padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 32.h),
+                            // margin: EdgeInsets.symmetric(horizontal: 20.w),
+                            // decoration: BoxDecoration(
+                            //     border: Border.all(color: AppColors.primaryColor,width: 0.5.w),
+                            //     borderRadius: BorderRadius.circular(16.r),
+                            //     color: Colors.white,
+                            //     boxShadow: const [
+                            //       BoxShadow(color: Colors.black26,blurRadius: 10,offset: Offset(0, 3))
+                            //     ]
+                            // ),
+                          );
+                        } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                          double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
+                            try {
+                              // تحويل النص إلى double
+                              double amount = double.parse(item.data().expenseAmount);
+                              return sum + amount;
+                            } catch (e) {
+                              print('Error parsing expenseAmount: ${item.data().expenseAmount}, skipping...');
+                              return sum; // تخطي القيم غير الصالحة
+                            }
+                          });
+                          double range = (totalExpenseAmount/5000)*100;
+/*
+                    double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
+*/
+                          return Column(
+                            children: [
+                              AppText(text: '${totalExpenseAmount.toInt()}',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: (range*2).h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.blue,
+                                                    Colors.blue,
+                                                    Colors.blue.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return SizedBox();
+                        }
+                      },
+                    ),
+                    StreamBuilder<QuerySnapshot<ExpenseModel>>(
+                      stream: FbFirestoreController().readSameTime('Bills',DateTime.now().toString().substring(0,10)),
+
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Container(
+                            // padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 32.h),
+                            // margin: EdgeInsets.symmetric(horizontal: 20.w),
+                            // decoration: BoxDecoration(
+                            //     border: Border.all(color: AppColors.primaryColor,width: 0.5.w),
+                            //     borderRadius: BorderRadius.circular(16.r),
+                            //     color: Colors.white,
+                            //     boxShadow: const [
+                            //       BoxShadow(color: Colors.black26,blurRadius: 10,offset: Offset(0, 3))
+                            //     ]
+                            // ),
+                          );
+                        } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                          double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
+                            try {
+                              // تحويل النص إلى double
+                              double amount = double.parse(item.data().expenseAmount);
+                              return sum + amount;
+                            } catch (e) {
+                              print('Error parsing expenseAmount: ${item.data().expenseAmount}, skipping...');
+                              return sum; // تخطي القيم غير الصالحة
+                            }
+                          });
+                          double range = (totalExpenseAmount/5000)*100;
+/*
+                    double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
+*/
+                          return Column(
+                            children: [
+                              AppText(text: '${totalExpenseAmount.toInt()}',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: (range*2).h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.orange,
+                                                    Colors.orange,
+                                                    Colors.orange.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return SizedBox();
+                        }
+                      },
+                    ),
+
+                    Column(
+                      children: [AppText(text: '000',fontSize: 12,color: Colors.transparent,),
+                        SizedBox(height: 10.h,),
+                        SizedBox(
+                          height: 200.h,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AppText(text: '5000',fontWeight: FontWeight.w300,),
+                              AppText(text: '4000',fontWeight: FontWeight.w300,),
+                              AppText(text: '3000',fontWeight: FontWeight.w300,),
+                              AppText(text: '2000',fontWeight: FontWeight.w300,),
+                              AppText(text: '1000',fontWeight: FontWeight.w300,),
+                              // AppText(text: '500',fontSize: 14,),
+                              AppText(text: '0',fontWeight: FontWeight.w300,fontSize: 14,),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(height: 36.h,),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 32.w),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 20.h,
+                      width: 20.w,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.green
+                      ),
+                    ),
+                    SizedBox(width: 8.w,),
+                    AppText(text: 'مواصلات',fontWeight: FontWeight.w500,fontSize: 14,height: 0.h,),
+                    Spacer(),
+                    Container(
+                      height: 20.h,
+                      width: 20.w,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.red
+                      ),
+                    ),
+                    SizedBox(width: 8.w,),
+                    SizedBox(
+                        width: 65.w,
+                        child: AppText(text: 'مستلزمات أساسية',fontWeight: FontWeight.w500,fontSize: 14,height: 0.h,)),
+                    Spacer(),
+                    Container(
+                      height: 20.h,
+                      width: 20.w,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.blue
+                      ),
+                    ),
+                    SizedBox(width: 8.w,),
+                    AppText(text: 'ترفيه',fontWeight: FontWeight.w500,fontSize: 14,height: 0.h,),
+                    Spacer(),
+                    Container(
+                      height: 20.h,
+                      width: 20.w,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.orange
+                      ),
+                    ),
+                    SizedBox(width: 8.w,),
+                    AppText(text: 'فواتير',fontWeight: FontWeight.w500,fontSize: 14,height: 0.h,)
+
+                  ],
+                ),
+              ),
+             /* StreamBuilder<QuerySnapshot<ExpenseModel>>(
                 stream: FbFirestoreController().readSameTime('Basic Supplies',DateTime.now().toString().substring(0,10)),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -486,10 +660,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         return sum; // تخطي القيم غير الصالحة
                       }
                     });
+                    double range = (totalExpenseAmount/5000)*100;
 
-/*
+*//*
                     double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
-*/
+*//*
                     return Container(
                       padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
                       margin: EdgeInsets.symmetric(horizontal: 20.w),
@@ -527,7 +702,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                 },
               ),
-
               SizedBox(height: 20.h,),
               StreamBuilder<QuerySnapshot<ExpenseModel>>(
                 stream: FbFirestoreController().readSameTime('Entertainment',DateTime.now().toString().substring(0,10)),
@@ -556,9 +730,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         return sum; // تخطي القيم غير الصالحة
                       }
                     });
-/*
+*//*
                     double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
-*/
+*//*
                     return Container(
                       padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
                       margin: EdgeInsets.symmetric(horizontal: 20.w),
@@ -625,9 +799,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         return sum; // تخطي القيم غير الصالحة
                       }
                     });
-/*
+*//*
                     double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
-*/
+*//*
                     return Container(
                       padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
                       margin: EdgeInsets.symmetric(horizontal: 20.w),
@@ -694,9 +868,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         return sum; // تخطي القيم غير الصالحة
                       }
                     });
-/*
+*//*
                     double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
-*/
+*//*
                     return Container(
                       padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
                       margin: EdgeInsets.symmetric(horizontal: 20.w),
@@ -785,7 +959,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: [
                                 AppText(text: snapshot.data!.docs[index].data().expenseType,fontSize: 16,color: AppColors.primaryColor,),
                                 AppText(text: '${snapshot.data!.docs[index].data().expenseAmount}',color: AppColors.primaryColor,),
-                                /*InkWell(
+                                *//*InkWell(
                                   onTap :(){
                                     Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsItemScreen(type: snapshot.data!.docs[index].data().expenseType, cost: snapshot.data!.docs[index].data().expenseAmount.toString(), ceiling: snapshot.data!.docs[index].data().ceiling,collection: 'Expense',),));
 
@@ -798,7 +972,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     child: const Center(child: AppText(text: 'التفاصيل',color: Colors.white,)),
                                   ),
-                                )*/
+                                )*//*
                               ],
                             ),
                           );
@@ -808,7 +982,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                 },
               ),
-
+*/
               SizedBox(height: 20.h,),
             ],
           ),
@@ -818,7 +992,403 @@ class _HomeScreenState extends State<HomeScreen> {
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              StreamBuilder<QuerySnapshot<ExpenseModel>>(
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(width: 0.w,),
+                    StreamBuilder<QuerySnapshot<ExpenseModel>>(
+                      stream: FbFirestoreController().readSameTimeMonthe('Transportation',DateTime.now().toString().substring(0,7)),
+
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Container(
+                          );
+                        } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                          double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
+                            try {
+                              // تحويل النص إلى double
+                              double amount = double.parse(item.data().expenseAmount);
+                              return sum + amount;
+                            } catch (e) {
+                              print('Error parsing expenseAmount: ${item.data().expenseAmount}, skipping...');
+                              return sum; // تخطي القيم غير الصالحة
+                            }
+                          });
+                          double range = (totalExpenseAmount/5000)*100;
+/*
+                    double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
+*/
+                          return Column(
+                            children: [
+                              AppText(text: '${totalExpenseAmount.toInt()}',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: (range*2).h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.green,
+                                                    Colors.green,
+                                                    Colors.green.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return SizedBox();
+                        }
+                      },
+                    ),
+                    StreamBuilder<QuerySnapshot<ExpenseModel>>(
+                      stream: FbFirestoreController().readSameTimeMonthe('Basic Supplies',DateTime.now().toString().substring(0,7)),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Container(
+                            // padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 32.h),
+                            // margin: EdgeInsets.symmetric(horizontal: 20.w),
+                            // decoration: BoxDecoration(
+                            //     border: Border.all(color: AppColors.primaryColor,width: 0.5.w),
+                            //     borderRadius: BorderRadius.circular(16.r),
+                            //     color: Colors.white,
+                            //     boxShadow: const [
+                            //       BoxShadow(color: Colors.black26,blurRadius: 10,offset: Offset(0, 3))
+                            //     ]
+                            // ),
+                          );
+                        } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty ) {
+                          double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
+                            try {
+                              // تحويل النص إلى double
+
+                              double amount = double.parse(item.data().expenseAmount);
+                              return sum + amount;
+                            } catch (e) {
+                              print('Error parsing expenseAmount: ${item.data().expenseAmount}, skipping...');
+                              return sum; // تخطي القيم غير الصالحة
+                            }
+                          });
+                          double range = (totalExpenseAmount/5000)*100;
+
+/*
+                    double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
+*/
+                          return Column(
+                            children: [
+                              AppText(text: '${totalExpenseAmount.toInt()}',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: (range*2).h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.red,
+                                                    Colors.red,
+                                                    Colors.red.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return SizedBox();
+                        }
+                      },
+                    ),
+                    StreamBuilder<QuerySnapshot<ExpenseModel>>(
+                      stream: FbFirestoreController().readSameTimeMonthe('Entertainment',DateTime.now().toString().substring(0,7)),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Container(
+                            // padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 32.h),
+                            // margin: EdgeInsets.symmetric(horizontal: 20.w),
+                            // decoration: BoxDecoration(
+                            //     border: Border.all(color: AppColors.primaryColor,width: 0.5.w),
+                            //     borderRadius: BorderRadius.circular(16.r),
+                            //     color: Colors.white,
+                            //     boxShadow: const [
+                            //       BoxShadow(color: Colors.black26,blurRadius: 10,offset: Offset(0, 3))
+                            //     ]
+                            // ),
+                          );
+                        } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                          double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
+                            try {
+                              // تحويل النص إلى double
+                              double amount = double.parse(item.data().expenseAmount);
+                              return sum + amount;
+                            } catch (e) {
+                              print('Error parsing expenseAmount: ${item.data().expenseAmount}, skipping...');
+                              return sum; // تخطي القيم غير الصالحة
+                            }
+                          });
+                          double range = (totalExpenseAmount/5000)*100;
+/*
+                    double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
+*/
+                          return Column(
+                            children: [
+                              AppText(text: '${totalExpenseAmount.toInt()}',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: (range*2).h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.blue,
+                                                    Colors.blue,
+                                                    Colors.blue.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return SizedBox();
+                        }
+                      },
+                    ),
+                    StreamBuilder<QuerySnapshot<ExpenseModel>>(
+                      stream: FbFirestoreController().readSameTimeMonthe('Bills',DateTime.now().toString().substring(0,7)),
+
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Container(
+                            // padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 32.h),
+                            // margin: EdgeInsets.symmetric(horizontal: 20.w),
+                            // decoration: BoxDecoration(
+                            //     border: Border.all(color: AppColors.primaryColor,width: 0.5.w),
+                            //     borderRadius: BorderRadius.circular(16.r),
+                            //     color: Colors.white,
+                            //     boxShadow: const [
+                            //       BoxShadow(color: Colors.black26,blurRadius: 10,offset: Offset(0, 3))
+                            //     ]
+                            // ),
+                          );
+                        } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                          double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
+                            try {
+                              // تحويل النص إلى double
+                              double amount = double.parse(item.data().expenseAmount);
+                              return sum + amount;
+                            } catch (e) {
+                              print('Error parsing expenseAmount: ${item.data().expenseAmount}, skipping...');
+                              return sum; // تخطي القيم غير الصالحة
+                            }
+                          });
+                          double range = (totalExpenseAmount/5000)*100;
+/*
+                    double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
+*/
+                          return Column(
+                            children: [
+                              AppText(text: '${totalExpenseAmount.toInt()}',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: (range*2).h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.orange,
+                                                    Colors.orange,
+                                                    Colors.orange.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return SizedBox();
+                        }
+                      },
+                    ),
+
+                    Column(
+                      children: [AppText(text: '000',fontSize: 12,color: Colors.transparent,),
+                        SizedBox(height: 10.h,),
+                        SizedBox(
+                          height: 200.h,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AppText(text: '5000',fontWeight: FontWeight.w300,),
+                              AppText(text: '4000',fontWeight: FontWeight.w300,),
+                              AppText(text: '3000',fontWeight: FontWeight.w300,),
+                              AppText(text: '2000',fontWeight: FontWeight.w300,),
+                              AppText(text: '1000',fontWeight: FontWeight.w300,),
+                              // AppText(text: '500',fontSize: 14,),
+                              AppText(text: '0',fontWeight: FontWeight.w300,fontSize: 14,),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(height: 36.h,),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 32.w),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 20.h,
+                      width: 20.w,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.green
+                      ),
+                    ),
+                    SizedBox(width: 8.w,),
+                    AppText(text: 'مواصلات',fontWeight: FontWeight.w500,fontSize: 14,height: 0.h,),
+                    Spacer(),
+                    Container(
+                      height: 20.h,
+                      width: 20.w,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.red
+                      ),
+                    ),
+                    SizedBox(width: 8.w,),
+                    SizedBox(
+                        width: 65.w,
+                        child: AppText(text: 'مستلزمات أساسية',fontWeight: FontWeight.w500,fontSize: 14,height: 0.h,)),
+                    Spacer(),
+                    Container(
+                      height: 20.h,
+                      width: 20.w,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.blue
+                      ),
+                    ),
+                    SizedBox(width: 8.w,),
+                    AppText(text: 'ترفيه',fontWeight: FontWeight.w500,fontSize: 14,height: 0.h,),
+                    Spacer(),
+                    Container(
+                      height: 20.h,
+                      width: 20.w,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.orange
+                      ),
+                    ),
+                    SizedBox(width: 8.w,),
+                    AppText(text: 'فواتير',fontWeight: FontWeight.w500,fontSize: 14,height: 0.h,)
+
+                  ],
+                ),
+              ),
+              /*StreamBuilder<QuerySnapshot<ExpenseModel>>(
                 stream: FbFirestoreController().readSameTimeMonthe('Basic Supplies',DateTime.now().toString().substring(0,7)),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -846,9 +1416,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         return sum; // تخطي القيم غير الصالحة
                       }
                     });
-/*
+*//*
                     double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
-*/
+*//*
                     return Container(
                       padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
                       margin: EdgeInsets.symmetric(horizontal: 20.w),
@@ -916,9 +1486,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         return sum; // تخطي القيم غير الصالحة
                       }
                     });
-/*
+*//*
                     double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
-*/
+*//*
                     return Container(
                       padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
                       margin: EdgeInsets.symmetric(horizontal: 20.w),
@@ -985,9 +1555,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         return sum; // تخطي القيم غير الصالحة
                       }
                     });
-/*
+*//*
                     double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
-*/
+*//*
                     return Container(
                       padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
                       margin: EdgeInsets.symmetric(horizontal: 20.w),
@@ -1054,9 +1624,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         return sum; // تخطي القيم غير الصالحة
                       }
                     });
-/*
+*//*
                     double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
-*/
+*//*
                     return Container(
                       padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
                       margin: EdgeInsets.symmetric(horizontal: 20.w),
@@ -1145,7 +1715,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: [
                                 AppText(text: snapshot.data!.docs[index].data().expenseType,fontSize: 16,color: AppColors.primaryColor,),
                                 AppText(text: '${snapshot.data!.docs[index].data().expenseAmount}',color: AppColors.primaryColor,),
-                                /*InkWell(
+                                *//*InkWell(
                                   onTap :(){
                                     Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsItemScreen(type: snapshot.data!.docs[index].data().expenseType, cost: snapshot.data!.docs[index].data().expenseAmount.toString(), ceiling: snapshot.data!.docs[index].data().ceiling,collection: 'Expense',),));
 
@@ -1158,7 +1728,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     child: const Center(child: AppText(text: 'التفاصيل',color: Colors.white,)),
                                   ),
-                                )*/
+                                )*//*
                               ],
                             ),
                           );
@@ -1167,7 +1737,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return SizedBox();
                   }
                 },
-              ),
+              ),*/
 
               SizedBox(height: 20.h,),
             ],
@@ -1177,7 +1747,403 @@ class _HomeScreenState extends State<HomeScreen> {
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              StreamBuilder<QuerySnapshot<ExpenseModel>>(
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(width: 0.w,),
+                    StreamBuilder<QuerySnapshot<ExpenseModel>>(
+                      stream: FbFirestoreController().readSameTimeYeare('Transportation',DateTime.now().toString().substring(0,4)),
+
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Container(
+                          );
+                        } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                          double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
+                            try {
+                              // تحويل النص إلى double
+                              double amount = double.parse(item.data().expenseAmount);
+                              return sum + amount;
+                            } catch (e) {
+                              print('Error parsing expenseAmount: ${item.data().expenseAmount}, skipping...');
+                              return sum; // تخطي القيم غير الصالحة
+                            }
+                          });
+                          double range = (totalExpenseAmount/5000)*100;
+/*
+                    double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
+*/
+                          return Column(
+                            children: [
+                              AppText(text: '${totalExpenseAmount.toInt()}',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: (range*2).h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.green,
+                                                    Colors.green,
+                                                    Colors.green.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return SizedBox();
+                        }
+                      },
+                    ),
+                    StreamBuilder<QuerySnapshot<ExpenseModel>>(
+                      stream: FbFirestoreController().readSameTimeYeare('Basic Supplies',DateTime.now().toString().substring(0,4)),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Container(
+                            // padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 32.h),
+                            // margin: EdgeInsets.symmetric(horizontal: 20.w),
+                            // decoration: BoxDecoration(
+                            //     border: Border.all(color: AppColors.primaryColor,width: 0.5.w),
+                            //     borderRadius: BorderRadius.circular(16.r),
+                            //     color: Colors.white,
+                            //     boxShadow: const [
+                            //       BoxShadow(color: Colors.black26,blurRadius: 10,offset: Offset(0, 3))
+                            //     ]
+                            // ),
+                          );
+                        } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty ) {
+                          double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
+                            try {
+                              // تحويل النص إلى double
+
+                              double amount = double.parse(item.data().expenseAmount);
+                              return sum + amount;
+                            } catch (e) {
+                              print('Error parsing expenseAmount: ${item.data().expenseAmount}, skipping...');
+                              return sum; // تخطي القيم غير الصالحة
+                            }
+                          });
+                          double range = (totalExpenseAmount/5000)*100;
+
+/*
+                    double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
+*/
+                          return Column(
+                            children: [
+                              AppText(text: '${totalExpenseAmount.toInt()}',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: (range*2).h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.red,
+                                                    Colors.red,
+                                                    Colors.red.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return SizedBox();
+                        }
+                      },
+                    ),
+                    StreamBuilder<QuerySnapshot<ExpenseModel>>(
+                      stream: FbFirestoreController().readSameTimeYeare('Entertainment',DateTime.now().toString().substring(0,4)),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Container(
+                            // padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 32.h),
+                            // margin: EdgeInsets.symmetric(horizontal: 20.w),
+                            // decoration: BoxDecoration(
+                            //     border: Border.all(color: AppColors.primaryColor,width: 0.5.w),
+                            //     borderRadius: BorderRadius.circular(16.r),
+                            //     color: Colors.white,
+                            //     boxShadow: const [
+                            //       BoxShadow(color: Colors.black26,blurRadius: 10,offset: Offset(0, 3))
+                            //     ]
+                            // ),
+                          );
+                        } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                          double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
+                            try {
+                              // تحويل النص إلى double
+                              double amount = double.parse(item.data().expenseAmount);
+                              return sum + amount;
+                            } catch (e) {
+                              print('Error parsing expenseAmount: ${item.data().expenseAmount}, skipping...');
+                              return sum; // تخطي القيم غير الصالحة
+                            }
+                          });
+                          double range = (totalExpenseAmount/5000)*100;
+/*
+                    double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
+*/
+                          return Column(
+                            children: [
+                              AppText(text: '${totalExpenseAmount.toInt()}',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: (range*2).h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.blue,
+                                                    Colors.blue,
+                                                    Colors.blue.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return SizedBox();
+                        }
+                      },
+                    ),
+                    StreamBuilder<QuerySnapshot<ExpenseModel>>(
+                      stream: FbFirestoreController().readSameTimeYeare('Bills',DateTime.now().toString().substring(0,4)),
+
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Container(
+                            // padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 32.h),
+                            // margin: EdgeInsets.symmetric(horizontal: 20.w),
+                            // decoration: BoxDecoration(
+                            //     border: Border.all(color: AppColors.primaryColor,width: 0.5.w),
+                            //     borderRadius: BorderRadius.circular(16.r),
+                            //     color: Colors.white,
+                            //     boxShadow: const [
+                            //       BoxShadow(color: Colors.black26,blurRadius: 10,offset: Offset(0, 3))
+                            //     ]
+                            // ),
+                          );
+                        } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                          double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
+                            try {
+                              // تحويل النص إلى double
+                              double amount = double.parse(item.data().expenseAmount);
+                              return sum + amount;
+                            } catch (e) {
+                              print('Error parsing expenseAmount: ${item.data().expenseAmount}, skipping...');
+                              return sum; // تخطي القيم غير الصالحة
+                            }
+                          });
+                          double range = (totalExpenseAmount/5000)*100;
+/*
+                    double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
+*/
+                          return Column(
+                            children: [
+                              AppText(text: '${totalExpenseAmount.toInt()}',fontSize: 12,),
+                              SizedBox(height: 10.h,),
+                              SizedBox(
+                                height: 200.h,
+                                width: 20.w,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      height: 200.h,
+                                      width: 50.w,
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          borderRadius: BorderRadius.circular(10.r)
+                                      ),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          height: (range*2).h,
+                                          width: 50.w,
+                                          alignment: AlignmentDirectional.bottomCenter,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  begin: AlignmentDirectional.bottomCenter,
+                                                  end: AlignmentDirectional.topCenter,
+                                                  colors: [
+                                                    Colors.orange,
+                                                    Colors.orange,
+                                                    Colors.orange.withOpacity(0.4),
+                                                  ]),
+                                              borderRadius: BorderRadius.circular(10.r)
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return SizedBox();
+                        }
+                      },
+                    ),
+
+                    Column(
+                      children: [AppText(text: '000',fontSize: 12,color: Colors.transparent,),
+                        SizedBox(height: 10.h,),
+                        SizedBox(
+                          height: 200.h,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AppText(text: '5000',fontWeight: FontWeight.w300,),
+                              AppText(text: '4000',fontWeight: FontWeight.w300,),
+                              AppText(text: '3000',fontWeight: FontWeight.w300,),
+                              AppText(text: '2000',fontWeight: FontWeight.w300,),
+                              AppText(text: '1000',fontWeight: FontWeight.w300,),
+                              // AppText(text: '500',fontSize: 14,),
+                              AppText(text: '0',fontWeight: FontWeight.w300,fontSize: 14,),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(height: 36.h,),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 32.w),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 20.h,
+                      width: 20.w,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.green
+                      ),
+                    ),
+                    SizedBox(width: 8.w,),
+                    AppText(text: 'مواصلات',fontWeight: FontWeight.w500,fontSize: 14,height: 0.h,),
+                    Spacer(),
+                    Container(
+                      height: 20.h,
+                      width: 20.w,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.red
+                      ),
+                    ),
+                    SizedBox(width: 8.w,),
+                    SizedBox(
+                        width: 65.w,
+                        child: AppText(text: 'مستلزمات أساسية',fontWeight: FontWeight.w500,fontSize: 14,height: 0.h,)),
+                    Spacer(),
+                    Container(
+                      height: 20.h,
+                      width: 20.w,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.blue
+                      ),
+                    ),
+                    SizedBox(width: 8.w,),
+                    AppText(text: 'ترفيه',fontWeight: FontWeight.w500,fontSize: 14,height: 0.h,),
+                    Spacer(),
+                    Container(
+                      height: 20.h,
+                      width: 20.w,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.orange
+                      ),
+                    ),
+                    SizedBox(width: 8.w,),
+                    AppText(text: 'فواتير',fontWeight: FontWeight.w500,fontSize: 14,height: 0.h,)
+
+                  ],
+                ),
+              ),
+              /*StreamBuilder<QuerySnapshot<ExpenseModel>>(
                 stream: FbFirestoreController().readSameTimeYeare('Basic Supplies',DateTime.now().toString().substring(0,4)),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -1205,9 +2171,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         return sum; // تخطي القيم غير الصالحة
                       }
                     });
-/*
+*//*
                     double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
-*/
+*//*
                     return Container(
                       padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
                       margin: EdgeInsets.symmetric(horizontal: 20.w),
@@ -1275,9 +2241,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         return sum; // تخطي القيم غير الصالحة
                       }
                     });
-/*
+*//*
                     double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
-*/
+*//*
                     return Container(
                       padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
                       margin: EdgeInsets.symmetric(horizontal: 20.w),
@@ -1344,9 +2310,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         return sum; // تخطي القيم غير الصالحة
                       }
                     });
-/*
+*//*
                     double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
-*/
+*//*
                     return Container(
                       padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
                       margin: EdgeInsets.symmetric(horizontal: 20.w),
@@ -1413,9 +2379,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         return sum; // تخطي القيم غير الصالحة
                       }
                     });
-/*
+*//*
                     double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
-*/
+*//*
                     return Container(
                       padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
                       margin: EdgeInsets.symmetric(horizontal: 20.w),
@@ -1505,7 +2471,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: [
                                 AppText(text: snapshot.data!.docs[index].data().expenseType,fontSize: 16,color: AppColors.primaryColor,),
                                 AppText(text: '${snapshot.data!.docs[index].data().expenseAmount}',color: AppColors.primaryColor,),
-                                /*InkWell(
+                                *//*InkWell(
                                   onTap :(){
                                     Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsItemScreen(type: snapshot.data!.docs[index].data().expenseType, cost: snapshot.data!.docs[index].data().expenseAmount.toString(), ceiling: snapshot.data!.docs[index].data().ceiling,collection: 'Expense',),));
 
@@ -1518,7 +2484,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     child: const Center(child: AppText(text: 'التفاصيل',color: Colors.white,)),
                                   ),
-                                )*/
+                                )*//*
                               ],
                             ),
                           );
@@ -1527,7 +2493,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return SizedBox();
                   }
                 },
-              ),
+              ),*/
 
               SizedBox(height: 20.h,),
             ],
