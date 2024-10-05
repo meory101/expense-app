@@ -9,8 +9,6 @@ import 'package:tasty_booking/screens/home_screens/debts_screen.dart';
 import 'package:tasty_booking/screens/home_screens/home_screen.dart';
 import 'package:tasty_booking/screens/home_screens/notification_screen.dart';
 import 'package:tasty_booking/screens/home_screens/profile_screen.dart';
-import 'package:tasty_booking/screens/profile_screen/common_questions_screen.dart';
-import 'package:tasty_booking/screens/profile_screen/love_screen.dart';
 import 'package:tasty_booking/style/app_colors.dart';
 import 'package:tasty_booking/utils/bn_screen_model.dart';
 

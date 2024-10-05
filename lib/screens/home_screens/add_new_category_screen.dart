@@ -16,6 +16,7 @@ import 'package:tasty_booking/wdgets/outside_button_with_icons.dart';
 
 import '../../style/app_colors.dart';
 import '../../wdgets/app_drop_down.dart';
+import 'home_screen.dart';
 
 class AddNewCategoryScreen extends StatefulWidget {
   const AddNewCategoryScreen({super.key});
@@ -26,6 +27,7 @@ class AddNewCategoryScreen extends StatefulWidget {
 
 class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
   late TextEditingController costTextController;
+  late TextEditingController HightcostTextController;
   late TextEditingController newCategoryTextController;
   String?_selectedCategoryId;
   List<MainCategoryModel> mainCategory = <MainCategoryModel>[
@@ -40,15 +42,22 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    print('tarfeeh ${tarfeeh}');
+    print('foateer ${foateer}');
+    print('mostlzamat ${mostlzamat}');
+    print('moasalat ${moasalat}');
     costTextController = TextEditingController();
+    HightcostTextController = TextEditingController();
     newCategoryTextController = TextEditingController();
   }
 
   @override
   void dispose() {
     costTextController.dispose();
+    HightcostTextController.dispose();
     newCategoryTextController.dispose();
     super.dispose();
+
   }
 
   @override
@@ -94,7 +103,7 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                   children: [
                     AppTextField(
                       controller: costTextController,
-                      hintText: 'المصروف (رقم)',
+                      hintText: 'المصروف (رقم) *',
                       keyboardType: TextInputType.number,
                       prefixIcon: const Icon(Icons.attach_money_outlined),
                     ),
@@ -138,6 +147,180 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                       prefixIcon: const Icon(Icons.menu_open_outlined),
                     ),
                     SizedBox(
+                      height: 10.h,
+                    ),
+
+                     //bool tarfeeh = false;
+                    // bool foateer = false;
+                    // bool mostlzamat = false;
+                    // bool moasalat = false;
+
+
+                    _selectedCategoryId == 'Basic Supplies'?
+                    mostlzamat == true?
+                    Column(
+                      children: [
+                        Align(
+                            alignment: AlignmentDirectional.centerStart,
+                            child: AppText(text: 'تم اختيار حد أعلى للصرف لهذا التصنيف سابقا',fontSize: 12,textAlign: TextAlign.start,)),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        AppTextField(
+                          controller: HightcostTextController,
+                          hintText: 'حد أعلى للصرف (رقم)',
+                          keyboardType: TextInputType.number,
+                          prefixIcon: const Icon(Icons.attach_money_outlined),
+                          enabled: false,
+                        ),
+
+                      ],
+                    ) : Column(
+                      children: [
+                        Align(
+                            alignment: AlignmentDirectional.centerStart,
+                            child: AppText(text: 'في حال تم اختيار تصنيف اساسي مسبقا يرجى عدم اضافة حد اعلى مره اخرى!!',fontSize: 12,textAlign: TextAlign.start,)),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        AppTextField(
+                          controller: HightcostTextController,
+                          hintText: 'حد أعلى للصرف (رقم)',
+                          keyboardType: TextInputType.number,
+                          prefixIcon: const Icon(Icons.attach_money_outlined),
+                        ),
+                      ],
+                    ):
+                    _selectedCategoryId == 'Entertainment'?
+                    tarfeeh == true?
+                    Column(
+                      children: [
+                        Align(
+                            alignment: AlignmentDirectional.centerStart,
+                            child: AppText(text: 'تم اختيار حد أعلى للصرف لهذا التصنيف سابقا',fontSize: 12,textAlign: TextAlign.start,)),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        AppTextField(
+                          controller: HightcostTextController,
+                          hintText: 'حد أعلى للصرف (رقم)',
+                          keyboardType: TextInputType.number,
+                          prefixIcon: const Icon(Icons.attach_money_outlined),
+                          enabled: false,
+                        ),
+
+                      ],
+                    ) : Column(
+                      children: [
+                        Align(
+                            alignment: AlignmentDirectional.centerStart,
+                            child: AppText(text: 'في حال تم اختيار تصنيف اساسي مسبقا يرجى عدم اضافة حد اعلى مره اخرى!!',fontSize: 12,textAlign: TextAlign.start,)),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        AppTextField(
+                          controller: HightcostTextController,
+                          hintText: 'حد أعلى للصرف (رقم)',
+                          keyboardType: TextInputType.number,
+                          prefixIcon: const Icon(Icons.attach_money_outlined),
+                        ),
+                      ],
+                    ):
+                    _selectedCategoryId == 'Bills'?
+                    foateer == true?
+                    Column(
+                      children: [
+                        Align(
+                            alignment: AlignmentDirectional.centerStart,
+                            child: AppText(text: 'تم اختيار حد أعلى للصرف لهذا التصنيف سابقا',fontSize: 12,textAlign: TextAlign.start,)),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        AppTextField(
+                          controller: HightcostTextController,
+                          hintText: 'حد أعلى للصرف (رقم)',
+                          keyboardType: TextInputType.number,
+                          prefixIcon: const Icon(Icons.attach_money_outlined),
+                          enabled: false,
+                        ),
+
+                      ],
+                    ) : Column(
+                      children: [
+                        Align(
+                            alignment: AlignmentDirectional.centerStart,
+                            child: AppText(text: 'في حال تم اختيار تصنيف اساسي مسبقا يرجى عدم اضافة حد اعلى مره اخرى!!',fontSize: 12,textAlign: TextAlign.start,)),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        AppTextField(
+                          controller: HightcostTextController,
+                          hintText: 'حد أعلى للصرف (رقم)',
+                          keyboardType: TextInputType.number,
+                          prefixIcon: const Icon(Icons.attach_money_outlined),
+                        ),
+                      ],
+                    ):
+                    _selectedCategoryId == 'Transportation'?
+                    moasalat == true?
+                    Column(
+                      children: [
+                        Align(
+                            alignment: AlignmentDirectional.centerStart,
+                            child: AppText(text: 'تم اختيار حد أعلى للصرف لهذا التصنيف سابقا',fontSize: 12,textAlign: TextAlign.start,)),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        AppTextField(
+                          controller: HightcostTextController,
+                          hintText: 'حد أعلى للصرف (رقم)',
+                          keyboardType: TextInputType.number,
+                          prefixIcon: const Icon(Icons.attach_money_outlined),
+                          enabled: false,
+                        ),
+
+                      ],
+                    ) : Column(
+                      children: [
+                        Align(
+                            alignment: AlignmentDirectional.centerStart,
+                            child: AppText(text: 'في حال تم اختيار تصنيف اساسي مسبقا يرجى عدم اضافة حد اعلى مره اخرى!!',fontSize: 12,textAlign: TextAlign.start,)),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        AppTextField(
+                          controller: HightcostTextController,
+                          hintText: 'حد أعلى للصرف (رقم)',
+                          keyboardType: TextInputType.number,
+                          prefixIcon: const Icon(Icons.attach_money_outlined),
+                        ),
+                      ],
+                    ):
+                    Column(
+                      children: [
+                        Align(
+                            alignment: AlignmentDirectional.centerStart,
+                            child: AppText(text: 'في حال تم اختيار تصنيف اساسي مسبقا يرجى عدم اضافة حد اعلى مره اخرى!!',fontSize: 12,textAlign: TextAlign.start,)),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        AppTextField(
+                          controller: HightcostTextController,
+                          hintText: 'حد أعلى للصرف (رقم)',
+                          keyboardType: TextInputType.number,
+                          prefixIcon: const Icon(Icons.attach_money_outlined),
+                        ),
+                      ],
+                    ),
+
+
+
+
+
+
+
+
+                    SizedBox(
                       height: 40.h,
                     ),
                     Row(
@@ -147,6 +330,7 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                             setState(() {
                               isLoading =true;
                             });
+                            print('rrr $_selectedCategoryId');
                             await _performSave();
                             setState(() {
                               isLoading =false;
@@ -160,6 +344,7 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                             onPressed: () {
                             setState(() {
                               costTextController.clear();
+                              HightcostTextController.clear();
                               newCategoryTextController.clear();
                               _selectedCategoryId = null;
                             },
@@ -178,24 +363,24 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
             SizedBox(
               height: 50.h,
             ),
-            Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 24.w),
-              child: OutSideButtonWithIcon(
-                title: ' التصنيفات',
-                icon: Icon(
-                Icons.menu_open_outlined,
-                color: AppColors.primaryColor,
-                size: 30.sp,
-              ),
-                onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CategoriesScreen(),
-                    ));
-              },
-              ),
-            )
+            // Padding(
+            //   padding:  EdgeInsets.symmetric(horizontal: 24.w),
+            //   child: OutSideButtonWithIcon(
+            //     title: ' التصنيفات',
+            //     icon: Icon(
+            //     Icons.menu_open_outlined,
+            //     color: AppColors.primaryColor,
+            //     size: 30.sp,
+            //   ),
+            //     onPressed: () {
+            //     Navigator.push(
+            //         context,
+            //         MaterialPageRoute(
+            //           builder: (context) => const CategoriesScreen(),
+            //         ));
+            //   },
+            //   ),
+            // )
 
           ],
         ),
@@ -257,7 +442,7 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
     ExpenseModel expense = ExpenseModel();
     expense.expenseAmount = costTextController.text;
     expense.expenseType =_selectedCategoryId==null? newCategoryTextController.text:_selectedCategoryId!;
-    expense.ceiling ='0';
+    expense.ceiling = HightcostTextController.text??'' ;
     expense.userId= SharedPrefController().getValueFor(key: PrefKeys.userId.name);
     expense.userArea= SharedPrefController().getValueFor(key: PrefKeys.userArea.name);
     expense.userName= SharedPrefController().getValueFor(key: PrefKeys.name.name);

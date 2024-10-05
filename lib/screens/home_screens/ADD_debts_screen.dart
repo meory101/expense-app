@@ -148,7 +148,7 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
                               width: 24.w,
                             ),
                           ),
-                          hintText: 'اسم الدائن ',
+                          hintText: 'اسم الدائن *',
                         ),
                         SizedBox(height: 16.h,),
 
@@ -168,7 +168,7 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
                               padding: EdgeInsets.symmetric(vertical: 18.h),
                               child: const Icon(Icons.attach_money)
                           ),
-                          hintText: 'مبلغ الدين كامل ',
+                          hintText: 'مبلغ الدين كامل *',
                         ),
                         SizedBox(height: 16.h,),
 
@@ -187,7 +187,7 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
                               padding: EdgeInsets.symmetric(vertical: 18.h),
                               child: const Icon(Icons.attach_money)
                           ),
-                          hintText: 'المبلغ المسدد من الدين ',
+                          hintText: 'المبلغ المسدد من الدين * ',
                         ),
                         SizedBox(height: 16.h,),
                         Align(
@@ -318,7 +318,7 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
     _userNameEditingController.text.isNotEmpty &&
         _Cost1EditingController.text.isNotEmpty &&
         _Cost2EditingController.text.isNotEmpty &&
-        _noteEditingController.text.isNotEmpty&&Dateend!=null) {
+        Dateend!=null) {
       String Name = _userNameEditingController.text;
       String Cost1 = _Cost1EditingController.text;
       String Cost2 = _Cost2EditingController.text;

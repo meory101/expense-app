@@ -12,9 +12,19 @@ import 'package:tasty_booking/wdgets/app_text.dart';
 import 'package:tasty_booking/wdgets/app_text_field.dart';
 import 'package:tasty_booking/wdgets/search_text_fild.dart';
 import 'package:tasty_booking/wdgets/section_title.dart';
+import 'package:d_chart/d_chart.dart';
 
 import '../../fb_controller/fb_firestore.dart';
+import '../../model/Debts_model.dart';
 import '../../model/expense_model.dart';
+
+
+bool tarfeeh = false;
+bool foateer = false;
+bool mostlzamat = false;
+bool moasalat = false;
+
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -28,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int selectedTime = 0;
   @override
   void initState() {
+
     // TODO: implement initState
     super.initState();
     _searchEditingController = TextEditingController();
@@ -157,6 +168,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         SizedBox(height: 20.h,),
         // const LineChartSample2()
+        Center(child: AppText(text: 'رسم توضيحي للمصروفات الاساسية',color: AppColors.primaryColor,fontWeight: FontWeight.bold,fontSize: 17,)),
+
         selectedTime == 0 ?
         StreamBuilder<QuerySnapshot<ExpenseAmountModel>>(
           stream: FbFirestoreController().readExpenseAmount(check: 'dateNow',isEqualTo: DateTime.now().toString().substring(0,10)),
@@ -166,6 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
             } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty ) {
               double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
                 try {
+
                   double amount = double.parse(item.data().expenseAmount);
                   return sum + amount;
                 } catch (e) {
@@ -230,7 +244,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
         // SizedBox(height: 34.h,),
 
-
+        //moasalat = true;
+        //mostlzamat = true;
+        // tarfeeh = true;
+        // foateer = true;
         selectedTime == 0 ?
         Expanded(
           child: ListView(
@@ -252,6 +269,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
                           double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
                             try {
+
+
+                              moasalat = true;
+
 
                               double amount = double.parse(item.data().expenseAmount);
                               return sum + amount;
@@ -374,6 +395,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
                             try {
                               // تحويل النص إلى double
+                               mostlzamat = true;
 
                               double amount = double.parse(item.data().expenseAmount);
                               return sum + amount;
@@ -496,6 +518,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
                           double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
                             try {
+                               tarfeeh = true;
                               // تحويل النص إلى double
                               double amount = double.parse(item.data().expenseAmount);
                               return sum + amount;
@@ -616,8 +639,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             // ),
                           );
                         } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+
                           double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
                             try {
+                               foateer = true;
+
                               // تحويل النص إلى double
                               double amount = double.parse(item.data().expenseAmount);
                               return sum + amount;
@@ -746,6 +772,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               SizedBox(height: 36.h,),
+
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 32.w),
                 child: Row(
@@ -800,357 +827,222 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-             /* StreamBuilder<QuerySnapshot<ExpenseModel>>(
-                stream: FbFirestoreController().readSameTime('Basic Supplies',DateTime.now().toString().substring(0,10)),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Container(
-                      // padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 32.h),
-                      // margin: EdgeInsets.symmetric(horizontal: 20.w),
-                      // decoration: BoxDecoration(
-                      //     border: Border.all(color: AppColors.primaryColor,width: 0.5.w),
-                      //     borderRadius: BorderRadius.circular(16.r),
-                      //     color: Colors.white,
-                      //     boxShadow: const [
-                      //       BoxShadow(color: Colors.black26,blurRadius: 10,offset: Offset(0, 3))
-                      //     ]
-                      // ),
-                    );
-                  } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty ) {
-                    double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
-                      try {
-                        // تحويل النص إلى double
 
-                        double amount = double.parse(item.data().expenseAmount);
-                        return sum + amount;
-                      } catch (e) {
-                        print('Error parsing expenseAmount: ${item.data().expenseAmount}, skipping...');
-                        return sum; // تخطي القيم غير الصالحة
-                      }
-                    });
-                    double range = (totalExpenseAmount/5000)*100;
+              SizedBox(height: 20.h,),
 
-*//*
-                    double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
-*//*
-                    return Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
-                      margin: EdgeInsets.symmetric(horizontal: 20.w),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: AppColors.primaryColor,width: 0.5.w),
-                          borderRadius: BorderRadius.circular(16.r),
-                          color: Colors.white,
-                          boxShadow: const [
-                            BoxShadow(color: Colors.black26,blurRadius: 10,offset: Offset(0, 3))
-                          ]
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const AppText(text: ' مستلزمات اساسية ',color: AppColors.primaryColor,),
-                          AppText(text: '${totalExpenseAmount}',color: AppColors.primaryColor,),
-                          // InkWell(
-                          //   onTap: () {
-                          //     // Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsItemScreen(type: 'مستلزمات اساسية', cost: totalExpenseAmount.toString(), ceiling: snapshot.data!.docs[0].data().ceiling,collection: 'Basic Supplies',),),);
-                          //   },
-                          //   child: Container(
-                          //     padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 10.h),
-                          //     decoration: BoxDecoration(
-                          //         borderRadius:BorderRadius.circular(10.r),
-                          //         color: AppColors.primaryColor
-                          //     ),
-                          //     child: const Center(child: AppText(text: 'التفاصيل',color: Colors.white,)),
-                          //   ),
-                          // )
-                        ],
-                      ),
-                    );
-                  } else {
-                    return SizedBox();
-                  }
-                },
+              Divider(
+                color: Colors.black,
+
               ),
               SizedBox(height: 20.h,),
-              StreamBuilder<QuerySnapshot<ExpenseModel>>(
-                stream: FbFirestoreController().readSameTime('Entertainment',DateTime.now().toString().substring(0,10)),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Container(
-                      // padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 32.h),
-                      // margin: EdgeInsets.symmetric(horizontal: 20.w),
-                      // decoration: BoxDecoration(
-                      //     border: Border.all(color: AppColors.primaryColor,width: 0.5.w),
-                      //     borderRadius: BorderRadius.circular(16.r),
-                      //     color: Colors.white,
-                      //     boxShadow: const [
-                      //       BoxShadow(color: Colors.black26,blurRadius: 10,offset: Offset(0, 3))
-                      //     ]
-                      // ),
-                    );
-                  } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
-                    double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
-                      try {
-                        // تحويل النص إلى double
-                        double amount = double.parse(item.data().expenseAmount);
-                        return sum + amount;
-                      } catch (e) {
-                        print('Error parsing expenseAmount: ${item.data().expenseAmount}, skipping...');
-                        return sum; // تخطي القيم غير الصالحة
-                      }
-                    });
-*//*
-                    double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
-*//*
-                    return Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
-                      margin: EdgeInsets.symmetric(horizontal: 20.w),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: AppColors.primaryColor,width: 0.5.w),
-                          borderRadius: BorderRadius.circular(16.r),
-                          color: Colors.white,
-                          boxShadow: const [
-                            BoxShadow(color: Colors.black26,blurRadius: 10,offset: Offset(0, 3))
-                          ]
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const AppText(text: ' ترفيه ',color: AppColors.primaryColor,),
-                          AppText(text: '${totalExpenseAmount}',color: AppColors.primaryColor,),
-                          // InkWell(
-                          //   onTap: () {
-                          //     // Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsItemScreen(type: 'ترفيه', cost: totalExpenseAmount.toString(), ceiling: snapshot.data!.docs[0].data().ceiling,collection: 'Entertainment'),));
-                          //   },
-                          //   child: Container(
-                          //     padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 10.h),
-                          //     decoration: BoxDecoration(
-                          //         borderRadius:BorderRadius.circular(10.r),
-                          //         color: AppColors.primaryColor
-                          //     ),
-                          //     child: const Center(child: AppText(text: 'التفاصيل',color: Colors.white,)),
-                          //   ),
-                          // )
-                        ],
-                      ),
-                    );
-                  } else {
-                    return SizedBox();
-                  }
-                },
-              ),
-              SizedBox(height: 20.h,),
-              StreamBuilder<QuerySnapshot<ExpenseModel>>(
-                stream: FbFirestoreController().readSameTime('Bills',DateTime.now().toString().substring(0,10)),
+     Center(child: AppText(text: 'رسم توضيحي للديون',color: AppColors.primaryColor,fontWeight: FontWeight.bold,fontSize: 17,)),
 
+              StreamBuilder<QuerySnapshot<Debts>>(
+                stream: FbFirestoreController().readDebts(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Container(
-                      // padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 32.h),
-                      // margin: EdgeInsets.symmetric(horizontal: 20.w),
-                      // decoration: BoxDecoration(
-                      //     border: Border.all(color: AppColors.primaryColor,width: 0.5.w),
-                      //     borderRadius: BorderRadius.circular(16.r),
-                      //     color: Colors.white,
-                      //     boxShadow: const [
-                      //       BoxShadow(color: Colors.black26,blurRadius: 10,offset: Offset(0, 3))
-                      //     ]
-                      // ),
-                    );
+                    return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
-                    double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
-                      try {
-                        // تحويل النص إلى double
-                        double amount = double.parse(item.data().expenseAmount);
-                        return sum + amount;
-                      } catch (e) {
-                        print('Error parsing expenseAmount: ${item.data().expenseAmount}, skipping...');
-                        return sum; // تخطي القيم غير الصالحة
-                      }
-                    });
-*//*
-                    double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
-*//*
-                    return Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
-                      margin: EdgeInsets.symmetric(horizontal: 20.w),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: AppColors.primaryColor,width: 0.5.w),
-                          borderRadius: BorderRadius.circular(16.r),
-                          color: Colors.white,
-                          boxShadow: const [
-                            BoxShadow(color: Colors.black26,blurRadius: 10,offset: Offset(0, 3))
-                          ]
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const AppText(text: ' فواتير ',color: AppColors.primaryColor,),
-                          AppText(text: '${totalExpenseAmount}',color: AppColors.primaryColor,),
-                          // InkWell(
-                          //   onTap: () {
-                          //     // Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsItemScreen(type: 'فواتير', cost: totalExpenseAmount.toString(), ceiling: snapshot.data!.docs[0].data().ceiling,collection: 'Bills',),));
-                          //   },
-                          //   child: Container(
-                          //     padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 10.h),
-                          //     decoration: BoxDecoration(
-                          //         borderRadius:BorderRadius.circular(10.r),
-                          //         color: AppColors.primaryColor
-                          //     ),
-                          //     child: const Center(child: AppText(text: 'التفاصيل',color: Colors.white,)),
-                          //   ),
-                          // )
-                        ],
-                      ),
-                    );
-                  } else {
-                    return SizedBox();
-                  }
-                },
-              ),
-              SizedBox(height: 20.h,),
-              StreamBuilder<QuerySnapshot<ExpenseModel>>(
-                stream: FbFirestoreController().readSameTime('Transportation',DateTime.now().toString().substring(0,10)),
+                    return  Padding(
+                      padding:  EdgeInsets.all(8.0),
+                      child: AspectRatio(
+                        aspectRatio: 14 / 9,
+                        child: DChartBarO(
+                          groupList: [
+                            snapshot.data!.docs.length == 0 ?
+                            OrdinalGroup(
+                                id: '1',
+                                data: [
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 1 ?
+                            OrdinalGroup(
+                                id: '1',
 
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Container(
-                      // padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 32.h),
-                      // margin: EdgeInsets.symmetric(horizontal: 20.w),
-                      // decoration: BoxDecoration(
-                      //     border: Border.all(color: AppColors.primaryColor,width: 0.5.w),
-                      //     borderRadius: BorderRadius.circular(16.r),
-                      //     color: Colors.white,
-                      //     boxShadow: const [
-                      //       BoxShadow(color: Colors.black26,blurRadius: 10,offset: Offset(0, 3))
-                      //     ]
-                      // ),
-                    );
-                  } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
-                    double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
-                      try {
-                        // تحويل النص إلى double
-                        double amount = double.parse(item.data().expenseAmount);
-                        return sum + amount;
-                      } catch (e) {
-                        print('Error parsing expenseAmount: ${item.data().expenseAmount}, skipping...');
-                        return sum; // تخطي القيم غير الصالحة
-                      }
-                    });
-*//*
-                    double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) => sum + double.tryParse(item.data().expenseAmount??0.0));
-*//*
-                    return Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
-                      margin: EdgeInsets.symmetric(horizontal: 20.w),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: AppColors.primaryColor,width: 0.5.w),
-                          borderRadius: BorderRadius.circular(16.r),
-                          color: Colors.white,
-                          boxShadow: const [
-                            BoxShadow(color: Colors.black26,blurRadius: 10,offset: Offset(0, 3))
-                          ]
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const AppText(text: ' مواصلات ',color: AppColors.primaryColor,),
-                          AppText(text: '${totalExpenseAmount}',color: AppColors.primaryColor,),
-                          // InkWell(
-                          //   onTap: () {
-                          //     // Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsItemScreen(type: 'مواصلات', cost: totalExpenseAmount.toString(), ceiling: snapshot.data!.docs[0].data().ceiling,collection: 'Transportation',),));
-                          //   },
-                          //   child: Container(
-                          //     padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 10.h),
-                          //     decoration: BoxDecoration(
-                          //         borderRadius:BorderRadius.circular(10.r),
-                          //         color: AppColors.primaryColor
-                          //     ),
-                          //     child: const Center(child: AppText(text: 'التفاصيل',color: Colors.white,)),
-                          //   ),
-                          // )
-                        ],
-                      ),
-                    );
-                  } else {
-                    return SizedBox();
-                  }
-                },
-              ),
-              // SizedBox(height: 20.h,),
-              // Divider(thickness: 1,color: AppColors.primaryColor,),
-              // Center(
-              //   child: AppText(
-              //     text: 'التصنيفات الجديدة',
-              //     fontFamily: 'DINNextLTArabic_bold',
-              //     fontSize: 22,
-              //     fontWeight: FontWeight.bold,
-              //     color: AppColors.primaryColor,
-              //   ),
-              // ),
-              SizedBox(height: 20.h,),
-              StreamBuilder<QuerySnapshot<ExpenseModel>>(
-                stream: FbFirestoreController().readSameTime('Expense',DateTime.now().toString().substring(0,10)),
+                                data: [
 
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Container(
-                      // padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 32.h),
-                      // margin: EdgeInsets.symmetric(horizontal: 20.w),
-                      // decoration: BoxDecoration(
-                      //     border: Border.all(color: AppColors.primaryColor,width: 0.5.w),
-                      //     borderRadius: BorderRadius.circular(16.r),
-                      //     color: Colors.white,
-                      //     boxShadow: const [
-                      //       BoxShadow(color: Colors.black26,blurRadius: 10,offset: Offset(0, 3))
-                      //     ]
-                      // ),
-                    );
-                  } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
-                    return ListView.separated(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap:  true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return Container(
-                            padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
-                            margin: EdgeInsets.symmetric(horizontal: 20.w),
-                            decoration: BoxDecoration(
-                                border: Border.all(color: AppColors.primaryColor,width: 0.5.w),
-                                borderRadius: BorderRadius.circular(16.r),
-                                color: Colors.white,
-                                boxShadow: const [
-                                  BoxShadow(color: Colors.black26,blurRadius: 10,offset: Offset(0, 3))
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 2 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 3 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 4 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 5 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[4].data().Name, measure:num.parse(snapshot.data!.docs[4].data().Amount_Depts) ),
+
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 6 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[4].data().Name, measure:num.parse(snapshot.data!.docs[4].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[5].data().Name, measure:num.parse(snapshot.data!.docs[5].data().Amount_Depts) ),
+
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 7 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[4].data().Name, measure:num.parse(snapshot.data!.docs[4].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[5].data().Name, measure:num.parse(snapshot.data!.docs[5].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[6].data().Name, measure:num.parse(snapshot.data!.docs[6].data().Amount_Depts) ),
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 8 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[4].data().Name, measure:num.parse(snapshot.data!.docs[4].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[5].data().Name, measure:num.parse(snapshot.data!.docs[5].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[6].data().Name, measure:num.parse(snapshot.data!.docs[6].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[7].data().Name, measure:num.parse(snapshot.data!.docs[7].data().Amount_Depts) ),
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 9 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[4].data().Name, measure:num.parse(snapshot.data!.docs[4].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[5].data().Name, measure:num.parse(snapshot.data!.docs[5].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[6].data().Name, measure:num.parse(snapshot.data!.docs[6].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[7].data().Name, measure:num.parse(snapshot.data!.docs[7].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[8].data().Name, measure:num.parse(snapshot.data!.docs[8].data().Amount_Depts) ),
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 10 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[4].data().Name, measure:num.parse(snapshot.data!.docs[4].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[5].data().Name, measure:num.parse(snapshot.data!.docs[5].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[6].data().Name, measure:num.parse(snapshot.data!.docs[6].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[7].data().Name, measure:num.parse(snapshot.data!.docs[7].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[8].data().Name, measure:num.parse(snapshot.data!.docs[8].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[9].data().Name, measure:num.parse(snapshot.data!.docs[9].data().Amount_Depts) ),
+
+
+                                ]
+                            ):
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[4].data().Name, measure:num.parse(snapshot.data!.docs[4].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[5].data().Name, measure:num.parse(snapshot.data!.docs[5].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[6].data().Name, measure:num.parse(snapshot.data!.docs[6].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[7].data().Name, measure:num.parse(snapshot.data!.docs[7].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[8].data().Name, measure:num.parse(snapshot.data!.docs[8].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[9].data().Name, measure:num.parse(snapshot.data!.docs[9].data().Amount_Depts) ),
+
+
                                 ]
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                AppText(text: snapshot.data!.docs[index].data().expenseType,fontSize: 16,color: AppColors.primaryColor,),
-                                AppText(text: '${snapshot.data!.docs[index].data().expenseAmount}',color: AppColors.primaryColor,),
-                                *//*InkWell(
-                                  onTap :(){
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsItemScreen(type: snapshot.data!.docs[index].data().expenseType, cost: snapshot.data!.docs[index].data().expenseAmount.toString(), ceiling: snapshot.data!.docs[index].data().ceiling,collection: 'Expense',),));
 
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 10.h),
-                                    decoration: BoxDecoration(
-                                        borderRadius:BorderRadius.circular(10.r),
-                                        color: AppColors.primaryColor
-                                    ),
-                                    child: const Center(child: AppText(text: 'التفاصيل',color: Colors.white,)),
-                                  ),
-                                )*//*
-                              ],
-                            ),
-                          );
-                        }, separatorBuilder: (context, index) => SizedBox(height: 16.h,), itemCount: snapshot.data!.docs.length);
+                          ],
+
+
+                        ),
+                      ),
+                    );
                   } else {
-                    return SizedBox();
+                    return const SizedBox();
                   }
                 },
               ),
-*/
+
               SizedBox(height: 20.h,),
             ],
           ),
@@ -1176,6 +1068,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
                           double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
                             try {
+                              moasalat = true;
+
                               // تحويل النص إلى double
                               double amount = double.parse(item.data().expenseAmount);
                               return sum + amount;
@@ -1298,6 +1192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
                             try {
                               // تحويل النص إلى double
+                              mostlzamat = true;
 
                               double amount = double.parse(item.data().expenseAmount);
                               return sum + amount;
@@ -1420,6 +1315,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
                           double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
                             try {
+                              tarfeeh = true;
+
                               // تحويل النص إلى double
                               double amount = double.parse(item.data().expenseAmount);
                               return sum + amount;
@@ -1542,6 +1439,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
                           double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
                             try {
+                              foateer = true;
                               // تحويل النص إلى double
                               double amount = double.parse(item.data().expenseAmount);
                               return sum + amount;
@@ -2074,8 +1972,223 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                 },
               ),*/
+              SizedBox(height: 20.h,),
+
+              Divider(
+                color: Colors.black,
+
+              ),
+              SizedBox(height: 20.h,),
+              Center(child: AppText(text: 'رسم توضيحي للديون',color: AppColors.primaryColor,fontWeight: FontWeight.bold,fontSize: 17,)),
+
+              StreamBuilder<QuerySnapshot<Debts>>(
+                stream: FbFirestoreController().readDebts(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                    return  Padding(
+                      padding:  EdgeInsets.all(8.0),
+                      child: AspectRatio(
+                        aspectRatio: 14 / 9,
+                        child: DChartBarO(
+                          groupList: [
+                            snapshot.data!.docs.length == 0 ?
+                            OrdinalGroup(
+                                id: '1',
+                                data: [
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 1 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 2 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 3 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 4 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 5 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[4].data().Name, measure:num.parse(snapshot.data!.docs[4].data().Amount_Depts) ),
+
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 6 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[4].data().Name, measure:num.parse(snapshot.data!.docs[4].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[5].data().Name, measure:num.parse(snapshot.data!.docs[5].data().Amount_Depts) ),
+
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 7 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[4].data().Name, measure:num.parse(snapshot.data!.docs[4].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[5].data().Name, measure:num.parse(snapshot.data!.docs[5].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[6].data().Name, measure:num.parse(snapshot.data!.docs[6].data().Amount_Depts) ),
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 8 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[4].data().Name, measure:num.parse(snapshot.data!.docs[4].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[5].data().Name, measure:num.parse(snapshot.data!.docs[5].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[6].data().Name, measure:num.parse(snapshot.data!.docs[6].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[7].data().Name, measure:num.parse(snapshot.data!.docs[7].data().Amount_Depts) ),
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 9 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[4].data().Name, measure:num.parse(snapshot.data!.docs[4].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[5].data().Name, measure:num.parse(snapshot.data!.docs[5].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[6].data().Name, measure:num.parse(snapshot.data!.docs[6].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[7].data().Name, measure:num.parse(snapshot.data!.docs[7].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[8].data().Name, measure:num.parse(snapshot.data!.docs[8].data().Amount_Depts) ),
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 10 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[4].data().Name, measure:num.parse(snapshot.data!.docs[4].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[5].data().Name, measure:num.parse(snapshot.data!.docs[5].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[6].data().Name, measure:num.parse(snapshot.data!.docs[6].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[7].data().Name, measure:num.parse(snapshot.data!.docs[7].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[8].data().Name, measure:num.parse(snapshot.data!.docs[8].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[9].data().Name, measure:num.parse(snapshot.data!.docs[9].data().Amount_Depts) ),
+
+
+                                ]
+                            ):
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[4].data().Name, measure:num.parse(snapshot.data!.docs[4].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[5].data().Name, measure:num.parse(snapshot.data!.docs[5].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[6].data().Name, measure:num.parse(snapshot.data!.docs[6].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[7].data().Name, measure:num.parse(snapshot.data!.docs[7].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[8].data().Name, measure:num.parse(snapshot.data!.docs[8].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[9].data().Name, measure:num.parse(snapshot.data!.docs[9].data().Amount_Depts) ),
+
+
+                                ]
+                            ),
+
+                          ],
+
+
+                        ),
+                      ),
+                    );
+                  } else {
+                    return const SizedBox();
+                  }
+                },
+              ),
 
               SizedBox(height: 20.h,),
+              // SizedBox(height: 20.h,),
             ],
           ),
         ):
@@ -2099,6 +2212,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
                           double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
                             try {
+                              moasalat = true;
+
                               // تحويل النص إلى double
                               double amount = double.parse(item.data().expenseAmount);
                               return sum + amount;
@@ -2221,6 +2336,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
                             try {
                               // تحويل النص إلى double
+                              mostlzamat = true;
 
                               double amount = double.parse(item.data().expenseAmount);
                               return sum + amount;
@@ -2343,6 +2459,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
                           double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
                             try {
+                              tarfeeh = true;
+
                               // تحويل النص إلى double
                               double amount = double.parse(item.data().expenseAmount);
                               return sum + amount;
@@ -2465,6 +2583,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
                           double totalExpenseAmount = snapshot.data!.docs.fold(0.0, (sum, item) {
                             try {
+                              foateer = true;
                               // تحويل النص إلى double
                               double amount = double.parse(item.data().expenseAmount);
                               return sum + amount;
@@ -2647,6 +2766,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
+
               /*StreamBuilder<QuerySnapshot<ExpenseModel>>(
                 stream: FbFirestoreController().readSameTimeYeare('Basic Supplies',DateTime.now().toString().substring(0,4)),
                 builder: (context, snapshot) {
@@ -2998,11 +3118,233 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                 },
               ),*/
+              SizedBox(height: 20.h,),
 
+              Divider(
+                color: Colors.black,
+
+              ),
+              SizedBox(height: 20.h,),
+              Center(child: AppText(text: 'رسم توضيحي للديون',color: AppColors.primaryColor,fontWeight: FontWeight.bold,fontSize: 17,)),
+
+              StreamBuilder<QuerySnapshot<Debts>>(
+                stream: FbFirestoreController().readDebts(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                    return  Padding(
+                      padding:  EdgeInsets.all(8.0),
+                      child: AspectRatio(
+                        aspectRatio: 14 / 9,
+                        child: DChartBarO(
+                          groupList: [
+                            snapshot.data!.docs.length == 0 ?
+                            OrdinalGroup(
+                              id: '1',
+                              data: [
+                              ]
+                            ):
+                            snapshot.data!.docs.length == 1 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 2 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 3 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 4 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 5 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[4].data().Name, measure:num.parse(snapshot.data!.docs[4].data().Amount_Depts) ),
+
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 6 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[4].data().Name, measure:num.parse(snapshot.data!.docs[4].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[5].data().Name, measure:num.parse(snapshot.data!.docs[5].data().Amount_Depts) ),
+
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 7 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[4].data().Name, measure:num.parse(snapshot.data!.docs[4].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[5].data().Name, measure:num.parse(snapshot.data!.docs[5].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[6].data().Name, measure:num.parse(snapshot.data!.docs[6].data().Amount_Depts) ),
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 8 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[4].data().Name, measure:num.parse(snapshot.data!.docs[4].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[5].data().Name, measure:num.parse(snapshot.data!.docs[5].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[6].data().Name, measure:num.parse(snapshot.data!.docs[6].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[7].data().Name, measure:num.parse(snapshot.data!.docs[7].data().Amount_Depts) ),
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 9 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[4].data().Name, measure:num.parse(snapshot.data!.docs[4].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[5].data().Name, measure:num.parse(snapshot.data!.docs[5].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[6].data().Name, measure:num.parse(snapshot.data!.docs[6].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[7].data().Name, measure:num.parse(snapshot.data!.docs[7].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[8].data().Name, measure:num.parse(snapshot.data!.docs[8].data().Amount_Depts) ),
+
+
+                                ]
+                            ):
+                            snapshot.data!.docs.length == 10 ?
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[4].data().Name, measure:num.parse(snapshot.data!.docs[4].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[5].data().Name, measure:num.parse(snapshot.data!.docs[5].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[6].data().Name, measure:num.parse(snapshot.data!.docs[6].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[7].data().Name, measure:num.parse(snapshot.data!.docs[7].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[8].data().Name, measure:num.parse(snapshot.data!.docs[8].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[9].data().Name, measure:num.parse(snapshot.data!.docs[9].data().Amount_Depts) ),
+
+
+                                ]
+                            ):
+                            OrdinalGroup(
+                                id: '1',
+
+                                data: [
+
+                                  OrdinalData(domain: snapshot.data!.docs[0].data().Name, measure:num.parse(snapshot.data!.docs[0].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[1].data().Name, measure:num.parse(snapshot.data!.docs[1].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[2].data().Name, measure:num.parse(snapshot.data!.docs[2].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[3].data().Name, measure:num.parse(snapshot.data!.docs[3].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[4].data().Name, measure:num.parse(snapshot.data!.docs[4].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[5].data().Name, measure:num.parse(snapshot.data!.docs[5].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[6].data().Name, measure:num.parse(snapshot.data!.docs[6].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[7].data().Name, measure:num.parse(snapshot.data!.docs[7].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[8].data().Name, measure:num.parse(snapshot.data!.docs[8].data().Amount_Depts) ),
+                                  OrdinalData(domain: snapshot.data!.docs[9].data().Name, measure:num.parse(snapshot.data!.docs[9].data().Amount_Depts) ),
+
+
+                                ]
+                            ),
+
+                          ],
+
+
+                        ),
+                      ),
+                    );
+                  } else {
+                    return const SizedBox();
+                  }
+                },
+              ),
+
+
+              // SizedBox(height: 20.h,),
               SizedBox(height: 20.h,),
             ],
           ),
         ),
+
+
+
+
+
+    // SizedBox(height: 160.h,),
 
       ],
     );

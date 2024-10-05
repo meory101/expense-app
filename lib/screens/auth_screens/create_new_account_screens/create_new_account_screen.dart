@@ -16,6 +16,9 @@ import 'package:tasty_booking/wdgets/app_text.dart';
 import 'package:tasty_booking/wdgets/app_text_field.dart';
 import 'package:tasty_booking/wdgets/custom_app_loading.dart';
 
+import '../../../model/main_category_model.dart';
+import '../../../wdgets/app_drop_down.dart';
+
 class CreateNewAccountScreen extends StatefulWidget {
   const CreateNewAccountScreen({Key? key}) : super(key: key);
 
@@ -26,10 +29,24 @@ class CreateNewAccountScreen extends StatefulWidget {
 class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
   Country country = CountryParser.parseCountryCode('SA');
   late TextEditingController _userNameEditingController;
+  // late TextEditingController _CityEditingController;
   late TextEditingController _phoneEditingController;
   late TextEditingController _emailEditingController;
   late TextEditingController _passwordEditingController;
   late TextEditingController _confirmPasswordEditingController;
+  late TextEditingController newCategoryTextController;
+
+  List<MainCategoryModel> mainCategory = <MainCategoryModel>[
+    MainCategoryModel('الرياض', 'Entertainment'),
+    MainCategoryModel('جدة', 'Bills'),
+    MainCategoryModel('مكة', 'Basic Supplies'),
+    MainCategoryModel('المدينة', 'Transportation'),
+    MainCategoryModel('الدمام', 'Transportation'),
+    MainCategoryModel('الخبر', 'Transportation'),
+    MainCategoryModel('الظهران', 'Transportation'),
+  ];
+  String?_selectedCategoryId;
+
   bool obscure = true;
   bool obscure2 = true;
   bool approved = false;
@@ -37,6 +54,7 @@ class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
   String? phoneError;
   String? userNameIsError;
   String? emailIsError;
+  String? CityIsError;
   String? passwordIsError;
   String? confPasswordIsError;
   String countryCode = '+966';
@@ -54,6 +72,7 @@ class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
     // TODO: implement initState
     super.initState();
     _userNameEditingController = TextEditingController();
+    newCategoryTextController = TextEditingController();
     _phoneEditingController = TextEditingController();
     _emailEditingController = TextEditingController();
     _passwordEditingController = TextEditingController();
@@ -63,6 +82,7 @@ class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
   @override
   void dispose() {
     _userNameEditingController.dispose();
+    newCategoryTextController.dispose();
     _phoneEditingController.dispose();
     _emailEditingController.dispose();
     _passwordEditingController.dispose();
@@ -130,7 +150,7 @@ class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
                     AppTextField(
                       controller: _emailEditingController,
                       errorText: emailIsError,
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.text,
                       onChanged: (p0) {
                         if (emailIsError != null) {
                           setState(() {
@@ -148,72 +168,117 @@ class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
                       ),
                       hintText: context.localizations.email,
                     ),
+                    // SizedBox(
+                    //   height: 16.h,
+                    // ),
+                    // AppDropDown<String>(
+                    //   hint: 'اختار المنطقة',
+                    //   onChanged: (String? value) {
+                    //     setState(() {
+                    //       _selectedCategoryId = value;
+                    //       newCategoryTextController.clear();
+                    //     });
+                    //   },
+                    //   color: _selectedCategoryId != null ? AppColors.primaryColor:AppColors.secondGrayColor,
+                    //   value: _selectedCategoryId,
+                    //   items: mainCategory.map(
+                    //         (category) {
+                    //       return DropdownMenuItem(
+                    //         value: category.nameAr,
+                    //         child: Text(category.nameAr),
+                    //       );
+                    //     },
+                    //   ).toList(),
+                    //   marginTop: 15.h,
+                    // ),
+
+                    // AppTextField(
+                    //   controller: _CityEditingController,
+                    //   errorText: CityIsError,
+                    //   keyboardType: TextInputType.emailAddress,
+                    //   onChanged: (p0) {
+                    //     if (CityIsError != null) {
+                    //       setState(() {
+                    //         CityIsError = null;
+                    //       });
+                    //     }
+                    //   },
+                    //   prefixIcon: Padding(
+                    //     padding: EdgeInsets.symmetric(vertical: 18.h),
+                    //     child: Icon(
+                    //       Icons.location_city_rounded,
+                    //       size: 24.sp,
+                    //       color: Color(0XFF353A62),
+                    //     ),
+                    //   ),
+                    //   hintText: 'المنطقه',
+                    // ),
                     SizedBox(
                       height: 16.h,
                     ),
-                    Row(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            showPicker();
-                          },
-                          child: Container(
-                            height: 60.h,
-                            padding: EdgeInsets.symmetric(horizontal: 8.w),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15.r),
-                                border: Border.all(
-                                    width: 1.w,
-                                    color: AppColors.secondGrayColor)),
-                            child: Center(
-                                child: Row(
-                              children: [
-                                AppText(
-                                  text: countryFlag ?? country.flagEmoji,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                ),
-                                SizedBox(
-                                  width: 6.w,
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    AppText(
-                                      text: countryCode,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    SizedBox(
-                                      height: 3.h,
-                                    )
-                                  ],
-                                ),
-                              ],
-                            )),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 8.w,
-                        ),
-                        Expanded(
-                            child: AppTextField(
-                          controller: _phoneEditingController,
-                          keyboardType: TextInputType.phone,
-                          hintText: context.localizations.phone,
-                          errorText: phoneError,
-                          onChanged: (p0) {
-                            if (phoneError != null) {
-                              setState(() {
-                                phoneError = null;
-                              });
-                            }
-                          },
-                        )),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 16.h,
-                    ),
+                    // Row(
+                    //   children: [
+                    //     InkWell(
+                    //       onTap: () {
+                    //         showPicker();
+                    //       },
+                    //       child: Container(
+                    //         height: 60.h,
+                    //         padding: EdgeInsets.symmetric(horizontal: 8.w),
+                    //         decoration: BoxDecoration(
+                    //             borderRadius: BorderRadius.circular(15.r),
+                    //             border: Border.all(
+                    //                 width: 1.w,
+                    //                 color: AppColors.secondGrayColor)),
+                    //         child: Center(
+                    //             child: Row(
+                    //           children: [
+                    //             AppText(
+                    //               text: countryFlag ?? country.flagEmoji,
+                    //               fontWeight: FontWeight.bold,
+                    //               fontSize: 20,
+                    //             ),
+                    //             SizedBox(
+                    //               width: 6.w,
+                    //             ),
+                    //             Column(
+                    //               mainAxisAlignment: MainAxisAlignment.center,
+                    //               children: [
+                    //                 AppText(
+                    //                   text: countryCode,
+                    //                   fontWeight: FontWeight.bold,
+                    //                 ),
+                    //                 SizedBox(
+                    //                   height: 3.h,
+                    //                 )
+                    //               ],
+                    //             ),
+                    //           ],
+                    //         )),
+                    //       ),
+                    //     ),
+                    //     // SizedBox(
+                    //     //   width: 8.w,
+                    //     // ),
+                    //     // Expanded(
+                    //     //     child: AppTextField(
+                    //     //   controller: _phoneEditingController,
+                    //     //   keyboardType: TextInputType.phone,
+                    //     //   hintText: context.localizations.phone,
+                    //     //   errorText: phoneError,
+                    //     //   onChanged: (p0) {
+                    //     //     if (phoneError != null) {
+                    //     //       setState(() {
+                    //     //         phoneError = null;
+                    //     //       });
+                    //     //     }
+                    //     //   },
+                    //     // )),
+                    //   ],
+                    // ),
+                    // SizedBox(
+                    //   height: 16.h,
+                    // ),
                     AppTextField(
                       maxLines: 1,
 
@@ -384,30 +449,32 @@ class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
 
   bool _checkData() {
     if (_userNameEditingController.text.isNotEmpty &&
-        _phoneEditingController.text.isNotEmpty &&
+
         _emailEditingController.text.isNotEmpty &&
         _passwordEditingController.text.isNotEmpty &&
         _confirmPasswordEditingController.text.isNotEmpty) {
+
       if (_passwordEditingController.text ==
           _confirmPasswordEditingController.text) {
         return true;
-      } else {
+
+      } else if(_passwordEditingController.text !=
+          _confirmPasswordEditingController.text){
         context.showSnackBar(
             message: context.localizations.password_does_not_match,
-            error: true);
-        return false;
+            error: true
+        );
+
       }
+
+
     }
     if (_userNameEditingController.text.isEmpty) {
       setState(() {
         userNameIsError = '';
       });
     }
-    if (_phoneEditingController.text.isEmpty) {
-      setState(() {
-        phoneError = '';
-      });
-    }
+
     if (_emailEditingController.text.isEmpty) {
       setState(() {
         emailIsError = '';
@@ -423,6 +490,8 @@ class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
         confPasswordIsError = '';
       });
     }
+
+
     context.showSnackBar(
         message: context.localizations.enter_required_data, error: true);
     return false;
@@ -478,43 +547,70 @@ class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
    }
   }
   Future<void> _registerUser() async {
-    String phone = _phoneEditingController.text.trim();
     String username = _userNameEditingController.text.trim();
     String email = _emailEditingController.text.trim();
     String password = _passwordEditingController.text.trim();
 
     if (email.isNotEmpty &&
-        phone.isNotEmpty &&
         username.isNotEmpty &&
-        password.isNotEmpty) {
-      try {
-        FbResponse fbResponse = await FbAuthController().createAccount(
-            email: email,
-            password: password,
-            name: username,
-            phone: phone,
-            username: username,
-            latitude: userLat!,
-            longitude: userLong!,
-          userArea: userArea!
-        );
-        if (fbResponse.success) {
-          Navigator.pop(context);
-          context.showSnackBar(
-            message: 'تم التسجيل بنجاح الرجاء تفعيل بريدك الالكتروني',
+        password.isNotEmpty
+    ) {
+        try {
+          FbResponse fbResponse = await FbAuthController().createAccount(
+              email: email,
+              password: password,
+              name: username,
+              username: username,
+              latitude: userLat!,
+              longitude: userLong!,
+              userArea: userArea!, phone: ''
           );
-        } else {
-          context.showSnackBar(
-              message: fbResponse.message, error: !fbResponse.success);
-          print('000${fbResponse.message}');
+          if (fbResponse.success) {
+            // Navigator.pop(context);
+            // context.showSnackBar(
+            //   message: 'تم التسجيل بنجاح الرجاء تفعيل بريدك الالكتروني',
+            // );
+            showDialog<String>(
+
+              barrierDismissible: false,
+              useSafeArea: false,
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('تم التسجيل بنجاح'),
+                content: const Text('تم التسجيل بنجاح الرجاء تفعيل بريدك الالكتروني'),
+                actions: <Widget>[
+                  // TextButton(
+                  //   onPressed: () => Navigator.pop(context),
+                  //   child: const Text('الغاء'),
+                  // ),
+                  TextButton(
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LogInScreen(),
+                        )),
+                    child: const Text('نعم'),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            context.showSnackBar(
+                message: fbResponse.message, error: !fbResponse.success);
+            print('000${fbResponse.message}');
+          }
+        } catch (e) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('فشل في تسجيل المستخدم: $e')),
+          );
+          print('wwww ${e}');
         }
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('فشل في تسجيل المستخدم: $e')),
-        );
-        print('wwww ${e}');
-      }
-    } else {
+
+
+
+    }
+
+    else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(context.localizations.enter_required_data)),
       );

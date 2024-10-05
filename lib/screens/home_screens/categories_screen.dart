@@ -53,6 +53,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
+
               StreamBuilder<QuerySnapshot<ExpenseModel>>(
                 stream: FbFirestoreController().readBasicSupplies('Basic Supplies'),
                 builder: (context, snapshot) {
@@ -120,7 +121,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   }
                 },
               ),
-
                 SizedBox(height: 20.h,),
               StreamBuilder<QuerySnapshot<ExpenseModel>>(
                 stream: FbFirestoreController().readBasicSupplies('Entertainment'),
@@ -325,6 +325,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   }
                 },
               ),
+
+
+
+
                 SizedBox(height: 20.h,),
                 Divider(thickness: 1,color: AppColors.primaryColor,),
                 Center(
@@ -407,5 +411,34 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       ),
      
     );
+  }
+}
+class CurvePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    var paint = Paint()
+      ..color = Colors.blue // لون المنحنى
+      ..style = PaintingStyle.fill; // ملء المساحة داخل المنحنى
+
+    var path = Path();
+
+    // بدء المسار من نقطة معينة
+    path.moveTo(0, size.height * 0.5);
+
+    // رسم منحنى بوساطة نقطتين
+    path.quadraticBezierTo(size.width * 0.5, size.height, size.width, size.height * 0.5);
+
+    // إغلاق المسار لإكمال الرسم
+    path.lineTo(size.width, size.height);
+    path.lineTo(0, size.height);
+    path.close();
+
+    // رسم المسار على الكانفاس
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class   AppColors{
   // static const primaryColor = Color(0xFF0066FF);
-  static const primaryColor = Color(0xFF25B858);
+  static const primaryColor = Color(0xBD4029F1);
   static const blackColor = Color(0xFF161D2D);
   static const grayColor = Color(0xFFB0B0B0);
   static const secondGrayColor = Color(0xFFEBEBEB);

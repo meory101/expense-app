@@ -11,9 +11,6 @@ import 'package:tasty_booking/utils/notification_helper.dart';
 import 'package:tasty_booking/wdgets/app_text.dart';
 import 'package:tasty_booking/wdgets/outside_button_with_icons.dart';
 
-import '../profile_screen/common_questions_screen.dart';
-import '../profile_screen/edit_profile_screen.dart';
-import '../profile_screen/love_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -126,6 +123,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               AppText(text: ' رقم الهاتف : ',),
               AppText(text: SharedPrefController().getValueFor(key: PrefKeys.phone.name),),
+            ],
+          ),
+        ),
+        SizedBox(height: 20.h,),
+
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
+          margin: EdgeInsets.symmetric(horizontal: 20.w),
+          decoration: BoxDecoration(
+              border: Border.all(color: AppColors.primaryColor),
+              borderRadius: BorderRadius.circular(16.r)
+          ),
+          child: Row(
+            children: [
+              SvgPicture.asset('assets/images/notification.svg',height:25.h,width: 25.w, ),
+              SizedBox(width: 20.w,),
+              AppText(text: 'الاشعارات',fontWeight: FontWeight.bold,fontSize: 14,),
+              Spacer(),
+              SizedBox(
+                height: 35.h,
+
+                child: FittedBox(
+                  fit: BoxFit.fill,
+                  child: Switch(
+
+                    value: notificationOn,
+                    activeColor: Color(0xffE8F5E9),
+                    inactiveTrackColor: Color(0xff9E9B9B),
+                    inactiveThumbColor:Color(0xffE8F5E9),
+                    trackOutlineColor:
+                    const WidgetStatePropertyAll(Colors.transparent),
+                    activeTrackColor: Color(0xff4CAF50),
+                    onChanged: (value) {
+                      setState(() {
+                        notificationOn = !notificationOn;
+                      });
+                    },
+                  ),
+                ),
+              ),
+
             ],
           ),
         ),
