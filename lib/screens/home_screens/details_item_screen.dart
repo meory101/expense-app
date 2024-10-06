@@ -25,6 +25,11 @@ class DetailsItemScreen extends StatefulWidget {
   final String ceiling;
   final String collection;
 
+
+
+
+
+
   @override
   State<DetailsItemScreen> createState() => _DetailsItemScreenState();
 }
@@ -33,6 +38,23 @@ String? userName ;
 double? totalExpense ;
 class _DetailsItemScreenState extends State<DetailsItemScreen> {
   bool notificationOn = false;
+
+
+
+  // final numericGroupList = [
+  //   NumericGroup(
+  //     id: '1',
+  //     data: numericDataList,
+  //   ),
+  // ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
+
+
 
 
   @override
@@ -328,20 +350,64 @@ class _DetailsItemScreenState extends State<DetailsItemScreen> {
                         ),
                         SizedBox(height: 20.h,),
 
+                        StreamBuilder<QuerySnapshot<ExpenseModel>>(
+                          stream: FbFirestoreController().readSeamUserArea(widget.collection,SharedPrefController().getValueFor(key: PrefKeys.userArea.name)),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return SizedBox();
+                            } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                              // خريطة لتجميع البيانات حسب userId
+                              Map<String, Map<String, dynamic>> userExpenses = {};
 
-                        // Padding(
-                        //   padding:  EdgeInsets.all(26.0.w),
-                        //   child: DChartLineT(
-                        //     groupList: [
-                        //       TimeGroup( id: '1', data: []),
-                        //       TimeGroup( id: '2', data: []),
-                        //       TimeGroup( id: '3', data: []),
-                        //       TimeGroup( id: '4', data: []),
-                        //       TimeGroup( id: '5', data: []),
-                        //       TimeGroup( id: '6', data: []),
-                        //     ],
-                        //   ),
-                        // ),
+
+                              // تجميع البيانات حسب userId
+                              for (var doc in snapshot.data!.docs) {
+                                ExpenseModel expense = doc.data();
+                                String userId = expense.userId;
+                                String userName = expense.userName;
+                                double expenseAmount = double.parse(expense.expenseAmount);
+
+
+                                if (userExpenses.containsKey(userId)) {
+
+                                  userExpenses[userId]!['totalExpense'] += expenseAmount; // جمع القيم
+                                } else {
+                                  userExpenses[userId] = {
+                                    'userName': userName,
+                                    'totalExpense': expenseAmount,
+                                  }; // إضافة مستخدم جديد
+                                }
+                              }
+                              List<NumericData> numericDataList = [
+                                NumericData(domain: 0, measure: 0),
+                                NumericData(domain: 1, measure: userExpenses[userId]!['totalExpense']),
+                                NumericData(domain: 2, measure: userExpenses[userId]!['totalExpense']),
+                                NumericData(domain: 3, measure: userExpenses[userId]!['totalExpense']),
+                                NumericData(domain: 4, measure: userExpenses[userId]!['totalExpense']),
+                              ];
+
+                              final numericGroupList = [
+                                NumericGroup(
+                                  id: '1',
+                                  data: numericDataList,
+                                ),
+
+                              ];
+                              return   Padding(
+                                padding:  EdgeInsets.all(26.0.w),
+                                child: AspectRatio(
+                                  aspectRatio: 16 / 9,
+                                  child: DChartLineN(
+                                    groupList: numericGroupList,
+                                  ),
+                                ),
+                              );
+                            } else {
+                              return SizedBox();
+                            }
+                          },
+                        ),
+
 
 
                         SizedBox(height: 20.h,),
