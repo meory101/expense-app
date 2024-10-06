@@ -10,14 +10,17 @@ import 'package:tasty_booking/model/fb_response.dart';
 import 'package:tasty_booking/screens/auth_screens/login_screens/login_screen.dart';
 import 'package:tasty_booking/style/app_colors.dart';
 import 'package:tasty_booking/utils/helpers.dart';
+import 'package:tasty_booking/validator/validator.dart';
 import 'package:tasty_booking/wdgets/app_back_button.dart';
 import 'package:tasty_booking/wdgets/app_elevated_button.dart';
 import 'package:tasty_booking/wdgets/app_text.dart';
 import 'package:tasty_booking/wdgets/app_text_field.dart';
+import 'package:tasty_booking/wdgets/base_text_field.dart';
 import 'package:tasty_booking/wdgets/custom_app_loading.dart';
 
 import '../../../model/main_category_model.dart';
-import '../../../wdgets/app_drop_down.dart';
+import '../../../wdgets/custom_password_package.dart';
+import '../../../wdgets/custom_password_package.dart';
 
 class CreateNewAccountScreen extends StatefulWidget {
   const CreateNewAccountScreen({Key? key}) : super(key: key);
@@ -27,6 +30,7 @@ class CreateNewAccountScreen extends StatefulWidget {
 }
 
 class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey();
   Country country = CountryParser.parseCountryCode('SA');
   late TextEditingController _userNameEditingController;
   // late TextEditingController _CityEditingController;
@@ -102,326 +106,398 @@ class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 68.h,
-                    ),
-                    AppBackButton(
-                      onTap: () => Navigator.pop(context),
-                    ),
-                    SizedBox(
-                      height: 40.h,
-                    ),
-                    AppText(
-                      text: context.localizations.create_new_account_title,
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'DINNextLTArabic_bold',
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                      height: 30.h,
-                    ),
-                    AppTextField(
-                      controller: _userNameEditingController,
-                      errorText: userNameIsError,
-                      onChanged: (p0) {
-                        if (userNameIsError != null) {
-                          setState(() {
-                            userNameIsError = null;
-                          });
-                        }
-                      },
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 18.h),
-                        child: SvgPicture.asset(
-                          'assets/images/userNameIcon.svg',
-                          height: 24.h,
-                          width: 24.w,
-                        ),
+              child: Form(
+                key: _formKey,
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                    // crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 68.h,
                       ),
-                      hintText: context.localizations.user_name,
-                    ),
-                    SizedBox(
-                      height: 16.h,
-                    ),
-                    AppTextField(
-                      controller: _emailEditingController,
-                      errorText: emailIsError,
-                      keyboardType: TextInputType.text,
-                      onChanged: (p0) {
-                        if (emailIsError != null) {
-                          setState(() {
-                            emailIsError = null;
-                          });
-                        }
-                      },
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 18.h),
-                        child: Icon(
-                          Icons.email_outlined,
-                          size: 24.sp,
-                          color: Color(0XFF353A62),
-                        ),
+                      AppBackButton(
+                        onTap: () => Navigator.pop(context),
                       ),
-                      hintText: context.localizations.email,
-                    ),
-                    // SizedBox(
-                    //   height: 16.h,
-                    // ),
-                    // AppDropDown<String>(
-                    //   hint: 'اختار المنطقة',
-                    //   onChanged: (String? value) {
-                    //     setState(() {
-                    //       _selectedCategoryId = value;
-                    //       newCategoryTextController.clear();
-                    //     });
-                    //   },
-                    //   color: _selectedCategoryId != null ? AppColors.primaryColor:AppColors.secondGrayColor,
-                    //   value: _selectedCategoryId,
-                    //   items: mainCategory.map(
-                    //         (category) {
-                    //       return DropdownMenuItem(
-                    //         value: category.nameAr,
-                    //         child: Text(category.nameAr),
-                    //       );
-                    //     },
-                    //   ).toList(),
-                    //   marginTop: 15.h,
-                    // ),
-
-                    // AppTextField(
-                    //   controller: _CityEditingController,
-                    //   errorText: CityIsError,
-                    //   keyboardType: TextInputType.emailAddress,
-                    //   onChanged: (p0) {
-                    //     if (CityIsError != null) {
-                    //       setState(() {
-                    //         CityIsError = null;
-                    //       });
-                    //     }
-                    //   },
-                    //   prefixIcon: Padding(
-                    //     padding: EdgeInsets.symmetric(vertical: 18.h),
-                    //     child: Icon(
-                    //       Icons.location_city_rounded,
-                    //       size: 24.sp,
-                    //       color: Color(0XFF353A62),
-                    //     ),
-                    //   ),
-                    //   hintText: 'المنطقه',
-                    // ),
-                    SizedBox(
-                      height: 16.h,
-                    ),
-                    // Row(
-                    //   children: [
-                    //     InkWell(
-                    //       onTap: () {
-                    //         showPicker();
-                    //       },
-                    //       child: Container(
-                    //         height: 60.h,
-                    //         padding: EdgeInsets.symmetric(horizontal: 8.w),
-                    //         decoration: BoxDecoration(
-                    //             borderRadius: BorderRadius.circular(15.r),
-                    //             border: Border.all(
-                    //                 width: 1.w,
-                    //                 color: AppColors.secondGrayColor)),
-                    //         child: Center(
-                    //             child: Row(
-                    //           children: [
-                    //             AppText(
-                    //               text: countryFlag ?? country.flagEmoji,
-                    //               fontWeight: FontWeight.bold,
-                    //               fontSize: 20,
-                    //             ),
-                    //             SizedBox(
-                    //               width: 6.w,
-                    //             ),
-                    //             Column(
-                    //               mainAxisAlignment: MainAxisAlignment.center,
-                    //               children: [
-                    //                 AppText(
-                    //                   text: countryCode,
-                    //                   fontWeight: FontWeight.bold,
-                    //                 ),
-                    //                 SizedBox(
-                    //                   height: 3.h,
-                    //                 )
-                    //               ],
-                    //             ),
-                    //           ],
-                    //         )),
-                    //       ),
-                    //     ),
-                    //     // SizedBox(
-                    //     //   width: 8.w,
-                    //     // ),
-                    //     // Expanded(
-                    //     //     child: AppTextField(
-                    //     //   controller: _phoneEditingController,
-                    //     //   keyboardType: TextInputType.phone,
-                    //     //   hintText: context.localizations.phone,
-                    //     //   errorText: phoneError,
-                    //     //   onChanged: (p0) {
-                    //     //     if (phoneError != null) {
-                    //     //       setState(() {
-                    //     //         phoneError = null;
-                    //     //       });
-                    //     //     }
-                    //     //   },
-                    //     // )),
-                    //   ],
-                    // ),
-                    // SizedBox(
-                    //   height: 16.h,
-                    // ),
-                    AppTextField(
-                      maxLines: 1,
-
-                      controller: _passwordEditingController,
-                      obscure: obscure,
-                      errorText: passwordIsError,
-                      onChanged: (p0) {
-                        if (passwordIsError != null) {
-                          setState(() {
-                            passwordIsError = null;
-                          });
-                        }
-                      },
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 18.h),
-                        child: SvgPicture.asset(
-                          'assets/images/lockIcon.svg',
-                          height: 24.h,
-                          width: 24.w,
-                        ),
+                      SizedBox(
+                        height: 40.h,
                       ),
-                      hintText: context.localizations.enter_password,
-                      suffixIcon: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            obscure = !obscure;
-                          });
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 16.h),
+                      AppText(
+                        text: context.localizations.create_new_account_title,
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'DINNextLTArabic_bold',
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        height: 30.h,
+                      ),
+                      BaseTextField(
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 18.h),
                           child: SvgPicture.asset(
-                            obscure
-                                ? 'assets/images/eyeClosed.svg'
-                                : 'assets/images/eyeOutline.svg',
+                            'assets/images/userNameIcon.svg',
                             height: 24.h,
                             width: 24.w,
                           ),
                         ),
+                        type: TextInputType.name,
+                        hint: context.localizations.user_name,
+                        controller: _userNameEditingController,
+                        validate: (value) => value!.validateName(context),
+                        fieldTypes: FieldTypes.normal,
                       ),
-                      keyboardType: TextInputType.visiblePassword,
-                    ),
-                    SizedBox(
-                      height: 16.h,
-                    ),
-                    AppTextField(
-                      maxLines: 1,
-
-                      controller: _confirmPasswordEditingController,
-                      errorText: confPasswordIsError,
-                      onChanged: (p0) {
-                        if (confPasswordIsError != null) {
-                          setState(() {
-                            confPasswordIsError = null;
-                          });
-                        }
-                      },
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 18.h),
-                        child: SvgPicture.asset(
-                          'assets/images/lockIcon.svg',
-                          height: 24.h,
-                          width: 24.w,
-                        ),
-                      ),
-                      hintText: context.localizations.enter_password_again,
-                      suffixIcon: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            obscure2 = !obscure2;
-                          });
+                      /*AppTextField(
+                        controller: _userNameEditingController,
+                        errorText: userNameIsError,
+                        onChanged: (p0) {
+                          if (userNameIsError != null) {
+                            setState(() {
+                              userNameIsError = null;
+                            });
+                          }
                         },
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 16.h),
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 18.h),
                           child: SvgPicture.asset(
-                            obscure2
-                                ? 'assets/images/eyeClosed.svg'
-                                : 'assets/images/eyeOutline.svg',
+                            'assets/images/userNameIcon.svg',
                             height: 24.h,
                             width: 24.w,
                           ),
                         ),
+                        hintText: context.localizations.user_name,
+                      ),*/
+                      SizedBox(
+                        height: 16.h,
                       ),
-                      keyboardType: TextInputType.visiblePassword,
-                      obscure: obscure2,
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    SizedBox(
-                      height: 26.h,
-                    ),
-                    AppElevatedButton(
-                      text: context.localizations.join_text,
-                      onPressed: () async {
-                        setState(() {
-                          isLoading = true;
-                        });
-                        await _performSignUp();
-                        setState(() {
-                          isLoading = false;
-                        });
-                      },
-                    ),
-                    const Spacer(),
-                    Align(
-                      alignment: Alignment.center,
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(10.r),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const LogInScreen(),
-                              ));
-                        },
-                        child: Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(
-                                text: '${context.localizations.have_account} ',
-                                style: TextStyle(
-                                    color: AppColors.blackColor,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'DINNextLTArabic_Light'),
-                              ),
-                              TextSpan(
-                                text: context.localizations.login,
-                                style: TextStyle(
-                                    color: AppColors.primaryColor,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'DINNextLTArabic_Light'),
-                              ),
-                            ],
+                      BaseTextField(
+                        type: TextInputType.emailAddress,
+                        hint: context.localizations.email,
+                        controller: _emailEditingController,
+                        validate: (value) => value!.validateEmail(context),
+                        fieldTypes: FieldTypes.normal,
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 18.h),
+                          child: Icon(
+                            Icons.email_outlined,
+                            size: 24.sp,
+                            color: Color(0XFF353A62),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 32.h,
-                    ),
-                  ]),
+                      /*AppTextField(
+
+                        controller: _emailEditingController,
+                        errorText: emailIsError,
+                        keyboardType: TextInputType.text,
+                        onChanged: (p0) {
+                          if (emailIsError != null) {
+                            setState(() {
+                              emailIsError = null;
+                            });
+                          }
+                        },
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 18.h),
+                          child: Icon(
+                            Icons.email_outlined,
+                            size: 24.sp,
+                            color: Color(0XFF353A62),
+                          ),
+                        ),
+                        hintText: context.localizations.email,
+                      ),*/
+                      // SizedBox(
+                      //   height: 16.h,
+                      // ),
+                      // AppDropDown<String>(
+                      //   hint: 'اختار المنطقة',
+                      //   onChanged: (String? value) {
+                      //     setState(() {
+                      //       _selectedCategoryId = value;
+                      //       newCategoryTextController.clear();
+                      //     });
+                      //   },
+                      //   color: _selectedCategoryId != null ? AppColors.primaryColor:AppColors.secondGrayColor,
+                      //   value: _selectedCategoryId,
+                      //   items: mainCategory.map(
+                      //         (category) {
+                      //       return DropdownMenuItem(
+                      //         value: category.nameAr,
+                      //         child: Text(category.nameAr),
+                      //       );
+                      //     },
+                      //   ).toList(),
+                      //   marginTop: 15.h,
+                      // ),
+
+                      // AppTextField(
+                      //   controller: _CityEditingController,
+                      //   errorText: CityIsError,
+                      //   keyboardType: TextInputType.emailAddress,
+                      //   onChanged: (p0) {
+                      //     if (CityIsError != null) {
+                      //       setState(() {
+                      //         CityIsError = null;
+                      //       });
+                      //     }
+                      //   },
+                      //   prefixIcon: Padding(
+                      //     padding: EdgeInsets.symmetric(vertical: 18.h),
+                      //     child: Icon(
+                      //       Icons.location_city_rounded,
+                      //       size: 24.sp,
+                      //       color: Color(0XFF353A62),
+                      //     ),
+                      //   ),
+                      //   hintText: 'المنطقه',
+                      // ),
+                      SizedBox(
+                        height: 16.h,
+                      ),
+                      // Row(
+                      //   children: [
+                      //     InkWell(
+                      //       onTap: () {
+                      //         showPicker();
+                      //       },
+                      //       child: Container(
+                      //         height: 60.h,
+                      //         padding: EdgeInsets.symmetric(horizontal: 8.w),
+                      //         decoration: BoxDecoration(
+                      //             borderRadius: BorderRadius.circular(15.r),
+                      //             border: Border.all(
+                      //                 width: 1.w,
+                      //                 color: AppColors.secondGrayColor)),
+                      //         child: Center(
+                      //             child: Row(
+                      //           children: [
+                      //             AppText(
+                      //               text: countryFlag ?? country.flagEmoji,
+                      //               fontWeight: FontWeight.bold,
+                      //               fontSize: 20,
+                      //             ),
+                      //             SizedBox(
+                      //               width: 6.w,
+                      //             ),
+                      //             Column(
+                      //               mainAxisAlignment: MainAxisAlignment.center,
+                      //               children: [
+                      //                 AppText(
+                      //                   text: countryCode,
+                      //                   fontWeight: FontWeight.bold,
+                      //                 ),
+                      //                 SizedBox(
+                      //                   height: 3.h,
+                      //                 )
+                      //               ],
+                      //             ),
+                      //           ],
+                      //         )),
+                      //       ),
+                      //     ),
+                      //     // SizedBox(
+                      //     //   width: 8.w,
+                      //     // ),
+                      //     // Expanded(
+                      //     //     child: AppTextField(
+                      //     //   controller: _phoneEditingController,
+                      //     //   keyboardType: TextInputType.phone,
+                      //     //   hintText: context.localizations.phone,
+                      //     //   errorText: phoneError,
+                      //     //   onChanged: (p0) {
+                      //     //     if (phoneError != null) {
+                      //     //       setState(() {
+                      //     //         phoneError = null;
+                      //     //       });
+                      //     //     }
+                      //     //   },
+                      //     // )),
+                      //   ],
+                      // ),
+                      // SizedBox(
+                      //   height: 16.h,
+                      // ),
+                      Column(
+                        children: [
+                          BaseTextField(
+                            prefixIcon: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 18.h),
+                              child: SvgPicture.asset(
+                                'assets/images/lockIcon.svg',
+                                height: 24.h,
+                                width: 24.w,
+                              ),
+                            ),
+                            onChanged: (value) {
+                              updatePasswordController(value);
+                            },
+                            type: TextInputType.visiblePassword,
+                            hint: context.localizations.enter_password,
+                            controller: _passwordEditingController,
+                            focus: false,
+                            errorText: passwordIsError,
+
+                            // onSubmit: (){
+                            //   print("7878998798798");
+                            // },
+                            // onFieldSubmitted: (value){
+                            //   print("7878998798798$value");
+                            //
+                            //   setState(() {
+                            //     isPasswordValidCheck =true;
+                            //   });
+                            // },
+                            validate: (value) => value!.validatePassword(context),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  obscure = !obscure;
+                                });
+                              },
+                              icon: Icon(
+                                obscure ? Icons.visibility : Icons.visibility_off,
+                              ),
+                            ),
+                            fieldTypes: obscure ? FieldTypes.password : FieldTypes.normal,
+                          ),
+                          _passwordEditingController.text.isEmpty
+                              ? const SizedBox():CustomPasswordPackage(textController: _passwordEditingController,),
+
+                        ],
+                      ),
+                      SizedBox(
+                        height: 16.h,
+                      ),
+                      BaseTextField(
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 18.h),
+                          child: SvgPicture.asset(
+                            'assets/images/lockIcon.svg',
+                            height: 24.h,
+                            width: 24.w,
+                          ),
+                        ),
+                        type: TextInputType.visiblePassword,
+                        hint: context.localizations.enter_password_again,
+                        controller: _confirmPasswordEditingController,
+                        validate: (value) => value!.validatePasswordConfirm(
+                            context,
+                            pass: _confirmPasswordEditingController.text),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(
+                                  () {
+                                obscure2 = !obscure2;
+                              },
+                            );
+                          },
+                          icon: Icon(
+                            obscure2 ? Icons.visibility : Icons.visibility_off,
+                          ),
+                        ),
+                        fieldTypes:
+                        obscure2 ? FieldTypes.password : FieldTypes.normal,
+                      ),
+                      /*AppTextField(
+                        maxLines: 1,
+
+                        controller: _confirmPasswordEditingController,
+                        errorText: confPasswordIsError,
+                        onChanged: (p0) {
+                          if (confPasswordIsError != null) {
+                            setState(() {
+                              confPasswordIsError = null;
+                            });
+                          }
+                        },
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 18.h),
+                          child: SvgPicture.asset(
+                            'assets/images/lockIcon.svg',
+                            height: 24.h,
+                            width: 24.w,
+                          ),
+                        ),
+                        hintText: context.localizations.enter_password_again,
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              obscure2 = !obscure2;
+                            });
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 16.h),
+                            child: SvgPicture.asset(
+                              obscure2
+                                  ? 'assets/images/eyeClosed.svg'
+                                  : 'assets/images/eyeOutline.svg',
+                              height: 24.h,
+                              width: 24.w,
+                            ),
+                          ),
+                        ),
+                        keyboardType: TextInputType.visiblePassword,
+                        obscure: obscure2,
+                      ),*/
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      SizedBox(
+                        height: 26.h,
+                      ),
+                      AppElevatedButton(
+                        text: context.localizations.join_text,
+                        onPressed: () async {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          await _performSignUp();
+                          setState(() {
+                            isLoading = false;
+                          });
+                        },
+                      ),
+                      const Spacer(),
+                      Align(
+                        alignment: Alignment.center,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(10.r),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LogInScreen(),
+                                ));
+                          },
+                          child: Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: '${context.localizations.have_account} ',
+                                  style: TextStyle(
+                                      color: AppColors.blackColor,
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily: 'DINNextLTArabic_Light'),
+                                ),
+                                TextSpan(
+                                  text: context.localizations.login,
+                                  style: TextStyle(
+                                      color: AppColors.primaryColor,
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily: 'DINNextLTArabic_Light'),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 32.h,
+                      ),
+                    ]),
+              ),
             ),
             Visibility(
                 visible: isLoading == true, child: const CustomAppLoading())
@@ -448,11 +524,7 @@ class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
   }
 
   bool _checkData() {
-    if (_userNameEditingController.text.isNotEmpty &&
-
-        _emailEditingController.text.isNotEmpty &&
-        _passwordEditingController.text.isNotEmpty &&
-        _confirmPasswordEditingController.text.isNotEmpty) {
+    if (_formKey.currentState!.validate()) {
 
       if (_passwordEditingController.text ==
           _confirmPasswordEditingController.text) {
@@ -650,5 +722,10 @@ class _CreateNewAccountScreenState extends State<CreateNewAccountScreen> {
         });
       },
     );
+  }
+  void updatePasswordController(String text) {
+    setState(() {
+      _passwordEditingController.text = text;
+    });
   }
 }

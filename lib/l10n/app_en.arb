@@ -470,5 +470,11 @@
   "booking_date":"Booking date",
   "use":"Use",
   "pay_done":"The service has been requested successfully.",
-  "track_orders":"Track orders"
+  "track_orders":"Track orders",
+  "fillField": "Please Fill the field",
+  "confirm_password": "Make sure that this password matches the previous one",
+  "cant_use_this_word": "You can not use this keyword :",
+  "phone_validation": "Please enter a valid mobile phone",
+  "validate_name": "Please enter a valid name",
+  "mail_validation": "Please enter a valid email"
 }
