@@ -222,9 +222,7 @@ class _DetailsItemScreenState extends State<DetailsItemScreen> {
                                          userId = userExpenses.keys.elementAt(index);
                                          userName = userExpenses[userId]!['userName'];
                                          totalExpense = userExpenses[userId]!['totalExpense'];
-                                        return
-
-                                          Container(
+                                        return Container(
                                           padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 16.h),
                                           margin: EdgeInsets.symmetric(horizontal: 20.w),
                                           decoration: BoxDecoration(
@@ -378,13 +376,23 @@ class _DetailsItemScreenState extends State<DetailsItemScreen> {
                                   }; // إضافة مستخدم جديد
                                 }
                               }
-                              List<NumericData> numericDataList = [
+                              List<NumericData> numericDataList = <NumericData>[
+                                NumericData(domain: 0, measure: 0),
+                              ];
+                              for(int i=0; i< userExpenses.length;i++){
+                                userId = userExpenses.keys.elementAt(i);
+                                userName = userExpenses[userId]!['userName'];
+                                totalExpense = userExpenses[userId]!['totalExpense'];
+                                numericDataList.add( NumericData(domain: i+1, measure: userExpenses[userId]!['totalExpense']));
+                                print(numericDataList);
+                              }
+                              /*List<NumericData> numericDataList = [
                                 NumericData(domain: 0, measure: 0),
                                 NumericData(domain: 1, measure: userExpenses[userId]!['totalExpense']),
                                 NumericData(domain: 2, measure: userExpenses[userId]!['totalExpense']),
                                 NumericData(domain: 3, measure: userExpenses[userId]!['totalExpense']),
                                 NumericData(domain: 4, measure: userExpenses[userId]!['totalExpense']),
-                              ];
+                              ];*/
 
                               final numericGroupList = [
                                 NumericGroup(
