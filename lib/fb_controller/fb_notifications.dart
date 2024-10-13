@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -10,7 +11,7 @@ import '../firebase_options.dart';
 
 
 //typedef BackgroundMessageHandler = Future<void> Function(RemoteMessage message);
-Future<void> firebaseMessagingBackgroundHandler(RemoteMessage remoteMessage) async {
+FutureOr<void> firebaseMessagingBackgroundHandler(RemoteMessage remoteMessage) async {
   //BACKGROUND Notifications - iOS & Android
   if(Platform.isAndroid){
     await Firebase.initializeApp(
@@ -28,10 +29,10 @@ late FlutterLocalNotificationsPlugin localNotificationsPlugin;
 
 mixin FbNotifications {
   /// CALLED IN main function between ensureInitialized <-> runApp(widget);
-  static Future<void> initNotifications() async {
+  static FutureOr<void> initNotifications() async {
     //Connect the previous created function with onBackgroundMessage to enable
     //receiving notification when app in Background.
-    FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+    // FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
 
     //Channel
     if (Platform.isAndroid) {
@@ -67,7 +68,7 @@ mixin FbNotifications {
   }
 
   //iOS Notification Permission
-  Future<void> requestNotificationPermissions() async {
+  FutureOr<void> requestNotificationPermissions() async {
     if(Platform.isIOS){
       NotificationSettings notificationSettings =
       await FirebaseMessaging.instance.requestPermission(

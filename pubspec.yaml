@@ -40,6 +40,7 @@ dependencies:
   cupertino_icons: ^1.0.6
   flutter_screenutil: ^5.9.3
   shared_preferences: ^2.3.0
+  flutter_slidable: ^3.1.1
   flutter_svg: ^2.0.10+1
   intl: ^0.19.0
   country_picker: ^2.0.26
@@ -60,7 +61,8 @@ dependencies:
   timezone: ^0.9.4
   d_chart: ^2.8.0
   curved_container: ^0.0.2
-
+  horizontal_week_calendar: ^0.0.18
+#  simple_table_calendar: ^0.0.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

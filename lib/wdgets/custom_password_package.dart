@@ -1,6 +1,7 @@
 library password_validation_plus;
 
 import 'package:flutter/material.dart';
+double strength = 0;
 
 class CustomPasswordPackage extends StatefulWidget {
   final TextEditingController textController;
@@ -28,7 +29,7 @@ class CustomPasswordPackage extends StatefulWidget {
   State<CustomPasswordPackage> createState() => CustomPasswordPackageState();
 }
 
-class CustomPasswordPackageState extends State<CustomPasswordPackage> {
+  class CustomPasswordPackageState extends State<CustomPasswordPackage> {
   RegExp numReg = RegExp(
       r".*[0-9].*"); //use to find password text contains at least one digit
   RegExp simpleReg = RegExp(
@@ -37,7 +38,6 @@ class CustomPasswordPackageState extends State<CustomPasswordPackage> {
       r".*[A-Z].*"); //use to find password text contains at least one CAPITAL letter
   RegExp symbolsReg = RegExp(
       r'.*[!@#\$&*~].*'); //use to find password text contains at least one symbol (!, @, #, \, $, &, *, ~)
-  double _strength = 0;
 bool isHide =false;
   @override
   void initState() {
@@ -56,15 +56,15 @@ bool isHide =false;
           SizedBox(height: size.height * 0.005),
           //show the progress of the password strength
           LinearProgressIndicator(
-            value: _strength,
+            value: strength,
             backgroundColor: Colors.grey[300],
-            color: _strength <= 0.2
+            color: strength <= 0.2
                 ? Colors.red
-                : _strength == 0.4
+                : strength == 0.4
                 ? Colors.yellow
-                : _strength == 0.6000000000000001
+                : strength == 0.6000000000000001
                 ? Colors.amber
-                : _strength == 0.8
+                : strength == 0.8
                 ? Colors.orange
                 : Colors.green,
             minHeight: 5,
@@ -116,8 +116,8 @@ bool isHide =false;
       total += 0.2;
     }
     setState(() {
-      _strength = total;
-      if(_strength>0.8){
+      strength = total;
+      if(strength>0.8){
         isHide =true;
       }
     });

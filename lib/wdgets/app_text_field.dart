@@ -19,6 +19,7 @@ class AppTextField extends StatelessWidget {
     this.maxLines,
     this.minLines,
     this.onChanged,
+    this.validator,
     this.height = 62,
     this.width,
     this.errorText,
@@ -31,6 +32,7 @@ class AppTextField extends StatelessWidget {
  final Widget? prefixIcon;
  final TextInputType? keyboardType;
   final bool obscure;
+  final String? Function(String?)? validator;
   final bool enabled;
   final bool readOnly;
   final TextStyle? textStyle;
@@ -48,7 +50,8 @@ class AppTextField extends StatelessWidget {
     return SizedBox(
       height:height.h,
       width: width,
-      child: TextField(
+      child: TextFormField(
+      validator: validator,
         controller: controller,
         focusNode: focusNode,
         maxLength: maxLength,
@@ -60,6 +63,9 @@ class AppTextField extends StatelessWidget {
         cursorColor: AppColors.primaryColor,
         textAlign: textAlign,
         decoration: InputDecoration(
+          counterStyle: TextStyle(
+            color: Colors.red
+          ),
           suffixIcon: suffixIcon,
           prefixIcon: prefixIcon,
           hintText: hintText,
@@ -95,6 +101,7 @@ class AppTextField extends StatelessWidget {
             ),
 
         ),
+
         keyboardType: keyboardType,
         obscureText: obscure,
         enabled: enabled,

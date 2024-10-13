@@ -5,6 +5,7 @@ class ExpenseAmountModel{
   late String dateNow;
   late String dateNowMonth;
   late String dateNowYear;
+  late String expenseName;
   ExpenseAmountModel();
 
 
@@ -15,6 +16,7 @@ class ExpenseAmountModel{
     dateNow = map['dateNow'];
     dateNowMonth = map['dateNowMonth'];
     dateNowYear = map['dateNowYear'];
+    expenseName = map['expenseName'];
 
   }
 
@@ -26,7 +28,7 @@ class ExpenseAmountModel{
     map['dateNow'] = dateNow;
     map['dateNowMonth'] = dateNowMonth;
     map['dateNowYear'] = dateNowYear;
-
+    map['expenseName'] = expenseName;
     return map;
   }
 }

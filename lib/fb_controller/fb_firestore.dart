@@ -23,7 +23,21 @@ class FbFirestoreController with FirebaseHelper {
   User? user = FirebaseAuth.instance.currentUser;
 
   Future<void> getUserData({required String doc}) async {
+    print('called this');
     try {
+      print('go there${doc}');
+
+      print( _firestore
+          .collection('users')
+          .doc(doc).get());
+
+     var user =await _firestore
+          .collection('users')
+          .doc(doc).get();
+
+     print(user.data());
+
+      print('000000000000000000000');
       // استخدام withConverter لتحويل البيانات من وإلى UserModel
       DocumentSnapshot<UserModel> snapshot = await _firestore
           .collection('users')
@@ -32,10 +46,11 @@ class FbFirestoreController with FirebaseHelper {
         fromFirestore: (snapshot, options) =>
             UserModel.fromMap(snapshot.data()!),
         toFirestore: (value, options) => value.toMap(),
-      )
-          .get();
-
+      ).get();
+    print(snapshot.data());
       UserModel? userModel = snapshot.data();
+      print(userModel);
+      print('user model');
       if (userModel != null) {
         await SharedPrefController().save(userId: doc, userModel: userModel);
       }

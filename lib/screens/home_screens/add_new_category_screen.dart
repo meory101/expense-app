@@ -12,8 +12,6 @@ import 'package:tasty_booking/wdgets/app_text.dart';
 import 'package:tasty_booking/wdgets/app_text_field.dart';
 import 'package:tasty_booking/wdgets/button_with_border.dart';
 import 'package:tasty_booking/wdgets/custom_app_loading.dart';
-import 'package:tasty_booking/wdgets/outside_button_with_icons.dart';
-
 import '../../style/app_colors.dart';
 import '../../wdgets/app_drop_down.dart';
 import 'home_screen.dart';
@@ -29,6 +27,7 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
   late TextEditingController costTextController;
   late TextEditingController HightcostTextController;
   late TextEditingController newCategoryTextController;
+  late TextEditingController nameController;
   String?_selectedCategoryId;
   List<MainCategoryModel> mainCategory = <MainCategoryModel>[
     MainCategoryModel('ترفيه', 'Entertainment'),
@@ -49,6 +48,7 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
     costTextController = TextEditingController();
     HightcostTextController = TextEditingController();
     newCategoryTextController = TextEditingController();
+    nameController = TextEditingController();
   }
 
   @override
@@ -105,7 +105,24 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                       controller: costTextController,
                       hintText: 'المصروف (رقم) *',
                       keyboardType: TextInputType.number,
-                      prefixIcon: const Icon(Icons.attach_money_outlined),
+                      prefixIcon: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 18.h),
+                          child:  Image.asset('assets/images/SRA.jpeg')
+                      ),
+                      // prefixIcon: Image.asset('assets/images/SRA.jpeg',height: 5.h,width: 5.w,),
+                    ),
+                    SizedBox(
+                      height: 30.h,
+                    ),
+                    AppTextField(
+                      controller: nameController,
+                      hintText: 'المصروف (اسم) *',
+                      keyboardType: TextInputType.text,
+                      prefixIcon: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 18.h),
+                          child:  Image.asset('assets/images/SRA.jpeg')
+                      ),
+                      // prefixIcon: Image.asset('assets/images/SRA.jpeg',height: 5.h,width: 5.w,),
                     ),
                     SizedBox(
                       height: 30.h,
@@ -144,7 +161,10 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                       hintText: 'تصنيف اخر',
                       keyboardType: TextInputType.text,
                       enabled: _selectedCategoryId==null,
-                      prefixIcon: const Icon(Icons.menu_open_outlined),
+                      prefixIcon: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 18.h),
+                          child:  Image.asset('assets/images/SRA.jpeg')
+                      ),
                     ),
                     SizedBox(
                       height: 10.h,
@@ -170,12 +190,16 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                           controller: HightcostTextController,
                           hintText: 'حد أعلى للصرف (رقم)',
                           keyboardType: TextInputType.number,
-                          prefixIcon: const Icon(Icons.attach_money_outlined),
+                          prefixIcon: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 18.h),
+                              child:  Image.asset('assets/images/SRA.jpeg')
+                          ),
                           enabled: false,
                         ),
 
                       ],
-                    ) : Column(
+                    ) :
+                    Column(
                       children: [
                         Align(
                             alignment: AlignmentDirectional.centerStart,
@@ -187,8 +211,10 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                           controller: HightcostTextController,
                           hintText: 'حد أعلى للصرف (رقم)',
                           keyboardType: TextInputType.number,
-                          prefixIcon: const Icon(Icons.attach_money_outlined),
-                        ),
+                          prefixIcon: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 18.h),
+                              child:  Image.asset('assets/images/SRA.jpeg')
+                          ),                        ),
                       ],
                     ):
                     _selectedCategoryId == 'Entertainment'?
@@ -205,12 +231,15 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                           controller: HightcostTextController,
                           hintText: 'حد أعلى للصرف (رقم)',
                           keyboardType: TextInputType.number,
-                          prefixIcon: const Icon(Icons.attach_money_outlined),
-                          enabled: false,
+                          prefixIcon: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 18.h),
+                              child:  Image.asset('assets/images/SRA.jpeg')
+                          ),                          enabled: false,
                         ),
 
                       ],
-                    ) : Column(
+                    ) :
+                    Column(
                       children: [
                         Align(
                             alignment: AlignmentDirectional.centerStart,
@@ -222,8 +251,10 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                           controller: HightcostTextController,
                           hintText: 'حد أعلى للصرف (رقم)',
                           keyboardType: TextInputType.number,
-                          prefixIcon: const Icon(Icons.attach_money_outlined),
-                        ),
+                          prefixIcon: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 18.h),
+                              child:  Image.asset('assets/images/SRA.jpeg')
+                          ),                        ),
                       ],
                     ):
                     _selectedCategoryId == 'Bills'?
@@ -240,12 +271,15 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                           controller: HightcostTextController,
                           hintText: 'حد أعلى للصرف (رقم)',
                           keyboardType: TextInputType.number,
-                          prefixIcon: const Icon(Icons.attach_money_outlined),
-                          enabled: false,
+                          prefixIcon: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 18.h),
+                              child:  Image.asset('assets/images/SRA.jpeg')
+                          ),                          enabled: false,
                         ),
 
                       ],
-                    ) : Column(
+                    ) :
+                    Column(
                       children: [
                         Align(
                             alignment: AlignmentDirectional.centerStart,
@@ -257,8 +291,10 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                           controller: HightcostTextController,
                           hintText: 'حد أعلى للصرف (رقم)',
                           keyboardType: TextInputType.number,
-                          prefixIcon: const Icon(Icons.attach_money_outlined),
-                        ),
+                          prefixIcon: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 18.h),
+                              child:  Image.asset('assets/images/SRA.jpeg')
+                          ),                        ),
                       ],
                     ):
                     _selectedCategoryId == 'Transportation'?
@@ -275,12 +311,15 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                           controller: HightcostTextController,
                           hintText: 'حد أعلى للصرف (رقم)',
                           keyboardType: TextInputType.number,
-                          prefixIcon: const Icon(Icons.attach_money_outlined),
-                          enabled: false,
+                          prefixIcon: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 18.h),
+                              child:  Image.asset('assets/images/SRA.jpeg')
+                          ),                          enabled: false,
                         ),
 
                       ],
-                    ) : Column(
+                    ) :
+                    Column(
                       children: [
                         Align(
                             alignment: AlignmentDirectional.centerStart,
@@ -292,8 +331,10 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                           controller: HightcostTextController,
                           hintText: 'حد أعلى للصرف (رقم)',
                           keyboardType: TextInputType.number,
-                          prefixIcon: const Icon(Icons.attach_money_outlined),
-                        ),
+                          prefixIcon: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 18.h),
+                              child:  Image.asset('assets/images/SRA.jpeg')
+                          ),                        ),
                       ],
                     ):
                     Column(
@@ -308,8 +349,10 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                           controller: HightcostTextController,
                           hintText: 'حد أعلى للصرف (رقم)',
                           keyboardType: TextInputType.number,
-                          prefixIcon: const Icon(Icons.attach_money_outlined),
-                        ),
+                          prefixIcon: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 18.h),
+                              child:  Image.asset('assets/images/SRA.jpeg')
+                          ),                        ),
                       ],
                     ),
 
@@ -346,6 +389,7 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                               costTextController.clear();
                               HightcostTextController.clear();
                               newCategoryTextController.clear();
+                              nameController.clear();
                               _selectedCategoryId = null;
                             },
                             );
@@ -451,10 +495,13 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
     expense.dateNowYear= DateTime.now().toString().substring(0,4);
     return expense;
   }
+
+
   ExpenseAmountModel get expenseAmount {
     ExpenseAmountModel expenseAmount = ExpenseAmountModel();
     expenseAmount.userId= SharedPrefController().getValueFor(key: PrefKeys.userId.name);
     expenseAmount.expenseAmount = costTextController.text;
+    expenseAmount.expenseName = nameController.text;
     expenseAmount.expenseType =_selectedCategoryId==null? newCategoryTextController.text:_selectedCategoryId!;
     expenseAmount.dateNow= DateTime.now().toString().substring(0,10);
     expenseAmount.dateNowMonth= DateTime.now().toString().substring(0,7);

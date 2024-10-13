@@ -21,6 +21,7 @@ class ExpenseModel{
     dateNow = map['dateNow'];
     dateNowMonth = map['dateNowMonth'];
     dateNowYear = map['dateNowYear'];
+    // expenseName = map['expenseName'];
 
   }
 
@@ -35,6 +36,7 @@ class ExpenseModel{
     map['dateNow'] = dateNow;
     map['dateNowMonth'] = dateNowMonth;
     map['dateNowYear'] = dateNowYear;
+    // map['expenseName'] = expenseName;
 
     return map;
   }

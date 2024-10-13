@@ -3,6 +3,7 @@ import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:horizontal_week_calendar/horizontal_week_calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:tasty_booking/screens/home_screens/categories_screen.dart';
 import 'package:tasty_booking/style/app_colors.dart';
@@ -51,7 +52,7 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
     _noteEditingController = TextEditingController();
 
   }
-
+  var selectedDate111 = DateTime.now();
   @override
   void dispose() {
     _userNameEditingController.dispose();
@@ -61,6 +62,8 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
 
     super.dispose();
   }
+  final EasyInfiniteDateTimelineController _controller =
+  EasyInfiniteDateTimelineController();
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +169,7 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
                           },
                           prefixIcon: Padding(
                               padding: EdgeInsets.symmetric(vertical: 18.h),
-                              child: const Icon(Icons.attach_money)
+                              child:  Image.asset('assets/images/SRA.jpeg')
                           ),
                           hintText: 'مبلغ الدين كامل *',
                         ),
@@ -185,7 +188,8 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
                           },
                           prefixIcon: Padding(
                               padding: EdgeInsets.symmetric(vertical: 18.h),
-                              child: const Icon(Icons.attach_money)
+                              child:  Image.asset('assets/images/SRA.jpeg')
+                              // Icon(Icons.attach_money)
                           ),
                           hintText: 'المبلغ المسدد من الدين * ',
                         ),
@@ -193,67 +197,110 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
                         Align(
                           alignment: AlignmentDirectional.centerStart,
                             child: AppText(text: 'تاريخ السداد',textAlign: TextAlign.start,)),
-                        EasyDateTimeLine(
-                          initialDate: DateTime.now(),
-                          headerProps: const EasyHeaderProps(showHeader: true,),
-                          locale: 'ar',
-                          activeColor: AppColors.primaryColor,
-                          dayProps: EasyDayProps(
-                              height: 80.h,
-                              width: 62.w,
-                              todayHighlightColor: AppColors.primaryColor,
-                              borderColor: const Color(0XFFF6F6F6),
-                              landScapeMode: false,
-                              inactiveDayStyle: DayStyle(
-                                  borderRadius: 8.r,
-                                  dayNumStyle: TextStyle(
-                                    color: const Color(0XFF828282),
-                                    fontFamily: 'DINNextLTArabic_Light',
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500,
-                                  )
-                              ),
-                              activeDayStyle: DayStyle(
-                                borderRadius: 8.r,
+                        SizedBox(height: 16.h,),
 
-                                dayNumStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'DINNextLTArabic_Light',
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500
-                                ),
-                                monthStrStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'DINNextLTArabic_Light',
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500
-                                ),
-                                dayStrStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'DINNextLTArabic_Light',
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w500
-                                ),
-                              ),
-                              todayStyle: DayStyle(
-                                  borderRadius: 8.r,
-                                  dayNumStyle: TextStyle(
-                                      color: const Color(0XFF828282),
-                                      fontFamily: 'DINNextLTArabic_Light',
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w500
-                                  )
-                              )
-                          ),
-                          
+                        // EasyDateTimeLine(
+                        //   initialDate: DateTime.now(),
+                        //   headerProps: const EasyHeaderProps(showHeader: true,),
+                        //   locale: 'ar',
+                        //
+                        //   activeColor: AppColors.primaryColor,
+                        //   dayProps: EasyDayProps(
+                        //       height: 80.h,
+                        //       width: 62.w,
+                        //
+                        //       todayHighlightColor: AppColors.primaryColor,
+                        //       borderColor: const Color(0XFFF6F6F6),
+                        //       landScapeMode: false,
+                        //       inactiveDayStyle: DayStyle(
+                        //           borderRadius: 8.r,
+                        //           dayNumStyle: TextStyle(
+                        //             color: const Color(0XFF828282),
+                        //             fontFamily: 'DINNextLTArabic_Light',
+                        //             fontSize: 12.sp,
+                        //             fontWeight: FontWeight.w500,
+                        //           )
+                        //       ),
+                        //       activeDayStyle: DayStyle(
+                        //         borderRadius: 8.r,
+                        //
+                        //         dayNumStyle: TextStyle(
+                        //             color: Colors.white,
+                        //             fontFamily: 'DINNextLTArabic_Light',
+                        //             fontSize: 12.sp,
+                        //             fontWeight: FontWeight.w500
+                        //         ),
+                        //         monthStrStyle: TextStyle(
+                        //             color: Colors.white,
+                        //             fontFamily: 'DINNextLTArabic_Light',
+                        //             fontSize: 12.sp,
+                        //             fontWeight: FontWeight.w500
+                        //         ),
+                        //
+                        //         dayStrStyle: TextStyle(
+                        //             color: Colors.white,
+                        //             fontFamily: 'DINNextLTArabic_Light',
+                        //             fontSize: 12.sp,
+                        //             fontWeight: FontWeight.w500
+                        //         ),
+                        //       ),
+                        //       todayStyle: DayStyle(
+                        //           borderRadius: 8.r,
+                        //           dayNumStyle: TextStyle(
+                        //               color: const Color(0XFF828282),
+                        //               fontFamily: 'DINNextLTArabic_Light',
+                        //               fontSize: 12.sp,
+                        //               fontWeight: FontWeight.w500
+                        //           )
+                        //       )
+                        //   ),
+                        //
+                        //   onDateChange: (selectedDate) {
+                        //     //`selectedDate` the new date selected.
+                        //     Dateend = selectedDate.toString().substring(0,10);
+                        //     print('selectedDate ${selectedDate.toString().substring(0,10)}');
+                        //   },
+                        // ),
+                        EasyInfiniteDateTimeLine(
+                          locale: 'ar',
+                          controller: _controller,
+                          firstDate: DateTime(2024,10,1),
+                          focusDate: selectedDate111,
+                          lastDate: DateTime(2030, 1, 1),
                           onDateChange: (selectedDate) {
-                            //`selectedDate` the new date selected.
-                            Dateend = selectedDate.toString().substring(0,10);
-                            print('selectedDate ${selectedDate.toString().substring(0,10)}');
+                            setState(() {
+                              selectedDate111 = selectedDate;
+                              Dateend = selectedDate.toString().substring(0,10);
+                              print('selectedDate111 ${selectedDate111.toString().substring(0,10)}');
+                            });
                           },
                         ),
+                        // HorizontalWeekCalendar(
+                        //   minDate: DateTime(2024, 9, 1),
+                        //   maxDate: DateTime(2030, 1, 1),
+                        //   initialDate: DateTime(2024, 10, 1),
+                        //   onDateChange: (date) {
+                        //     setState(() {
+                        //       selectedDate = date;
+                        //     });
+                        //   },
+                        //   showTopNavbar: true,
+                        //   monthFormat: "MMMM yyyy",
+                        //   showNavigationButtons: true,
+                        //   weekStartFrom: WeekStartFrom.Monday,
+                        //   borderRadius: BorderRadius.circular(7),
+                        //   activeBackgroundColor: Colors.deepPurple,
+                        //   activeTextColor: Colors.white,
+                        //   inactiveBackgroundColor: Colors.deepPurple.withOpacity(.3),
+                        //   inactiveTextColor: Colors.white,
+                        //   disabledTextColor: Colors.grey,
+                        //   disabledBackgroundColor: Colors.grey.withOpacity(.3),
+                        //   activeNavigatorColor: Colors.deepPurple,
+                        //   inactiveNavigatorColor: Colors.grey,
+                        //   monthColor: Colors.deepPurple,
+                        // ),
 
-                        SizedBox(height: 30.h,),
+                        SizedBox(height: 16.h,),
 
 
                         AppTextField(
@@ -313,7 +360,9 @@ class _AddDebtsScreenState extends State<AddDebtsScreen> {
 
   }
   Future<void> _addDebtsUser() async {
-
+    if(double.parse(_Cost1EditingController.text) <double.parse( _Cost2EditingController.text)){
+      context.showSnackBar(message: 'مبلغ الدين المسدد اكبر من الدين', error: true);
+    }
     if (
     _userNameEditingController.text.isNotEmpty &&
         _Cost1EditingController.text.isNotEmpty &&

@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tasty_booking/model/fb_response.dart';
 
+import '../shared_preferences/shared_prefrences_controller.dart';
+
 
 class FbAuthController {
   ///Functions:

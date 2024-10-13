@@ -10,6 +10,7 @@ class   AppColors{
   static const lightBlueColor=Color(0xFFECF8FF);
   static const grayBorderColor=Color(0xFFF2F2F2);
   static const mainTitleColor = Color(0xFF353A62);
+  static const transparent = Colors.transparent;
 
 
 

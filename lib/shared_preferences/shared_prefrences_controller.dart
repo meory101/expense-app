@@ -9,6 +9,7 @@ enum PrefKeys {
   id,
   name,
   email,
+  userId,
   phone,
   token,
   status,
@@ -16,7 +17,7 @@ enum PrefKeys {
   branchId,
   isMember,
   userArea,
-  userId
+
 }
 
 class SharedPrefController {
@@ -32,8 +33,12 @@ class SharedPrefController {
   Future<void> initPref() async {
     _sharedPreferences = await SharedPreferences.getInstance();
   }
-
-
+  Future<void> saveCategorySwitch(String categoryName,bool categoryState) async {
+    _sharedPreferences.setBool(categoryName,categoryState);
+  }
+  Future<bool> getCategorySwitch(String categoryName) async {
+   return _sharedPreferences.getBool(categoryName) ??false;
+  }
 /*
   Future<void> save(UserModel user, {bool withToken = true,bool withLoggedIn = true}) async {
     if (withToken) {
@@ -52,6 +57,7 @@ class SharedPrefController {
   }
 */
   Future<void> save({required String userId,required UserModel userModel}) async {
+    print('caleed this');
     await _sharedPreferences.setBool(PrefKeys.loggedIn.name, true);
     await _sharedPreferences.setString(PrefKeys.userId.name, userId);
     await _sharedPreferences.setString(PrefKeys.name.name, userModel.name);
@@ -72,6 +78,11 @@ class SharedPrefController {
   Future<void> changeEmail({required String email}) async{
     await _sharedPreferences.setString(PrefKeys.email.name, email);
   }
+
+  Future<void> changeName({required String name}) async{
+    await _sharedPreferences.setString(PrefKeys.name.name, name);
+  }
+
 
 
   T? getValueFor<T>({required String key}) {

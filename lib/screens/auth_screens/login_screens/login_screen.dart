@@ -10,6 +10,7 @@ import 'package:tasty_booking/fb_controller/fb_auth_controller.dart';
 import 'package:tasty_booking/fb_controller/fb_firestore.dart';
 import 'package:tasty_booking/fb_controller/fb_notifications.dart';
 import 'package:tasty_booking/model/fb_response.dart';
+import 'package:tasty_booking/model/user_model.dart';
 import 'package:tasty_booking/screens/auth_screens/create_new_account_screens/create_new_account_screen.dart';
 import 'package:tasty_booking/screens/home_screens/bottom_navigation_bar.dart';
 import 'package:tasty_booking/shared_preferences/shared_prefrences_controller.dart';
@@ -32,7 +33,7 @@ class LogInScreen extends StatefulWidget {
   State<LogInScreen> createState() => _LogInScreenState();
 }
 
-class _LogInScreenState extends State<LogInScreen> with FbNotifications{
+class _LogInScreenState extends State<LogInScreen> with FbNotifications {
   Country country = CountryParser.parseCountryCode('SA');
   late TextEditingController _phoneEditingController;
   late TextEditingController _emailEditingController;
@@ -55,8 +56,8 @@ class _LogInScreenState extends State<LogInScreen> with FbNotifications{
     _phoneEditingController = TextEditingController();
     _emailEditingController = TextEditingController();
     _passwordEditingController = TextEditingController();
-
   }
+
   @override
   void dispose() {
     _phoneEditingController.dispose();
@@ -64,10 +65,11 @@ class _LogInScreenState extends State<LogInScreen> with FbNotifications{
     _passwordEditingController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
@@ -75,39 +77,61 @@ class _LogInScreenState extends State<LogInScreen> with FbNotifications{
           body: Stack(
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.w,vertical: 0.h),
+                padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 0.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 68.h,),
+                    SizedBox(
+                      height: 68.h,
+                    ),
 
                     // AppBackButton(onTap: () => Navigator.pop(context),),
 
-                    SizedBox(height: 100.h,),
-                    AppText(text: context.localizations.login,fontSize: 32,fontWeight: FontWeight.bold,fontFamily: 'DINNextLTArabic_bold',),
-                    SizedBox(height: 40.h,),
+                    SizedBox(
+                      height: 100.h,
+                    ),
+                    AppText(
+                      text: context.localizations.login,
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'DINNextLTArabic_bold',
+                    ),
+                    SizedBox(
+                      height: 40.h,
+                    ),
                     AppTextField(
                       controller: _emailEditingController,
                       errorText: emailIsError,
                       keyboardType: TextInputType.emailAddress,
                       onChanged: (p0) {
-                        if(emailIsError != null){
+                        if (emailIsError != null) {
                           setState(() {
                             emailIsError = null;
                           });
-                        }},
+                        }
+                      },
                       prefixIcon: Padding(
                         padding: EdgeInsets.symmetric(vertical: 18.h),
-                        child: Icon(Icons.email_outlined,size: 24.sp,color: Color(0XFF353A62),),
+                        child: Icon(
+                          Icons.email_outlined,
+                          size: 24.sp,
+                          color: Color(0XFF353A62),
+                        ),
                       ),
                       hintText: context.localizations.email,
                     ),
-                    SizedBox(height: 16.h,),
+                    SizedBox(
+                      height: 16.h,
+                    ),
                     AppTextField(
                       controller: _passwordEditingController,
                       prefixIcon: Padding(
-                        padding:  EdgeInsets.symmetric(vertical: 18.h),
-                        child: SvgPicture.asset('assets/images/lockIcon.svg',height: 24.h,width: 24.w,),
+                        padding: EdgeInsets.symmetric(vertical: 18.h),
+                        child: SvgPicture.asset(
+                          'assets/images/lockIcon.svg',
+                          height: 24.h,
+                          width: 24.w,
+                        ),
                       ),
                       hintText: context.localizations.password,
                       obscure: obscure,
@@ -120,9 +144,11 @@ class _LogInScreenState extends State<LogInScreen> with FbNotifications{
                           });
                         },
                         child: Padding(
-                          padding: EdgeInsets.symmetric( vertical: 16.h),
+                          padding: EdgeInsets.symmetric(vertical: 16.h),
                           child: SvgPicture.asset(
-                            obscure?'assets/images/eyeClosed.svg':'assets/images/eyeOutline.svg',
+                            obscure
+                                ? 'assets/images/eyeClosed.svg'
+                                : 'assets/images/eyeOutline.svg',
                             height: 24.h,
                             //eyeClosed
                             width: 24.w,
@@ -131,12 +157,60 @@ class _LogInScreenState extends State<LogInScreen> with FbNotifications{
                       ),
                       keyboardType: TextInputType.visiblePassword,
                       onChanged: (p0) {
-                        if(passwordIsError != null){
+                        if (passwordIsError != null) {
                           setState(() {
                             passwordIsError = null;
                           });
                         }
                       },
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'هل نسيت كلمة السر؟',
+                          style: TextStyle(
+                              color: AppColors.blackColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'DINNextLTArabic_Light'),
+                        ),
+                        SizedBox(
+                          width: 12.w,
+                        ),
+                        InkWell(
+                          overlayColor:
+                              WidgetStateProperty.all(AppColors.transparent),
+                          onTap: () async {
+                            if (_emailEditingController.text.isEmpty) {
+                              context.showSnackBar(
+                                  message: "الرجاء ادخال بريدك الالكتروني",
+                                  error: true);
+                              return;
+                            }
+                            final auth = FirebaseAuth.instance;
+
+                            await auth
+                                .sendPasswordResetEmail(
+                                    email: _emailEditingController.text)
+                                .then((value) {
+                              context.showSnackBar(
+                                  message: "الرجاء تفقد بريدك الالكتروني",
+                                  error: false);
+                            });
+                          },
+                          child: Text(
+                            'اعادة تعيين',
+                            style: TextStyle(
+                                color: AppColors.primaryColor,
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: 'DINNextLTArabic_Light'),
+                          ),
+                        ),
+                      ],
                     ),
                     // Align(
                     //   alignment: AlignmentDirectional.centerEnd,
@@ -147,8 +221,11 @@ class _LogInScreenState extends State<LogInScreen> with FbNotifications{
                     //     child: AppText(text: context.localizations.forget_password,fontWeight: FontWeight.w500,color: AppColors.primaryColor,),
                     //   ),
                     // ),
-                    SizedBox(height: 40.h,),
-                    AppElevatedButton(text: context.localizations.login,
+                    SizedBox(
+                      height: 40.h,
+                    ),
+                    AppElevatedButton(
+                      text: context.localizations.login,
                       onPressed: () async {
                         /*NotificationService.showInstantNotification(
                             "Instant Notification", "This shows an instant notifications");*/
@@ -159,17 +236,19 @@ class _LogInScreenState extends State<LogInScreen> with FbNotifications{
                           "This notification is scheduled to appear after 5 seconds",
                           scheduledDate,
                         );*/
-                         setState(() {
-                                isLoading = true;
-                              });
-                              await _performLogin();
-                              setState(() {
-                                isLoading = false;
-                              });
+                        setState(() {
+                          isLoading = true;
+                        });
+                        await _performLogin();
+                        setState(() {
+                          isLoading = false;
+                        });
                       },
                     ),
 
-                    SizedBox(height: 24.h,),
+                    SizedBox(
+                      height: 24.h,
+                    ),
 
                     const Spacer(),
                     Align(
@@ -178,7 +257,12 @@ class _LogInScreenState extends State<LogInScreen> with FbNotifications{
                         borderRadius: BorderRadius.circular(10.r),
                         onTap: () {
                           // Navigator.push(context, MaterialPageRoute(builder: (context) => const SubscriptionDetilesScreen(),));
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateNewAccountScreen(),));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const CreateNewAccountScreen(),
+                              ));
                         },
                         child: Text.rich(
                           TextSpan(
@@ -189,59 +273,52 @@ class _LogInScreenState extends State<LogInScreen> with FbNotifications{
                                     color: AppColors.blackColor,
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w400,
-                                    fontFamily: 'DINNextLTArabic_Light'
-                                ),
+                                    fontFamily: 'DINNextLTArabic_Light'),
                               ),
                               TextSpan(
-                                text: " ${context.localizations.create_new_account}",
+                                text:
+                                    " ${context.localizations.create_new_account}",
                                 style: TextStyle(
                                     color: AppColors.primaryColor,
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w400,
-                                    fontFamily: 'DINNextLTArabic_Light'
-                                ),
+                                    fontFamily: 'DINNextLTArabic_Light'),
                               ),
                             ],
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 33.h,),
+                    SizedBox(
+                      height: 33.h,
+                    ),
                   ],
                 ),
               ),
-
               Visibility(
-                  visible: isLoading == true,
-                  child: const CustomAppLoading()),
+                  visible: isLoading == true, child: const CustomAppLoading()),
             ],
-          )
-
-
-      ),
+          )),
     );
   }
+
   Future<void> _performLogin() async {
     if (_checkData()) {
-
       await _login();
-
     }
   }
 
   bool _checkData() {
-    if (
-    _emailEditingController.text.isNotEmpty &&
-        _passwordEditingController.text.isNotEmpty ) {
-     return true;
-    }else{
-
-      if(_emailEditingController.text.isEmpty){
+    if (_emailEditingController.text.isNotEmpty &&
+        _passwordEditingController.text.isNotEmpty) {
+      return true;
+    } else {
+      if (_emailEditingController.text.isEmpty) {
         setState(() {
           emailIsError = '';
         });
       }
-      if(_passwordEditingController.text.isEmpty){
+      if (_passwordEditingController.text.isEmpty) {
         setState(() {
           passwordIsError = '';
         });
@@ -253,40 +330,53 @@ class _LogInScreenState extends State<LogInScreen> with FbNotifications{
   }
 
   Future<void> _login() async {
-
-    FbResponse fbResponse = await FbAuthController().signIn(email:_emailEditingController.text,password: _passwordEditingController.text );
-    if(fbResponse.success){
+    FbResponse fbResponse = await FbAuthController().signIn(
+        email: _emailEditingController.text,
+        password: _passwordEditingController.text);
+    if (fbResponse.success) {
       User? user = FirebaseAuth.instance.currentUser;
-      if(user != null){
-        try{
+      if (user != null) {
+        try {
+          print('I am thwre');
           await _getToken();
           await FbFirestoreController().getUserData(doc: user.uid);
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => BottomNavigationScreen(),), (route) => false,);
-          context.showSnackBar(message: fbResponse.message,);
-        }catch(e){
-          context.showSnackBar(message: 'حدث خطأ ما ! الرجاء المحاولة مرة اخرى', error: !fbResponse.success);
-
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => BottomNavigationScreen(),
+            ),
+            (route) => false,
+          );
+          context.showSnackBar(
+            message: fbResponse.message,
+          );
+        } catch (e) {
+          context.showSnackBar(
+              message: 'حدث خطأ ما ! الرجاء المحاولة مرة اخرى',
+              error: !fbResponse.success);
         }
-        print('000${SharedPrefController().getValueFor(key: PrefKeys.userArea.name)}');
-      }else{
-        context.showSnackBar(message: 'حدث خطأ ما ! الرجاء المحاولة مرة اخرى', error: !fbResponse.success);
+        print(
+            '000${SharedPrefController().getValueFor(key: PrefKeys.userArea.name)}');
+      } else {
+        context.showSnackBar(
+            message: 'حدث خطأ ما ! الرجاء المحاولة مرة اخرى',
+            error: !fbResponse.success);
       }
-    }else{
-      context.showSnackBar(message: fbResponse.message, error: !fbResponse.success);
-
+    } else {
+      context.showSnackBar(
+          message: fbResponse.message, error: !fbResponse.success);
     }
   }
 
   Future<void> _getToken() async {
     String? token = await FirebaseMessaging.instance.getToken();
-    if(token != null){
+    if (token != null) {
       SharedPrefController().saveDeviceToken(token);
       print("Device Token: $token");
     }
 
     // قم بتخزين التوكن في Firestore أو قاعدة بيانات أخرى
   }
-
 
   void showPicker() {
     showCountryPicker(
@@ -298,20 +388,22 @@ class _LogInScreenState extends State<LogInScreen> with FbNotifications{
               constraints: BoxConstraints(maxHeight: 60.h),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15.r),
-                borderSide: BorderSide(width: 2.w, color:  AppColors.primaryColor),
+                borderSide:
+                    BorderSide(width: 2.w, color: AppColors.primaryColor),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15.r),
-                borderSide: BorderSide(width: 0.50.w, color:  AppColors.secondGrayColor,
+                borderSide: BorderSide(
+                  width: 0.50.w,
+                  color: AppColors.secondGrayColor,
                 ),
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15.r),
-                borderSide: BorderSide(width: 0.50.w, color:  AppColors.secondGrayColor),
+                borderSide:
+                    BorderSide(width: 0.50.w, color: AppColors.secondGrayColor),
               ),
-              prefixIcon: const Icon(Icons.search)
-          )
-      ),
+              prefixIcon: const Icon(Icons.search))),
       onSelect: (Country country) {
         setState(() {
           countryCode = '+${country.phoneCode}';
@@ -320,9 +412,4 @@ class _LogInScreenState extends State<LogInScreen> with FbNotifications{
       },
     );
   }
-
 }
-
-
-
-

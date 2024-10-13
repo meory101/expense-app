@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> with FbNotifications{
     manageNotificationAction();
     Future.delayed(const Duration(seconds: 3),() {
       bool isLoggedIn=SharedPrefController().getValueFor(key: PrefKeys.loggedIn.name)??false;
-      if(isLoggedIn){
+      if(isLoggedIn == true){
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  const BottomNavigationScreen(),));
       }else{
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>  const LogInScreen(),));
