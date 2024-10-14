@@ -189,9 +189,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                     crossAxisAlignment:
                                     CrossAxisAlignment.start,
                                     children: [
-                                      AppText(text: snapshot.data!.docs[index].data().title,),
+                                      AppText(text: snapshot.data!.docs[index].data().title ?? "".toString(),),
                                       SizedBox(height: 5.h,),
-                                      AppText(text: snapshot.data!.docs[index].data().description,),
+                                      AppText(text: snapshot.data!.docs[index].data().description ?? "".toString(),),
 
                                       SizedBox(
                                         height: 20.h,

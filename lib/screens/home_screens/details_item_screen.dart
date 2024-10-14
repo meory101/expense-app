@@ -22,6 +22,7 @@ import 'package:tasty_booking/wdgets/custom_app_loading.dart';
 import '../../style/app_colors.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
+import 'bottom_navigation_bar.dart';
 import 'categories_screen.dart';
 
 class DetailsItemScreen extends StatefulWidget {
@@ -76,7 +77,8 @@ class _DetailsItemScreenState extends State<DetailsItemScreen> {
 
   getExpenses() async {
     data = FirebaseFirestore.instance
-        .collection('ExpenseAmount')
+        .collection(widget.collection)
+        // .where('expenseType', isEqualTo: widget.collection)
         .where('userId',
             isEqualTo:
                 SharedPrefController().getValueFor(key: PrefKeys.userId.name))
@@ -186,22 +188,6 @@ class _DetailsItemScreenState extends State<DetailsItemScreen> {
                       ),
                       SizedBox(
                         height: 20.h,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          AppText(
-                            text: 'الحد الاعلى : ',
-                            fontSize: 18,
-                            color: Colors.black,
-                          ),
-                          AppText(
-                            text: widget.ceiling,
-                            fontSize: 18,
-                            color: AppColors.primaryColor,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ],
                       ),
                     ],
                   ),
@@ -373,13 +359,34 @@ class _DetailsItemScreenState extends State<DetailsItemScreen> {
                                     SlidableAction(
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(20)),
-                                      onPressed: (context) async {
-                                        await FirebaseFirestore.instance
-                                            .collection('ExpenseAmount')
+                                      onPressed: (context)  {
+                                         FirebaseFirestore.instance
+                                            .collection(widget.collection)
+                                            .doc(snapshot
+                                                .data.docs[index].reference.id)
+                                            .delete();
+                                         FirebaseFirestore.instance
+                                            .collection(widget.collection)
                                             .doc(snapshot
                                                 .data.docs[index].reference.id)
                                             .delete();
 
+                                        //   .then(
+                                        // (value) {
+                                        //
+                                        //   // Navigator.pushAndRemoveUntil(
+                                        //   context,
+                                        //   MaterialPageRoute(
+                                        //     builder: (context) =>
+                                        //         BottomNavigationScreen(),
+                                        //   ),
+                                        //   (route) => false,
+                                        // );
+                                        // },
+                                        // context.showSnackBar(message: "تم الحذف بنجاح",error:false);
+                                        Navigator.of(context).pop();
+
+                                        //
                                         // double value = (double.parse(
                                         //         widget.cost.isEmpty
                                         //             ? "0.0"
@@ -398,13 +405,8 @@ class _DetailsItemScreenState extends State<DetailsItemScreen> {
                                         //   'expenseAmount': value.toString()
                                         // }, SetOptions(merge: true)).then(
                                         //   (value) {
-                                        //     Navigator.push(
-                                        //         context,
-                                        //         MaterialPageRoute(
-                                        //           builder: (context) =>
-                                        //               CategoriesScreen(),
-                                        //         ));
-                                        //   },
+
+                                        // },
                                         // );
                                       },
                                       backgroundColor: Colors.red,
@@ -474,23 +476,6 @@ class _DetailsItemScreenState extends State<DetailsItemScreen> {
                                     ),
                                     SizedBox(
                                       height: 20.h,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        AppText(
-                                          text: 'الحد الاعلى : ',
-                                          fontSize: 18,
-                                          color: Colors.black,
-                                        ),
-                                        AppText(
-                                          text: widget.ceiling,
-                                          fontSize: 18,
-                                          color: AppColors.primaryColor,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ],
                                     ),
                                   ],
                                 ),

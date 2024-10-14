@@ -8,20 +8,21 @@ class ExpenseModel{
   late String dateNow;
   late String dateNowMonth;
   late String dateNowYear;
+  late String expenseName;
   ExpenseModel();
 
 
   ExpenseModel.fromMap(Map<String, dynamic> map) {
-    expenseAmount = map['expenseAmount'];
-    expenseType = map['expenseType'];
-    ceiling = map['ceiling'];
-    userId = map['userId'];
-    userArea = map['userArea'];
-    userName = map['userName'];
-    dateNow = map['dateNow'];
-    dateNowMonth = map['dateNowMonth'];
-    dateNowYear = map['dateNowYear'];
-    // expenseName = map['expenseName'];
+    expenseAmount = map['expenseAmount']??"";
+    expenseType = map['expenseType']??"";
+    ceiling = map['ceiling']??"";
+    userId = map['userId']??"";
+    userArea = map['userArea']??"";
+    userName = map['userName']??"";
+    dateNow = map['dateNow']??"";
+    dateNowMonth = map['dateNowMonth']??"";
+    dateNowYear = map['dateNowYear']??"";
+    expenseName = map['expenseName'] ?? "";
 
   }
 
@@ -36,7 +37,7 @@ class ExpenseModel{
     map['dateNow'] = dateNow;
     map['dateNowMonth'] = dateNowMonth;
     map['dateNowYear'] = dateNowYear;
-    // map['expenseName'] = expenseName;
+    map['expenseName'] = expenseName;
 
     return map;
   }

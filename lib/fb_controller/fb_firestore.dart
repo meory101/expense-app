@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:tasty_booking/model/Debts_model.dart';
 import 'package:tasty_booking/model/expense_amount_model.dart';
 import 'package:tasty_booking/model/expense_model.dart';
@@ -9,8 +10,6 @@ import 'package:tasty_booking/model/schedule_notification_model.dart';
 import 'package:tasty_booking/model/user_model.dart';
 import 'package:tasty_booking/shared_preferences/shared_prefrences_controller.dart';
 import 'package:tasty_booking/utils/firebase_helper.dart';
-
-
 
 class FbFirestoreController with FirebaseHelper {
   ///Functions
@@ -27,15 +26,11 @@ class FbFirestoreController with FirebaseHelper {
     try {
       print('go there${doc}');
 
-      print( _firestore
-          .collection('users')
-          .doc(doc).get());
+      print(_firestore.collection('users').doc(doc).get());
 
-     var user =await _firestore
-          .collection('users')
-          .doc(doc).get();
+      var user = await _firestore.collection('users').doc(doc).get();
 
-     print(user.data());
+      print(user.data());
 
       print('000000000000000000000');
       // استخدام withConverter لتحويل البيانات من وإلى UserModel
@@ -43,11 +38,12 @@ class FbFirestoreController with FirebaseHelper {
           .collection('users')
           .doc(doc)
           .withConverter<UserModel>(
-        fromFirestore: (snapshot, options) =>
-            UserModel.fromMap(snapshot.data()!),
-        toFirestore: (value, options) => value.toMap(),
-      ).get();
-    print(snapshot.data());
+            fromFirestore: (snapshot, options) =>
+                UserModel.fromMap(snapshot.data()!),
+            toFirestore: (value, options) => value.toMap(),
+          )
+          .get();
+      print(snapshot.data());
       UserModel? userModel = snapshot.data();
       print(userModel);
       print('user model');
@@ -59,8 +55,8 @@ class FbFirestoreController with FirebaseHelper {
     }
   }
 
-  Future<FbResponse> createExpense(ExpenseModel expenseModel,
-      String collection) async {
+  Future<FbResponse> createExpense(
+      ExpenseModel expenseModel, String collection) async {
     return _firestore
         .collection(collection)
         .add(expenseModel.toMap())
@@ -70,70 +66,86 @@ class FbFirestoreController with FirebaseHelper {
 
   Stream<QuerySnapshot<Debts>> readDebts() async* {
     yield* _firestore
-        .collection('Debts').where('UserID',isEqualTo: user!.uid)
+        .collection('Debts')
+        .where('UserID', isEqualTo: user!.uid)
         .withConverter<Debts>(
-      fromFirestore: (snapshot, options) => Debts.fromMap(snapshot.data()!),
-      toFirestore: (value, options) => value.toMap(),
-    )
-        .snapshots();}
-
-
-  Stream<QuerySnapshot<ExpenseModel>> readBasicSupplies(String collection) async* {
-    yield* _firestore
-        .collection(collection).where('userId',isEqualTo: user!.uid)
-        .withConverter<ExpenseModel>(
-      fromFirestore: (snapshot, options) => ExpenseModel.fromMap(snapshot.data()!),
-      toFirestore: (value, options) => value.toMap(),
-    )
+          fromFirestore: (snapshot, options) => Debts.fromMap(snapshot.data()!),
+          toFirestore: (value, options) => value.toMap(),
+        )
         .snapshots();
   }
 
-  Stream<QuerySnapshot<ExpenseModel>> readSeamUserArea(String collection,String userArea) async* {
-
+  Stream<QuerySnapshot<ExpenseModel>> readBasicSupplies(
+      String collection) async* {
     yield* _firestore
-        .collection(collection).where('userArea', isEqualTo: userArea)
+        .collection(collection)
+        .where('userId', isEqualTo: user!.uid)
         .withConverter<ExpenseModel>(
-      fromFirestore: (snapshot, options) => ExpenseModel.fromMap(snapshot.data()!),
-      toFirestore: (value, options) => value.toMap(),
-    )
+          fromFirestore: (snapshot, options) =>
+              ExpenseModel.fromMap(snapshot.data()!),
+          toFirestore: (value, options) => value.toMap(),
+        )
         .snapshots();
-
-  }
-  Stream<QuerySnapshot<ExpenseModel>> readSameTime(String collection,String DateNow) async* {
-
-    yield* _firestore
-        .collection(collection).where('userId',isEqualTo: user!.uid).where('dateNow', isEqualTo: DateNow)
-        .withConverter<ExpenseModel>(
-      fromFirestore: (snapshot, options) => ExpenseModel.fromMap(snapshot.data()!),
-      toFirestore: (value, options) => value.toMap(),
-    )
-        .snapshots();
-
-  }
-  Stream<QuerySnapshot<ExpenseModel>> readSameTimeMonthe(String collection,String dateNowMonth) async* {
-
-    yield* _firestore
-        .collection(collection).where('userId',isEqualTo: user!.uid).where('dateNowMonth', isEqualTo: dateNowMonth)
-        .withConverter<ExpenseModel>(
-      fromFirestore: (snapshot, options) => ExpenseModel.fromMap(snapshot.data()!),
-      toFirestore: (value, options) => value.toMap(),
-    )
-        .snapshots();
-
-  }
-  Stream<QuerySnapshot<ExpenseModel>> readSameTimeYeare(String collection,String dateNowYear) async* {
-
-    yield* _firestore
-        .collection(collection).where('userId',isEqualTo: user!.uid).where('dateNowYear', isEqualTo: dateNowYear)
-        .withConverter<ExpenseModel>(
-      fromFirestore: (snapshot, options) => ExpenseModel.fromMap(snapshot.data()!),
-      toFirestore: (value, options) => value.toMap(),
-    )
-        .snapshots();
-
   }
 
-  Future<FbResponse> createExpenseAmount(ExpenseAmountModel expenseAmount,) async {
+  Stream<QuerySnapshot<ExpenseModel>> readSeamUserArea(
+      String collection, String userArea) async* {
+    yield* _firestore
+        .collection(collection)
+        .where('userArea', isEqualTo: userArea)
+        .withConverter<ExpenseModel>(
+          fromFirestore: (snapshot, options) =>
+              ExpenseModel.fromMap(snapshot.data()!),
+          toFirestore: (value, options) => value.toMap(),
+        )
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<ExpenseModel>> readSameTime(
+      String collection, String DateNow) async* {
+    yield* _firestore
+        .collection(collection)
+        .where('userId', isEqualTo: user!.uid)
+        .where('dateNow', isEqualTo: DateNow)
+        .withConverter<ExpenseModel>(
+          fromFirestore: (snapshot, options) =>
+              ExpenseModel.fromMap(snapshot.data()!),
+          toFirestore: (value, options) => value.toMap(),
+        )
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<ExpenseModel>> readSameTimeMonthe(
+      String collection, String dateNowMonth) async* {
+    yield* _firestore
+        .collection(collection)
+        .where('userId', isEqualTo: user!.uid)
+        .where('dateNowMonth', isEqualTo: dateNowMonth)
+        .withConverter<ExpenseModel>(
+          fromFirestore: (snapshot, options) =>
+              ExpenseModel.fromMap(snapshot.data()!),
+          toFirestore: (value, options) => value.toMap(),
+        )
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<ExpenseModel>> readSameTimeYeare(
+      String collection, String dateNowYear) async* {
+    yield* _firestore
+        .collection(collection)
+        .where('userId', isEqualTo: user!.uid)
+        .where('dateNowYear', isEqualTo: dateNowYear)
+        .withConverter<ExpenseModel>(
+          fromFirestore: (snapshot, options) =>
+              ExpenseModel.fromMap(snapshot.data()!),
+          toFirestore: (value, options) => value.toMap(),
+        )
+        .snapshots();
+  }
+
+  Future<FbResponse> createExpenseAmount(
+    ExpenseAmountModel expenseAmount,
+  ) async {
     return _firestore
         .collection('ExpenseAmount')
         .add(expenseAmount.toMap())
@@ -141,36 +153,50 @@ class FbFirestoreController with FirebaseHelper {
         .catchError((error) => errorResponse);
   }
 
-  Stream<QuerySnapshot<ExpenseAmountModel>> readExpenseAmount({required String check, required String isEqualTo}) async* {
+  Stream<QuerySnapshot<ExpenseAmountModel>> readExpenseAmount(
+      {required String check, required String isEqualTo}) async* {
     yield* _firestore
-        .collection('ExpenseAmount').where('userId',isEqualTo: user!.uid).where(check,isEqualTo: isEqualTo)
+        .collection('ExpenseAmount')
+        .where('userId', isEqualTo: user!.uid)
+        .where(check, isEqualTo: isEqualTo)
         .withConverter<ExpenseAmountModel>(
-      fromFirestore: (snapshot, options) => ExpenseAmountModel.fromMap(snapshot.data()!),
-      toFirestore: (value, options) => value.toMap(),
-    )
+          fromFirestore: (snapshot, options) =>
+              ExpenseAmountModel.fromMap(snapshot.data()!),
+          toFirestore: (value, options) => value.toMap(),
+        )
         .snapshots();
   }
 
-  Stream<QuerySnapshot<ScheduleNotificationModel>> readScheduleNotification({required String check, required String isEqualTo}) async* {
+  Stream<QuerySnapshot<ScheduleNotificationModel>> readScheduleNotification(
+      {required String check, required String isEqualTo}) async* {
     yield* _firestore
-        .collection('scheduleNotification').where('userId',isEqualTo: user!.uid).where(check,isEqualTo: isEqualTo)
+        .collection('scheduleNotification')
+        .where('userId', isEqualTo: user!.uid)
+        .where(check, isEqualTo: isEqualTo)
         .withConverter<ScheduleNotificationModel>(
-      fromFirestore: (snapshot, options) => ScheduleNotificationModel.fromMap(snapshot.data()!),
-      toFirestore: (value, options) => value.toMap(),
-    )
+          fromFirestore: (snapshot, options) =>
+              ScheduleNotificationModel.fromMap(snapshot.data()!),
+          toFirestore: (value, options) => value.toMap(),
+        )
         .snapshots();
   }
 
-  Stream<QuerySnapshot<NormalNotificationModel>> readNormalNotification() async* {
+  Stream<QuerySnapshot<NormalNotificationModel>>
+      readNormalNotification() async* {
+
+    print('ddddddddddd');
     yield* _firestore
-        .collection('normalNotification').withConverter<NormalNotificationModel>(
-      fromFirestore: (snapshot, options) => NormalNotificationModel.fromMap(snapshot.data()!),
-      toFirestore: (value, options) => value.toMap(),
-    )
+        .collection('normalNotification')
+        .where('userId',
+            isEqualTo:
+                SharedPrefController().getValueFor(key: 'userId'))
+        .withConverter<NormalNotificationModel>(
+          fromFirestore: (snapshot, options) =>
+              NormalNotificationModel.fromMap(snapshot.data()!),
+          toFirestore: (value, options) => value.toMap(),
+        )
         .snapshots();
-
   }
-
 }
 /*  Stream<QuerySnapshot<Contact>> readContact() async* {
     yield* _firestore
@@ -270,4 +296,3 @@ class FbFirestoreController with FirebaseHelper {
     }
 
   }*/
-

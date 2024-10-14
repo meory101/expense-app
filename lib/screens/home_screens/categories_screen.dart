@@ -131,7 +131,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                 ),
                                 AppText(
                                   text:
-                                      '${snapshot.data!.docs[0].data().ceiling}/${totalExpenseAmount}',
+                                      '${totalExpenseAmount}',
                                   color: AppColors.primaryColor,
                                 ),
                                 InkWell(
@@ -208,6 +208,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                           // تحويل النص إلى double
                           double amount =
                               double.parse(item.data().expenseAmount);
+                          print(amount);
+                          print('heeeeeeeeeere');
                           return sum + amount;
                         } catch (e) {
                           print(
@@ -242,7 +244,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                             ),
                             AppText(
                               text:
-                                  '${snapshot.data!.docs[0].data().ceiling}/${totalExpenseAmount}',
+                                '${totalExpenseAmount}',
                               color: AppColors.primaryColor,
                             ),
                             InkWell(
@@ -348,7 +350,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                             ),
                             AppText(
                               text:
-                                  '${snapshot.data!.docs[0].data().ceiling}/${totalExpenseAmount}',
+                                  '${totalExpenseAmount}',
                               color: AppColors.primaryColor,
                             ),
                             InkWell(
@@ -455,7 +457,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                             ),
                             AppText(
                               text:
-                                  '${snapshot.data!.docs[0].data().ceiling}/${totalExpenseAmount}',
+                                  '${totalExpenseAmount}',
                               color: AppColors.primaryColor,
                             ),
                             InkWell(

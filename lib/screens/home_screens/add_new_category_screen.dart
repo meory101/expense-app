@@ -176,185 +176,185 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
                     // bool moasalat = false;
 
 
-                    _selectedCategoryId == 'Basic Supplies'?
-                    mostlzamat == true?
-                    Column(
-                      children: [
-                        Align(
-                            alignment: AlignmentDirectional.centerStart,
-                            child: AppText(text: 'تم اختيار حد أعلى للصرف لهذا التصنيف سابقا',fontSize: 12,textAlign: TextAlign.start,)),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        AppTextField(
-                          controller: HightcostTextController,
-                          hintText: 'حد أعلى للصرف (رقم)',
-                          keyboardType: TextInputType.number,
-                          prefixIcon: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 18.h),
-                              child:  Image.asset('assets/images/SRA.jpeg')
-                          ),
-                          enabled: false,
-                        ),
-
-                      ],
-                    ) :
-                    Column(
-                      children: [
-                        Align(
-                            alignment: AlignmentDirectional.centerStart,
-                            child: AppText(text: 'في حال تم اختيار تصنيف اساسي مسبقا يرجى عدم اضافة حد اعلى مره اخرى!!',fontSize: 12,textAlign: TextAlign.start,)),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        AppTextField(
-                          controller: HightcostTextController,
-                          hintText: 'حد أعلى للصرف (رقم)',
-                          keyboardType: TextInputType.number,
-                          prefixIcon: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 18.h),
-                              child:  Image.asset('assets/images/SRA.jpeg')
-                          ),                        ),
-                      ],
-                    ):
-                    _selectedCategoryId == 'Entertainment'?
-                    tarfeeh == true?
-                    Column(
-                      children: [
-                        Align(
-                            alignment: AlignmentDirectional.centerStart,
-                            child: AppText(text: 'تم اختيار حد أعلى للصرف لهذا التصنيف سابقا',fontSize: 12,textAlign: TextAlign.start,)),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        AppTextField(
-                          controller: HightcostTextController,
-                          hintText: 'حد أعلى للصرف (رقم)',
-                          keyboardType: TextInputType.number,
-                          prefixIcon: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 18.h),
-                              child:  Image.asset('assets/images/SRA.jpeg')
-                          ),                          enabled: false,
-                        ),
-
-                      ],
-                    ) :
-                    Column(
-                      children: [
-                        Align(
-                            alignment: AlignmentDirectional.centerStart,
-                            child: AppText(text: 'في حال تم اختيار تصنيف اساسي مسبقا يرجى عدم اضافة حد اعلى مره اخرى!!',fontSize: 12,textAlign: TextAlign.start,)),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        AppTextField(
-                          controller: HightcostTextController,
-                          hintText: 'حد أعلى للصرف (رقم)',
-                          keyboardType: TextInputType.number,
-                          prefixIcon: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 18.h),
-                              child:  Image.asset('assets/images/SRA.jpeg')
-                          ),                        ),
-                      ],
-                    ):
-                    _selectedCategoryId == 'Bills'?
-                    foateer == true?
-                    Column(
-                      children: [
-                        Align(
-                            alignment: AlignmentDirectional.centerStart,
-                            child: AppText(text: 'تم اختيار حد أعلى للصرف لهذا التصنيف سابقا',fontSize: 12,textAlign: TextAlign.start,)),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        AppTextField(
-                          controller: HightcostTextController,
-                          hintText: 'حد أعلى للصرف (رقم)',
-                          keyboardType: TextInputType.number,
-                          prefixIcon: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 18.h),
-                              child:  Image.asset('assets/images/SRA.jpeg')
-                          ),                          enabled: false,
-                        ),
-
-                      ],
-                    ) :
-                    Column(
-                      children: [
-                        Align(
-                            alignment: AlignmentDirectional.centerStart,
-                            child: AppText(text: 'في حال تم اختيار تصنيف اساسي مسبقا يرجى عدم اضافة حد اعلى مره اخرى!!',fontSize: 12,textAlign: TextAlign.start,)),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        AppTextField(
-                          controller: HightcostTextController,
-                          hintText: 'حد أعلى للصرف (رقم)',
-                          keyboardType: TextInputType.number,
-                          prefixIcon: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 18.h),
-                              child:  Image.asset('assets/images/SRA.jpeg')
-                          ),                        ),
-                      ],
-                    ):
-                    _selectedCategoryId == 'Transportation'?
-                    moasalat == true?
-                    Column(
-                      children: [
-                        Align(
-                            alignment: AlignmentDirectional.centerStart,
-                            child: AppText(text: 'تم اختيار حد أعلى للصرف لهذا التصنيف سابقا',fontSize: 12,textAlign: TextAlign.start,)),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        AppTextField(
-                          controller: HightcostTextController,
-                          hintText: 'حد أعلى للصرف (رقم)',
-                          keyboardType: TextInputType.number,
-                          prefixIcon: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 18.h),
-                              child:  Image.asset('assets/images/SRA.jpeg')
-                          ),                          enabled: false,
-                        ),
-
-                      ],
-                    ) :
-                    Column(
-                      children: [
-                        Align(
-                            alignment: AlignmentDirectional.centerStart,
-                            child: AppText(text: 'في حال تم اختيار تصنيف اساسي مسبقا يرجى عدم اضافة حد اعلى مره اخرى!!',fontSize: 12,textAlign: TextAlign.start,)),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        AppTextField(
-                          controller: HightcostTextController,
-                          hintText: 'حد أعلى للصرف (رقم)',
-                          keyboardType: TextInputType.number,
-                          prefixIcon: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 18.h),
-                              child:  Image.asset('assets/images/SRA.jpeg')
-                          ),                        ),
-                      ],
-                    ):
-                    Column(
-                      children: [
-                        Align(
-                            alignment: AlignmentDirectional.centerStart,
-                            child: AppText(text: 'في حال تم اختيار تصنيف اساسي مسبقا يرجى عدم اضافة حد اعلى مره اخرى!!',fontSize: 12,textAlign: TextAlign.start,)),
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        AppTextField(
-                          controller: HightcostTextController,
-                          hintText: 'حد أعلى للصرف (رقم)',
-                          keyboardType: TextInputType.number,
-                          prefixIcon: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 18.h),
-                              child:  Image.asset('assets/images/SRA.jpeg')
-                          ),                        ),
-                      ],
-                    ),
+                    // _selectedCategoryId == 'Basic Supplies'?
+                    // mostlzamat == true?
+                    // Column(
+                    //   children: [
+                    //     Align(
+                    //         alignment: AlignmentDirectional.centerStart,
+                    //         child: AppText(text: 'تم اختيار حد أعلى للصرف لهذا التصنيف سابقا',fontSize: 12,textAlign: TextAlign.start,)),
+                    //     SizedBox(
+                    //       height: 10.h,
+                    //     ),
+                    //     AppTextField(
+                    //       controller: HightcostTextController,
+                    //       hintText: 'حد أعلى للصرف (رقم)',
+                    //       keyboardType: TextInputType.number,
+                    //       prefixIcon: Padding(
+                    //           padding: EdgeInsets.symmetric(vertical: 18.h),
+                    //           child:  Image.asset('assets/images/SRA.jpeg')
+                    //       ),
+                    //       enabled: false,
+                    //     ),
+                    //
+                    //   ],
+                    // ) :
+                    // Column(
+                    //   children: [
+                    //     Align(
+                    //         alignment: AlignmentDirectional.centerStart,
+                    //         child: AppText(text: 'في حال تم اختيار تصنيف اساسي مسبقا يرجى عدم اضافة حد اعلى مره اخرى!!',fontSize: 12,textAlign: TextAlign.start,)),
+                    //     SizedBox(
+                    //       height: 10.h,
+                    //     ),
+                    //     AppTextField(
+                    //       controller: HightcostTextController,
+                    //       hintText: 'حد أعلى للصرف (رقم)',
+                    //       keyboardType: TextInputType.number,
+                    //       prefixIcon: Padding(
+                    //           padding: EdgeInsets.symmetric(vertical: 18.h),
+                    //           child:  Image.asset('assets/images/SRA.jpeg')
+                    //       ),                        ),
+                    //   ],
+                    // ):
+                    // _selectedCategoryId == 'Entertainment'?
+                    // tarfeeh == true?
+                    // Column(
+                    //   children: [
+                    //     Align(
+                    //         alignment: AlignmentDirectional.centerStart,
+                    //         child: AppText(text: 'تم اختيار حد أعلى للصرف لهذا التصنيف سابقا',fontSize: 12,textAlign: TextAlign.start,)),
+                    //     SizedBox(
+                    //       height: 10.h,
+                    //     ),
+                    //     AppTextField(
+                    //       controller: HightcostTextController,
+                    //       hintText: 'حد أعلى للصرف (رقم)',
+                    //       keyboardType: TextInputType.number,
+                    //       prefixIcon: Padding(
+                    //           padding: EdgeInsets.symmetric(vertical: 18.h),
+                    //           child:  Image.asset('assets/images/SRA.jpeg')
+                    //       ),                          enabled: false,
+                    //     ),
+                    //
+                    //   ],
+                    // ) :
+                    // Column(
+                    //   children: [
+                    //     Align(
+                    //         alignment: AlignmentDirectional.centerStart,
+                    //         child: AppText(text: 'في حال تم اختيار تصنيف اساسي مسبقا يرجى عدم اضافة حد اعلى مره اخرى!!',fontSize: 12,textAlign: TextAlign.start,)),
+                    //     SizedBox(
+                    //       height: 10.h,
+                    //     ),
+                    //     AppTextField(
+                    //       controller: HightcostTextController,
+                    //       hintText: 'حد أعلى للصرف (رقم)',
+                    //       keyboardType: TextInputType.number,
+                    //       prefixIcon: Padding(
+                    //           padding: EdgeInsets.symmetric(vertical: 18.h),
+                    //           child:  Image.asset('assets/images/SRA.jpeg')
+                    //       ),                        ),
+                    //   ],
+                    // ):
+                    // _selectedCategoryId == 'Bills'?
+                    // foateer == true?
+                    // Column(
+                    //   children: [
+                    //     Align(
+                    //         alignment: AlignmentDirectional.centerStart,
+                    //         child: AppText(text: 'تم اختيار حد أعلى للصرف لهذا التصنيف سابقا',fontSize: 12,textAlign: TextAlign.start,)),
+                    //     SizedBox(
+                    //       height: 10.h,
+                    //     ),
+                    //     AppTextField(
+                    //       controller: HightcostTextController,
+                    //       hintText: 'حد أعلى للصرف (رقم)',
+                    //       keyboardType: TextInputType.number,
+                    //       prefixIcon: Padding(
+                    //           padding: EdgeInsets.symmetric(vertical: 18.h),
+                    //           child:  Image.asset('assets/images/SRA.jpeg')
+                    //       ),                          enabled: false,
+                    //     ),
+                    //
+                    //   ],
+                    // ) :
+                    // Column(
+                    //   children: [
+                    //     Align(
+                    //         alignment: AlignmentDirectional.centerStart,
+                    //         child: AppText(text: 'في حال تم اختيار تصنيف اساسي مسبقا يرجى عدم اضافة حد اعلى مره اخرى!!',fontSize: 12,textAlign: TextAlign.start,)),
+                    //     SizedBox(
+                    //       height: 10.h,
+                    //     ),
+                    //     AppTextField(
+                    //       controller: HightcostTextController,
+                    //       hintText: 'حد أعلى للصرف (رقم)',
+                    //       keyboardType: TextInputType.number,
+                    //       prefixIcon: Padding(
+                    //           padding: EdgeInsets.symmetric(vertical: 18.h),
+                    //           child:  Image.asset('assets/images/SRA.jpeg')
+                    //       ),                        ),
+                    //   ],
+                    // ):
+                    // _selectedCategoryId == 'Transportation'?
+                    // moasalat == true?
+                    // Column(
+                    //   children: [
+                    //     Align(
+                    //         alignment: AlignmentDirectional.centerStart,
+                    //         child: AppText(text: 'تم اختيار حد أعلى للصرف لهذا التصنيف سابقا',fontSize: 12,textAlign: TextAlign.start,)),
+                    //     SizedBox(
+                    //       height: 10.h,
+                    //     ),
+                    //     AppTextField(
+                    //       controller: HightcostTextController,
+                    //       hintText: 'حد أعلى للصرف (رقم)',
+                    //       keyboardType: TextInputType.number,
+                    //       prefixIcon: Padding(
+                    //           padding: EdgeInsets.symmetric(vertical: 18.h),
+                    //           child:  Image.asset('assets/images/SRA.jpeg')
+                    //       ),                          enabled: false,
+                    //     ),
+                    //
+                    //   ],
+                    // ) :
+                    // Column(
+                    //   children: [
+                    //     Align(
+                    //         alignment: AlignmentDirectional.centerStart,
+                    //         child: AppText(text: 'في حال تم اختيار تصنيف اساسي مسبقا يرجى عدم اضافة حد اعلى مره اخرى!!',fontSize: 12,textAlign: TextAlign.start,)),
+                    //     SizedBox(
+                    //       height: 10.h,
+                    //     ),
+                    //     AppTextField(
+                    //       controller: HightcostTextController,
+                    //       hintText: 'حد أعلى للصرف (رقم)',
+                    //       keyboardType: TextInputType.number,
+                    //       prefixIcon: Padding(
+                    //           padding: EdgeInsets.symmetric(vertical: 18.h),
+                    //           child:  Image.asset('assets/images/SRA.jpeg')
+                    //       ),                        ),
+                    //   ],
+                    // ):
+                    // Column(
+                    //   children: [
+                    //     Align(
+                    //         alignment: AlignmentDirectional.centerStart,
+                    //         child: AppText(text: 'في حال تم اختيار تصنيف اساسي مسبقا يرجى عدم اضافة حد اعلى مره اخرى!!',fontSize: 12,textAlign: TextAlign.start,)),
+                    //     SizedBox(
+                    //       height: 10.h,
+                    //     ),
+                    //     AppTextField(
+                    //       controller: HightcostTextController,
+                    //       hintText: 'حد أعلى للصرف (رقم)',
+                    //       keyboardType: TextInputType.number,
+                    //       prefixIcon: Padding(
+                    //           padding: EdgeInsets.symmetric(vertical: 18.h),
+                    //           child:  Image.asset('assets/images/SRA.jpeg')
+                    //       ),                        ),
+                    //   ],
+                    // ),
 
 
 
@@ -484,6 +484,7 @@ class _AddNewCategoryScreenState extends State<AddNewCategoryScreen> {
 
   ExpenseModel get expense {
     ExpenseModel expense = ExpenseModel();
+    expense.expenseName = nameController.text;
     expense.expenseAmount = costTextController.text;
     expense.expenseType =_selectedCategoryId==null? newCategoryTextController.text:_selectedCategoryId!;
     expense.ceiling = HightcostTextController.text??'' ;

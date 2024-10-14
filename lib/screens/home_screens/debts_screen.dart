@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:tasty_booking/screens/home_screens/categories_screen.dart';
 import 'package:tasty_booking/shared_preferences/shared_prefrences_controller.dart';
 import 'package:tasty_booking/style/app_colors.dart';
@@ -11,6 +12,8 @@ import '../../fb_controller/fb_firestore.dart';
 import '../../model/Debts_model.dart';
 import '../../wdgets/app_text_field.dart';
 import 'ADD_debts_screen.dart';
+
+List notification = [];
 
 class DebtsScreen extends StatefulWidget {
   const DebtsScreen({super.key});
@@ -219,15 +222,41 @@ class _DebtsScreenState extends State<DebtsScreen> {
                                                                     SetOptions(
                                                                         merge:
                                                                             true)).then(
-                                                              (value) {
-                                                                if (double.parse(
-                                                                        debtController
+                                                              (value) async {
+                                                                bool
+                                                                    showNotification =
+                                                                    await SharedPrefController()
+                                                                            .getNotificationSwitch() ??
+                                                                        false;
+                                                                if (showNotification ==
+                                                                        true &&
+                                                                    double.parse(debtController
                                                                             .text) >=
-                                                                    (0.8) *
-                                                                        double.parse(
-                                                                            '${snapshot.data!.docs[index].data().Amount_Depts}')) {
+                                                                        (0.8) *
+                                                                            double.parse(snapshot.data!.docs[index].data().Amount_Depts)) {
                                                                   print(
                                                                       '0000000000000000000');
+
+                                                                  FirebaseFirestore
+                                                                      .instance
+                                                                      .collection(
+                                                                          'normalNotification')
+                                                                      .add({
+                                                                    "title":
+                                                                        "مرحباا",
+                                                                    "description":
+                                                                        "لقد حققت قيمة 80  من الدين",
+                                                                    "userId": SharedPrefController().getValueFor(
+                                                                        key: PrefKeys
+                                                                            .userId
+                                                                            .name)
+                                                                  }).then(
+                                                                    (value) {
+                                                                      print(
+                                                                          'success');
+                                                                    },
+                                                                  );
+
                                                                   FlutterLocalNotificationsPlugin().show(
                                                                       1,
                                                                       "مرحباا",

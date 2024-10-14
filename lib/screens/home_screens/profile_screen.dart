@@ -217,13 +217,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 border: Border.all(color: AppColors.primaryColor),
                 borderRadius: BorderRadius.circular(16.r)),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const AppText(
-                  text: ' الإسم : ',
+                Row(
+                  children: [
+                    const AppText(
+                      text: ' الإسم : ',
+                    ),
+                    AppText(
+                        text: SharedPrefController()
+                            .getValueFor(key: PrefKeys.name.name) ?? ""),
+                  ],
                 ),
-                AppText(
-                    text: SharedPrefController()
-                        .getValueFor(key: PrefKeys.name.name) ?? ""),
+                Icon(Icons.edit,color: AppColors.primaryColor,)
               ],
             ),
           ),
@@ -252,27 +258,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         SizedBox(
           height: 20.h,
         ),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-          margin: EdgeInsets.symmetric(horizontal: 20.w),
-          decoration: BoxDecoration(
-              border: Border.all(color: AppColors.primaryColor),
-              borderRadius: BorderRadius.circular(16.r)),
-          child: Row(
-            children: [
-              AppText(
-                text: ' رقم الهاتف : ',
-              ),
-              AppText(
-                text: SharedPrefController()
-                    .getValueFor(key: PrefKeys.phone.name) ?? "",
-              ),
-            ],
-          ),
-        ),
-        SizedBox(
-          height: 20.h,
-        ),
+       
         InkWell(
           overlayColor: WidgetStateProperty.all(AppColors.transparent),
           onTap: () async {
