@@ -17,6 +17,9 @@ enum PrefKeys {
   branchId,
   isMember,
   userArea,
+  compareSwitchValue,
+  notificationSwitchValue,
+
 
 }
 
@@ -33,11 +36,17 @@ class SharedPrefController {
   Future<void> initPref() async {
     _sharedPreferences = await SharedPreferences.getInstance();
   }
-  Future<void> saveCategorySwitch(String categoryName,bool categoryState) async {
-    _sharedPreferences.setBool(categoryName,categoryState);
+  Future<void> saveCompareSwitch(bool value) async {
+    _sharedPreferences.setBool(PrefKeys.compareSwitchValue.name,value);
   }
-  Future<bool> getCategorySwitch(String categoryName) async {
-   return _sharedPreferences.getBool(categoryName) ??false;
+  Future<void> saveNotificationSwitch(bool value) async {
+    _sharedPreferences.setBool(PrefKeys.notificationSwitchValue.name,value);
+  }
+  Future<bool> getCompareSwitch() async {
+   return _sharedPreferences.getBool(PrefKeys.compareSwitchValue.name) ??false;
+  }
+  Future<bool> getNotificationSwitch() async {
+    return _sharedPreferences.getBool(PrefKeys.notificationSwitchValue.name) ??false;
   }
 /*
   Future<void> save(UserModel user, {bool withToken = true,bool withLoggedIn = true}) async {

@@ -20,9 +20,18 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  bool notificationOn = true;
+  bool notificationOn = false;
+  bool compareSwitchValue =false;
   TextEditingController nameController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    notificationOn = SharedPrefController().getValueFor(key: PrefKeys.notificationSwitchValue.name) ??false;
+
+    compareSwitchValue = SharedPrefController().getValueFor(key: PrefKeys.compareSwitchValue.name) ?? false;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -97,7 +106,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 return Dialog(
                   
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(10))
                     ),
                     padding:
@@ -339,6 +348,59 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onChanged: (value) {
                       setState(() {
                         notificationOn = !notificationOn;
+                        SharedPrefController().saveNotificationSwitch(
+                            notificationOn);
+                      });
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        SizedBox(
+          height: 20.h,
+        ),
+        Container(
+          padding:
+          EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+          margin: EdgeInsets.symmetric(horizontal: 20.w),
+          decoration: BoxDecoration(
+              border: Border.all(color: AppColors.primaryColor),
+              borderRadius: BorderRadius.circular(16.r)),
+          child: Row(
+            children: [
+              Icon(
+                Icons.person_pin,
+                color: AppColors.primaryColor,
+              ),
+              SizedBox(
+                width: 20.w,
+              ),
+              AppText(
+                text: 'مقارنة مع المستخدمين في نفس المنطقة',
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+              Spacer(),
+              SizedBox(
+                height: 35.h,
+                child: FittedBox(
+                  fit: BoxFit.fill,
+                  child: Switch(
+                    value: compareSwitchValue,
+                    activeColor: Color(0xffE8F5E9),
+                    inactiveTrackColor: Color(0xff9E9B9B),
+                    inactiveThumbColor: Color(0xffE8F5E9),
+                    trackOutlineColor: const WidgetStatePropertyAll(
+                        Colors.transparent),
+                    activeTrackColor: Color(0xff4CAF50),
+                    onChanged: (value) {
+                      setState(() {
+                        compareSwitchValue = !compareSwitchValue;
+                        SharedPrefController().saveCompareSwitch(
+                            compareSwitchValue);
                       });
                     },
                   ),

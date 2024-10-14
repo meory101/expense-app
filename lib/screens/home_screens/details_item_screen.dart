@@ -11,7 +11,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tasty_booking/fb_controller/fb_firestore.dart';
 import 'package:tasty_booking/model/expense_model.dart';
+import 'package:tasty_booking/screens/home_screens/compare_with_users_screen.dart';
+import 'package:tasty_booking/screens/home_screens/profile_screen.dart';
 import 'package:tasty_booking/shared_preferences/shared_prefrences_controller.dart';
+import 'package:tasty_booking/utils/helpers.dart';
 import 'package:tasty_booking/wdgets/app_back_button.dart';
 import 'package:tasty_booking/wdgets/app_text.dart';
 import 'package:tasty_booking/wdgets/custom_app_loading.dart';
@@ -63,8 +66,8 @@ class _DetailsItemScreenState extends State<DetailsItemScreen> {
   }
 
   initSwitch() async {
-    notificationOn =
-        await SharedPrefController().getCategorySwitch(widget.type);
+    // notificationOn =
+    //     await SharedPrefController().getCategorySwitch(widget.type);
     setState(() {});
     print(notificationOn);
   }
@@ -213,56 +216,6 @@ class _DetailsItemScreenState extends State<DetailsItemScreen> {
                 SizedBox(
                   height: 20.h,
                 ),
-                Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-                  margin: EdgeInsets.symmetric(horizontal: 20.w),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: AppColors.primaryColor),
-                      borderRadius: BorderRadius.circular(16.r)),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.person_pin,
-                        color: AppColors.primaryColor,
-                      ),
-                      SizedBox(
-                        width: 20.w,
-                      ),
-                      AppText(
-                        text: 'مقارنة مع المستخدمين في نفس المنطقة',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                      ),
-                      Spacer(),
-                      SizedBox(
-                        height: 35.h,
-                        child: FittedBox(
-                          fit: BoxFit.fill,
-                          child: Switch(
-                            value: notificationOn,
-                            activeColor: Color(0xffE8F5E9),
-                            inactiveTrackColor: Color(0xff9E9B9B),
-                            inactiveThumbColor: Color(0xffE8F5E9),
-                            trackOutlineColor: const WidgetStatePropertyAll(
-                                Colors.transparent),
-                            activeTrackColor: Color(0xff4CAF50),
-                            onChanged: (value) {
-                              setState(() {
-                                notificationOn = !notificationOn;
-                                SharedPrefController().saveCategorySwitch(
-                                    widget.type, notificationOn);
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20.h,
-                ),
                 notificationOn == true
                     ? Column(
                         children: [
@@ -277,7 +230,7 @@ class _DetailsItemScreenState extends State<DetailsItemScreen> {
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return SizedBox();
+                                return const SizedBox();
                               } else if (snapshot.hasData &&
                                   snapshot.data!.docs.isNotEmpty) {
                                 // خريطة لتجميع البيانات حسب userId
@@ -351,12 +304,52 @@ class _DetailsItemScreenState extends State<DetailsItemScreen> {
                         ],
                       )
                     : Container(
+                        padding: EdgeInsets.symmetric(horizontal: 16.w),
                         child: Center(
-                            child: AppText(
-                          text: 'يرجى تفعيل زر المقارنه',
-                          color: AppColors.primaryColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 17,
+                            child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            AppText(
+                              text: 'التفاصيل',
+                              color: AppColors.primaryColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                bool switchValue = SharedPrefController()
+                                        .getValueFor(
+                                            key: PrefKeys
+                                                .compareSwitchValue.name) ??
+                                    false;
+                                if (switchValue == false) {
+                                  context.showSnackBar(
+                                      message:
+                                          'يرجي تفعيل زر المقارنة في الصفحة الشخصية',
+                                      error: true);
+                                  return;
+                                }
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) {
+                                    return CompareWithUsersScreen(
+                                        collection: widget.collection);
+                                  },
+                                ));
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20.w, vertical: 10.h),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.r),
+                                    color: AppColors.primaryColor),
+                                child: const Center(
+                                    child: AppText(
+                                  text: 'قارن',
+                                  color: Colors.white,
+                                )),
+                              ),
+                            )
+                          ],
                         )),
                       ),
                 SizedBox(
@@ -387,32 +380,32 @@ class _DetailsItemScreenState extends State<DetailsItemScreen> {
                                                 .data.docs[index].reference.id)
                                             .delete();
 
-
-                                      double value = (double.parse(widget.cost.isEmpty
-                                          ? "0.0"
-                                          : widget.cost) -
-                                          double.parse(snapshot
-                                              .data.docs[index]
-                                              .data()['expenseAmount']
-                                              .isEmpty
-                                              ? " 0.0"
-                                              : snapshot.data.docs[index]
-                                              .data()['expenseAmount']));
-                                        await FirebaseFirestore.instance
-                                            .collection(widget.collection)
-                                            .doc(widget.docId)
-                                            .set({
-                                          'expenseAmount': value
-                                              .toString()
-                                        }, SetOptions(merge: true)).then(
-                                          (value) {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) => CategoriesScreen(),
-                                                ));
-                                          },
-                                        );
+                                        // double value = (double.parse(
+                                        //         widget.cost.isEmpty
+                                        //             ? "0.0"
+                                        //             : widget.cost) -
+                                        //     double.parse(snapshot
+                                        //             .data.docs[index]
+                                        //             .data()['expenseAmount']
+                                        //             .isEmpty
+                                        //         ? " 0.0"
+                                        //         : snapshot.data.docs[index]
+                                        //             .data()['expenseAmount']));
+                                        // await FirebaseFirestore.instance
+                                        //     .collection(widget.collection)
+                                        //     .doc(widget.docId)
+                                        //     .set({
+                                        //   'expenseAmount': value.toString()
+                                        // }, SetOptions(merge: true)).then(
+                                        //   (value) {
+                                        //     Navigator.push(
+                                        //         context,
+                                        //         MaterialPageRoute(
+                                        //           builder: (context) =>
+                                        //               CategoriesScreen(),
+                                        //         ));
+                                        //   },
+                                        // );
                                       },
                                       backgroundColor: Colors.red,
                                       foregroundColor: Colors.white,
